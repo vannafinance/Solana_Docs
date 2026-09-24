@@ -1,0 +1,54 @@
+---
+title: "Getting Started"
+description: "Open the live Vanna Solana demo, connect a wallet, mint test stocks, and pick a flow."
+mode: "wide"
+---
+
+Vanna on Solana is a working credit layer for tokenized stocks. You can lend them, borrow against them, long or short them, and deploy them into Kamino yield in one click.
+
+Live app: [https://devnet.solana.vanna.finance/earn](https://devnet.solana.vanna.finance/earn)
+
+<Note>
+This guide describes the live Vanna Solana demo on a **Surfpool mainnet fork**. The hostname says `devnet`, but it is not public Solana Devnet. Funds are test balances on the fork. Connect a test wallet, then use **Faucet** before any Earn, Margin, Perps, or Farm action.
+</Note>
+
+## Connect and fund
+
+1. Open **Launch App**.
+2. Connect Phantom, Backpack, Solflare, or continue with Google/email when Privy is enabled.
+3. Point an installed wallet at the Vanna fork RPC if the app asks you to: `https://rpc-devnet.solana.vanna.finance`.
+4. Open **Faucet** and mint SOL, USDC, TSLAx, GOOGLx, AAPLx, ANTHROPIC, and OPENAI.
+
+Keep a little SOL for fees. Every other token is a fork mint — not real mainnet funds.
+
+<Frame caption="Fork faucet. Each mint is a Surfpool cheatcode top-up. No real funds move. Click the image to zoom.">
+  <img src="/images/onboarding/faucet.png" alt="Fork faucet listing SOL, USDC, TSLAx, GOOGLx, AAPLx, ANTHROPIC, and OPENAI" loading="lazy" decoding="async" />
+</Frame>
+
+## Choose a flow
+
+| Goal | Start here |
+|---|---|
+| Earn interest on stocks or stables | [Earn](/guides/earn/overview) |
+| Deposit collateral and borrow | [Margin](/guides/margin/overview) |
+| Swap stocks, SOL, and USDC | [Spot](/guides/trade/spot-swap) |
+| Long or short a tokenized stock | [Perps](/guides/perps/overview) |
+| One-click leveraged Kamino yield | [Farm](/guides/farm/overview) |
+| See combined holdings | [Portfolio](/guides/portfolio) |
+| Run the stack locally | [Setup](/guides/setup) |
+
+A wallet signature is not final confirmation. Wait for the transaction result and refreshed balances before the next dependent step.
+
+## Supported assets
+
+| Asset | What it is | Token program |
+|---|---|---|
+| SOL | Native SOL, wrapped to WSOL in vaults | Classic SPL |
+| USDC | Circle mainnet USDC, cloned on the fork | Classic SPL |
+| TSLAx | Tesla xStock | Token-2022 |
+| GOOGLx | Alphabet xStock | Token-2022 |
+| AAPLx | Apple xStock | Token-2022 |
+| ANTHROPIC | Anthropic PreStock | Token-2022 |
+| OPENAI | OpenAI PreStock | Token-2022 |
+
+Continue with [Connect Wallet](/guides/connect-wallet) or [Why Vanna](/guides/why-vanna).

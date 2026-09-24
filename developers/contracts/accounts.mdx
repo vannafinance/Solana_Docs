@@ -1,0 +1,35 @@
+---
+title: "Account Layout"
+description: "ProtocolConfig, AssetConfig, Reserve, MarginAccount, Debt, Lite."
+mode: "wide"
+---
+
+## ProtocolConfig `["protocol"]`
+
+`admin`, `pending_admin`, `treasury`, `operating_mode`, `max_assets_per_margin`, `next_asset_index`.
+
+Modes: `Normal = 0`, `BorrowPaused = 1`, `WithdrawOnly = 2`, `Halted = 3`.
+
+## AssetConfig `["asset", mint]`
+
+Mint, token program, reserve, Pyth feed id, `ltv_bps`, `liquidation_threshold_bps`, `liquidation_bonus_bps`, decimals, `max_confidence_bps`, `max_price_age_secs`, `collateral_enabled`, `borrow_enabled`, `max_collateral_per_margin`.
+
+## Reserve `["reserve", mint]`
+
+Accounted cash, borrow assets/shares, index, fees, kink coefficients, caps, status, last timestamp. Liquidity vault is an ATA owned by the reserve PDA. Share mint is `["share_mint", mint]` (classic SPL even when the underlying is Token-2022).
+
+## MarginAccount `["margin", authority]`
+
+Authority, status, counts, `collateral_asset_indexes[24]`, `debt_asset_indexes[24]`, event sequence, reserved Lite registry.
+
+## DebtPosition `["debt", margin, reserve]`
+
+`borrow_shares` only. Token debt is derived.
+
+## LiteStrategyConfig `["lite_strategy", underlying_mint]`
+
+Kamino program, market, authority, reserve, liquidity vault, collateral mint, token programs.
+
+## LitePosition
+
+Per-margin receipt + cost basis for one Lite asset index. Seeded under `lite_position` — see `lib/solana/lite-pdas.ts` for the exact client derivation used by the app.

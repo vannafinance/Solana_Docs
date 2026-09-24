@@ -1,0 +1,13 @@
+---
+title: "Transfer Collateral"
+description: "Move tokens between wallet and margin, or withdraw excess after a health check."
+mode: "wide"
+---
+
+**Deposit** is wallet → margin vault.
+
+**Withdraw** is margin vault → wallet, gated by `user_withdraw_collateral`. The program revalues the full account and requires post-withdraw health **> 1.1** (or zero debt).
+
+You cannot withdraw collateral that is still required to back debt or Lite positions. Close or reduce those first.
+
+Spot can also swap with **Wallet Balance (WB)** or **Margin Balance (MB)**. MB swaps debit/credit the PDA; WB swaps debit/credit the wallet.

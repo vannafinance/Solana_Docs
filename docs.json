@@ -1,0 +1,254 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Vanna",
+  "colors": {
+    "primary": "#7C5CFF",
+    "light": "#A387FF",
+    "dark": "#5A3ECC"
+  },
+  "favicon": "/favicon.png",
+  "logo": {
+    "light": "/logo/vanna-light.png",
+    "dark": "/logo/vanna-dark.png",
+    "width": 160,
+    "href": "/home"
+  },
+  "css": "/custom.css",
+  "navbar": {
+    "links": [
+      {
+        "label": "App",
+        "href": "https://devnet.solana.vanna.finance/earn"
+      },
+      {
+        "label": "GitHub",
+        "href": "https://github.com/vanna-finance"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Launch App",
+      "href": "https://devnet.solana.vanna.finance/earn"
+    }
+  },
+  "navigation": {
+    "anchors": [
+      {
+        "anchor": "Overview",
+        "icon": "house",
+        "groups": [
+          {
+            "group": " ",
+            "pages": [
+              "home"
+            ]
+          }
+        ]
+      },
+      {
+        "anchor": "User Guide",
+        "icon": "book-open",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "guides/getting-started",
+              "guides/connect-wallet",
+              "guides/why-vanna",
+              "guides/portfolio"
+            ]
+          },
+          {
+            "group": "How Vanna Works",
+            "pages": [
+              "guides/how-vanna-works",
+              "guides/for-liquidity-providers",
+              "guides/for-traders"
+            ]
+          },
+          {
+            "group": "Earn",
+            "pages": [
+              "guides/earn/overview",
+              "guides/earn/supply",
+              "guides/earn/withdraw"
+            ]
+          },
+          {
+            "group": "Margin Account",
+            "pages": [
+              "guides/margin/overview",
+              "guides/margin/open-account",
+              "guides/margin/deposit-collateral",
+              "guides/margin/borrow",
+              "guides/margin/repay",
+              "guides/margin/transfer-collateral"
+            ]
+          },
+          {
+            "group": "Trade",
+            "pages": [
+              "guides/trade/spot-swap"
+            ]
+          },
+          {
+            "group": "Perps",
+            "pages": [
+              "guides/perps/overview",
+              "guides/perps/long",
+              "guides/perps/short"
+            ]
+          },
+          {
+            "group": "Farm",
+            "pages": [
+              "guides/farm/overview",
+              "guides/farm/one-click",
+              "guides/farm/positions"
+            ]
+          },
+          {
+            "group": "Risk Management",
+            "pages": [
+              "guides/margin/health-factor",
+              "guides/margin/liquidation"
+            ]
+          },
+          {
+            "group": "Run It Yourself",
+            "pages": [
+              "guides/setup"
+            ]
+          }
+        ]
+      },
+      {
+        "anchor": "Core Concepts",
+        "icon": "graduation-cap",
+        "groups": [
+          {
+            "group": "Introduction",
+            "pages": [
+              "learn/overview",
+              "learn/protocol-architecture",
+              "learn/tokenized-stocks"
+            ]
+          },
+          {
+            "group": "Core Mechanics",
+            "pages": [
+              "learn/margin-accounts",
+              "learn/lending-pools",
+              "learn/vtokens",
+              "learn/composable-leverage"
+            ]
+          },
+          {
+            "group": "Risk & Economics",
+            "pages": [
+              "learn/health-factor",
+              "learn/liquidation",
+              "learn/interest-rate-model",
+              "learn/oracle-system"
+            ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "learn/kamino-integration"
+            ]
+          }
+        ]
+      },
+      {
+        "anchor": "Developers",
+        "icon": "code",
+        "groups": [
+          {
+            "group": "Introduction",
+            "pages": [
+              "developers/overview",
+              "developers/architecture",
+              "developers/deployed-contracts",
+              "developers/math-reference",
+              "developers/frontend",
+              "developers/setup",
+              "developers/review-scope"
+            ]
+          },
+          {
+            "group": "Contract Reference",
+            "pages": [
+              "developers/contracts/program",
+              "developers/contracts/accounts",
+              "developers/contracts/lending",
+              "developers/contracts/margin",
+              "developers/contracts/borrowing",
+              "developers/contracts/lite",
+              "developers/contracts/swap",
+              "developers/contracts/liquidation",
+              "developers/contracts/admin"
+            ]
+          },
+          {
+            "group": "TypeScript Integration",
+            "pages": [
+              "developers/sdk/getting-started",
+              "developers/sdk/transaction-flow",
+              "developers/sdk/pdas"
+            ]
+          },
+          {
+            "group": "Integration Guides",
+            "pages": [
+              "developers/guides/integrate-lending",
+              "developers/guides/integrate-margin",
+              "developers/guides/liquidation-bots"
+            ]
+          }
+        ]
+      },
+      {
+        "anchor": "Security",
+        "icon": "shield-halved",
+        "groups": [
+          {
+            "group": "Security",
+            "pages": [
+              "security/overview"
+            ]
+          }
+        ]
+      },
+      {
+        "anchor": "Resources",
+        "icon": "circle-info",
+        "groups": [
+          {
+            "group": "Resources",
+            "pages": [
+              "resources/faq",
+              "resources/hackathon"
+            ]
+          }
+        ]
+      },
+      {
+        "anchor": "Discord",
+        "href": "https://discord.gg/vanna",
+        "icon": "discord"
+      }
+    ]
+  },
+  "search": {
+    "prompt": "Search Vanna Solana docs..."
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/vannafinance",
+      "github": "https://github.com/vanna-finance",
+      "discord": "https://discord.gg/vanna"
+    }
+  }
+}

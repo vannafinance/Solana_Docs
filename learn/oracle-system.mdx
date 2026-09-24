@@ -1,0 +1,25 @@
+---
+title: "Oracle System"
+description: "Pyth PriceUpdateV2 with feed id, staleness, and confidence checks."
+mode: "wide"
+---
+
+Every risk-sensitive instruction takes a Pyth `PriceUpdateV2` per priced mint.
+
+Checks in `oracle/pyth.rs`:
+
+- Account owner is the Pyth receiver program
+- Feed id matches `AssetConfig.price_feed_id`
+- Price `> 0`
+- Age ≤ `max_price_age_secs`
+- Confidence ≤ `max_confidence_bps` of the price
+
+| Symbol | Feed role |
+|---|---|
+| SOL / USDC | Crypto USD |
+| TSLAx / GOOGLx / AAPLx | xStock / equity USD |
+| ANTHROPIC / OPENAI | Configured feed ids in the app (PreStocks have no canonical public equity print) |
+
+On the Surfpool fork, Hermes may be unavailable. The app can refresh fork prices via cheatcode so health still moves. That is **demo infrastructure**, not a mainnet oracle design.
+
+Stale or wide-confidence updates abort. The program does not "use the last good price" on a failed feed.

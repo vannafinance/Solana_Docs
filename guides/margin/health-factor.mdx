@@ -1,0 +1,34 @@
+---
+title: "Health Factor"
+description: "How Vanna decides whether a margin account is safe to borrow, withdraw, or liquidate."
+mode: "wide"
+---
+
+```text
+Health factor = collateral USD / debt USD
+```
+
+An account with debt is healthy only when this ratio is **strictly greater than 1.10**. Equality is unhealthy.
+
+Zero debt is always healthy. The program uses a maximum-integer sentinel for an unbounded ratio.
+
+<Warning>
+An account with debt is healthy only when `collateral USD / debt USD > 1.10`. Equality is unhealthy. A displayed Health Factor at or below 1.1 is a liquidation candidate.
+</Warning>
+
+## What counts as collateral
+
+- Live SPL balances in margin vaults, priced with Pyth
+- Recognized Lite / Kamino receipt value
+- Conservative rounding: collateral value floors, debt value ceils
+
+Unpriced, stale, or low-confidence feeds can fail the instruction instead of silently counting as zero.
+
+## What moves health
+
+- Stock or SOL price
+- Accrued borrow interest
+- Swap slippage (vault composition changes)
+- Kamino exchange-rate moves on Farm receipts
+
+There is no guaranteed time to liquidation. Read [Liquidation](/guides/margin/liquidation) and [Math Reference](/developers/math-reference).

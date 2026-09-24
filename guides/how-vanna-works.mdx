@@ -1,0 +1,84 @@
+---
+title: "How Vanna Works"
+description: "Lending pools, isolated margin, Pyth prices, Jupiter swaps, and Kamino yield on one Solana program."
+mode: "wide"
+---
+
+Vanna has two connected sides. Liquidity providers supply assets into per-mint lending pools and receive vTokens. Margin users deposit collateral, borrow from those pools, and deploy the proceeds into swaps, perps, or Kamino.
+
+<div className="vpb2-wrap">
+  <div className="vpb2-orb-violet" />
+  <div className="vpb2-orb-rose" />
+  <div className="vpb2-grid" />
+  <div className="vpb2-header">Credit flow</div>
+  <div className="vpb2-flow">
+    <div className="vpb2-node vpb2-node--pool">
+      <div className="vpb2-node-role">Lenders</div>
+      <div className="vpb2-node-title">Lending pools</div>
+      <div className="vpb2-node-divider" />
+      <div className="vpb2-node-items">
+        <div className="vpb2-node-item"><span className="vpb2-dot vpb2-dot--purple" />SOL · USDC · stocks</div>
+        <div className="vpb2-node-item"><span className="vpb2-dot vpb2-dot--purple" />vToken receipts</div>
+        <div className="vpb2-node-item"><span className="vpb2-dot vpb2-dot--purple" />Kink-model APR</div>
+      </div>
+    </div>
+    <div className="vpb2-arrows">
+      <div className="vpb2-arrow vpb2-arrow--right">
+        <div className="vpb2-arrow-lbl vpb2-arrow-lbl--green">Borrow</div>
+        <div className="vpb2-arrow-track vpb2-arrow-track--green" />
+      </div>
+      <div className="vpb2-arrow vpb2-arrow--left">
+        <div className="vpb2-arrow-lbl vpb2-arrow-lbl--red">Repay + interest</div>
+        <div className="vpb2-arrow-track vpb2-arrow-track--red" />
+      </div>
+    </div>
+    <div className="vpb2-node vpb2-node--account">
+      <div className="vpb2-node-role">Traders</div>
+      <div className="vpb2-node-title">Margin PDA</div>
+      <div className="vpb2-node-divider" />
+      <div className="vpb2-node-items">
+        <div className="vpb2-node-item"><span className="vpb2-dot vpb2-dot--violet" />One account per wallet</div>
+        <div className="vpb2-node-item"><span className="vpb2-dot vpb2-dot--violet" />Health factor &gt; 1.1</div>
+        <div className="vpb2-node-item"><span className="vpb2-dot vpb2-dot--violet" />Up to 24 assets</div>
+      </div>
+    </div>
+    <div className="vpb2-arrows">
+      <div className="vpb2-arrow vpb2-arrow--right">
+        <div className="vpb2-arrow-lbl vpb2-arrow-lbl--violet">Deploy</div>
+        <div className="vpb2-arrow-track vpb2-arrow-track--violet" />
+      </div>
+      <div className="vpb2-arrow vpb2-arrow--left">
+        <div className="vpb2-arrow-lbl vpb2-arrow-lbl--violet">Unwind</div>
+        <div className="vpb2-arrow-track vpb2-arrow-track--violet" />
+      </div>
+    </div>
+    <div className="vpb2-node vpb2-node--defi">
+      <div className="vpb2-node-role">Venues</div>
+      <div className="vpb2-node-title">Solana DeFi</div>
+      <div className="vpb2-node-divider" />
+      <div className="vpb2-node-items">
+        <div className="vpb2-node-item"><span className="vpb2-dot vpb2-dot--blue" />Jupiter spot + perps</div>
+        <div className="vpb2-node-item"><span className="vpb2-dot vpb2-dot--blue" />Kamino main market</div>
+        <div className="vpb2-node-item"><span className="vpb2-dot vpb2-dot--blue" />Pyth equity feeds</div>
+      </div>
+    </div>
+  </div>
+  <div className="vpb2-footer">
+    <div className="vpb2-footer-badge">Risk engine</div>
+    <div className="vpb2-footer-text">Every borrow, withdraw, swap, Lite open, and liquidation reconstructs the full collateral + debt + Lite set. Pyth prices the book. Accounts at or below 1.1 can be liquidated.</div>
+  </div>
+</div>
+
+## Follow the assets
+
+- **Earn** moves wallet assets into a Vanna reserve. You receive vTokens. This does not automatically back your margin debt.
+- **Margin deposit** moves wallet assets into your margin PDA vault. The live SPL balance *is* the collateral.
+- **Borrow** moves reserve cash into that vault and opens a debt-share position.
+- **Perps / Swap** change which tokens the vault holds. Debt stays on the account.
+- **Farm** can CPI-deposit into Kamino or swap stock proceeds into Kamino's USDC/SOL main-market reserve.
+
+## Account health
+
+Health factor is recognized collateral USD divided by debt USD. An account with debt must stay **strictly above 1.1**. Lite/Kamino receipts, interest, and oracle moves all count.
+
+See [Core Concepts](/learn/overview) for the accounting model.

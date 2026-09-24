@@ -1,0 +1,53 @@
+---
+title: "Developer Setup"
+description: "Toolchain, tests, env, and hosted fork notes."
+mode: "wide"
+---
+
+User-facing short path: [Run and Setup](/guides/setup). This page is the engineering checklist.
+
+## Toolchain (verified in-repo)
+
+```text
+anchor-cli  1.1.2
+solana-cli  3.1.10 (Agave)
+rustc       pinned by Protocol_V1_Solana/rust-toolchain.toml
+Node        22 for Backend-Solana
+surfpool    1.5.0 on the hosted VM runbook
+```
+
+## Program
+
+```bash
+cd Protocol_V1_Solana
+cargo test --manifest-path programs/vanna_lending/Cargo.toml
+```
+
+Tests: `test_full_flow`, `test_liquidation`, `test_admin_and_lifecycle`, `test_security`, `test_deposit_and_borrow`. They use LiteSVM, not a public cluster.
+
+Copy-paste command list: `Protocol_V1_Solana/COMMANDS.md`.
+
+## App
+
+```bash
+cd Backend-Solana
+npm ci
+cp .env.example .env.local
+npm test
+npm run dev
+```
+
+Required env is listed in [Run and Setup](/guides/setup). Hosted builds bake `NEXT_PUBLIC_*` in at **image build** time. Changing runtime env does not rewrite client RPC URLs.
+
+## Hosted layout
+
+```text
+https://devnet.solana.vanna.finance/        → Next.js
+https://rpc-devnet.solana.vanna.finance     → Surfpool RPC
+```
+
+Server-side `FORK_RPC_URL=http://127.0.0.1:8899` on the VM. Browser never receives loopback.
+
+Do not run `scripts/test-*-fork.ts` on the shared node — those fixtures overwrite state.
+
+Full operator guide: `Backend-Solana/docs/HOSTED_SURFPOOL_SETUP.md`.

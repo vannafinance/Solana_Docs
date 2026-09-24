@@ -1,0 +1,14 @@
+---
+title: "Integrate Margin"
+description: "Create an account, deposit, borrow, and pass a complete remaining-accounts set."
+mode: "wide"
+---
+
+1. `user_create_margin` if the PDA has no data.
+2. `user_deposit_collateral` for each mint.
+3. `user_open_debt_position` then `user_borrow`, or `user_deposit_and_borrow`.
+4. Attach **every** active vault, debt, price update, and Lite account on withdraw, borrow, swap, Lite, and liquidate.
+
+The app helper is `buildRemainingPositionMetas` in `lib/margin-utils.ts`. If you omit a debt, the program should reject — do not "optimize" the list.
+
+Health preview belongs on the client. The chain is the source of truth.

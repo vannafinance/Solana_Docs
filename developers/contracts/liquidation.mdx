@@ -1,0 +1,15 @@
+---
+title: "Liquidation Instruction"
+description: "public_liquidate — permissionless, remaining-accounts complete."
+mode: "wide"
+---
+
+```text
+public_liquidate(max_repay_assets, min_collateral_out)
+```
+
+Requires the full position set in remaining accounts (every vault, debt, price, Lite). Incomplete set → fail.
+
+Does not require the account owner. Liquidator pays the debt mint, receives seized collateral.
+
+See [Math](/developers/math-reference) and [Liquidation bots](/developers/guides/liquidation-bots).

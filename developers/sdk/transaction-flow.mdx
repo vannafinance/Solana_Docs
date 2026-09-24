@@ -1,0 +1,26 @@
+---
+title: "Transaction Flow"
+description: "Price refresh, remaining accounts, simulate, then send."
+mode: "wide"
+---
+
+Typical risk-sensitive tx:
+
+1. `refreshPythPrice(symbol)` (Hermes or fork cheatcode)
+2. Build named accounts from PDAs
+3. `buildRemainingPositionMetas` — every other vault, debt, price, Lite
+4. Compute budget + maybe ALT
+5. `simulateAndSend` — if simulation fails, **do not** broadcast
+
+Perps open concatenates deposit-and-borrow + Jupiter swap in **one** message. If the swap route is stale, nothing settles.
+
+```ts
+// conceptual
+const ixs = [
+  ...depositAndBorrowIxs,
+  ...marginSwapIxs,
+];
+await simulateAndSend(ixs);
+```
+
+Wallet "Blockhash not found" means the signer is not on the fork RPC.

@@ -1,0 +1,33 @@
+---
+title: "Long a Stock"
+description: "Deposit USDC, borrow more USDC, swap the total into TSLAx / GOOGLx / AAPLx / PreStocks."
+mode: "wide"
+---
+
+A long says: I want more stock than my USDC can buy at 1×.
+
+## Example
+
+You deposit **10 USDC** at 2×.
+
+1. Margin receives 10 USDC.
+2. Vanna borrows another 10 USDC against it.
+3. Jupiter swaps **20 USDC** into TSLAx.
+4. Vault holds ~0.05 TSLAx (at ~$378). Debt is 10 USDC plus interest.
+
+If TSLAx rises, collateral USD rises and health improves. If it falls, health falls. Liquidation price is shown on the row.
+
+<Frame caption="Long ticket. Collateral in USDC, leverage 2×, estimated fill, health 2.69. Click the image to zoom.">
+  <img src="/images/perps/long.png" alt="Long TSLAx ticket with 10 USDC collateral and 2x leverage" loading="lazy" decoding="async" />
+</Frame>
+
+## Steps
+
+1. Open **Perps** and pick the pair.
+2. Select **Long**.
+3. Enter USDC collateral and leverage.
+4. Read position size, health, and liquidation price.
+5. Confirm one signature.
+6. Find the row under **Current Positions**. Close from that row.
+
+You pay **USDC borrow APR**, not a funding rate. Time is not free.

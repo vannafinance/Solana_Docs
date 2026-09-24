@@ -1,0 +1,20 @@
+---
+title: "Liquidation"
+description: "Permissionless, partial, bonus-paid close of HF ≤ 1.1 accounts."
+mode: "wide"
+---
+
+`public_liquidate(max_repay_assets, min_collateral_out)`:
+
+1. Accrue the reserve.
+2. Rebuild every collateral, debt, and Lite position.
+3. Require HF ≤ 1.1.
+4. Repay up to 50% of the chosen debt (`CLOSE_FACTOR_BPS`).
+5. Seize collateral USD equal to repaid USD × (1 + bonus bps).
+6. Transfer seized tokens to the liquidator.
+
+`min_collateral_out` is the liquidator's slippage bound.
+
+The 50% close factor is a compiled constant, not a governed field. Treat it as the current V1 value, not an immutable economic law.
+
+A healthy account cannot be liquidated. Tests cover that path.

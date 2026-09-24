@@ -1,0 +1,51 @@
+---
+title: "Why Tokenized Stocks Needed Vanna"
+description: "No perps. Zero Kamino yield. Hold-only bags. Vanna turns xStocks and PreStocks into credit, leverage, and one-click yield."
+mode: "wide"
+---
+
+Tokenized stocks already trade on Solana. TSLAx, GOOGLx, AAPLx, OPENAI, and ANTHROPIC exist. The market still treated them like pictures of equities: buy, sit, hope the price goes up.
+
+That is the gap Vanna closed for [Stocklana](https://hackathons.solana.com/hackathons/stocklana).
+
+## The three missing utilities
+
+### 1. There was no perp market
+
+You could buy TSLAx on a DEX. You could not long it with isolated margin, short it into a drawdown, or close the book in one transaction. Tokenized stocks had spot. They did not have a trading venue that behaved like a brokerage.
+
+**Vanna Perps** opens and closes long/short stock exposure from a margin account. Long deposits USDC, borrows more USDC, and swaps the total into the stock. Short deposits the stock, borrows more of that stock, and swaps the total into USDC. Both paths are one signed Solana transaction.
+
+[Trade TSLAx / USDC →](/guides/perps/overview)
+
+### 2. Kamino stock interest was zero
+
+Kamino listed xStocks. Utilization on those stock reserves is effectively unused, so **supply APY sits at 0%**. Holding TSLAx in Kamino did not pay you. The only "utility" was custody.
+
+Vanna stands up **real lending pools** for the same stocks. Borrowers pay a kink-model APR. Lenders receive vTokens that grow with that interest. TSLAx, GOOGLx, AAPLx, OPENAI, and ANTHROPIC finally have a reason to be supplied.
+
+[Supply TSLAx →](/guides/earn/overview)
+
+### 3. Hold had no on-click strategy
+
+A tokenized share sitting in a wallet does one thing: it tracks the name. No credit line. No carry. No one-click path into a market that actually yields.
+
+**Farm / One-Click** deposits a stock or PreStock, borrows against it, swaps the total into USDC or SOL, and supplies that into **Kamino's main market** — the reserve that has real utilization and a real supply APY. Close is the reverse unwind.
+
+[Open a carry trade →](/guides/farm/one-click)
+
+## Before and after
+
+| What you could do | Before Vanna | With Vanna |
+|---|---|---|
+| Hold TSLAx / OPENAI | Yes | Yes |
+| Earn interest on the stock itself | No — Kamino stock APY ≈ 0% | Yes — Vanna stock pools |
+| Borrow against the stock | No productive credit market | Yes — isolated margin, HF > 1.1 |
+| Long / short the stock | No perp venue | Yes — up to 5×, Jupiter-routed |
+| One-click yield | No | Yes — stock → USDC/SOL → Kamino main |
+
+## What this is not
+
+Vanna does not issue the stocks. xStocks and PreStocks already exist. We do not replace Kamino. We route idle stock collateral into the Kamino market that actually pays, and we add the credit + perp layer those tokens never had.
+
+See [How Vanna Works](/guides/how-vanna-works) and [Tokenized Stocks](/learn/tokenized-stocks).

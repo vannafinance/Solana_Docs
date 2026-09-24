@@ -1,0 +1,17 @@
+---
+title: "Liquidation Bots"
+description: "Watch HF, repay debt, seize collateral. Permissionless."
+mode: "wide"
+---
+
+Loop:
+
+1. Enumerate margin PDAs (index events, or known testers on the demo).
+2. Accrue each reserve (`public_refresh_reserve`).
+3. Price every mint with a fresh Pyth update.
+4. Include Lite receipts at Kamino exchange rate.
+5. If `HF ≤ 1.1`, call `public_liquidate` with a conservative `min_collateral_out`.
+
+Profit is the liquidation bonus minus swap/gas. On a fork, prioritize correctness of the remaining-accounts set over latency.
+
+A healthy account must fail. If your bot can liquidate HF 2.0, stop — the account list is wrong.

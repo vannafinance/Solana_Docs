@@ -1,0 +1,14 @@
+---
+title: "Integrate Lending"
+description: "Supply and redeem from another client."
+mode: "wide"
+---
+
+1. Derive `reserve`, `asset_config`, `share_mint`, user ATAs (underlying + shares).
+2. Wrap SOL if the mint is WSOL.
+3. Call `lender_supply` with `min_shares_out` from a quoted exchange rate minus slippage.
+4. For redeem, pass shares and `min_assets_out`. Check `accounted_liquidity_assets` first.
+
+Refresh the reserve if `last_update_timestamp` is old so the quote matches accrual.
+
+vTokens are **not** accepted as margin collateral. Redeem first.

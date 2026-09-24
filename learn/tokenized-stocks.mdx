@@ -1,0 +1,34 @@
+---
+title: "Tokenized Stocks"
+description: "xStocks and PreStocks on Solana — what existed, and what Vanna added."
+mode: "wide"
+---
+
+## What already existed
+
+| Token | Issuer / venue | Program | Decimals |
+|---|---|---|---|
+| TSLAx | xStocks | Token-2022 | 8 |
+| GOOGLx | xStocks | Token-2022 | 8 |
+| AAPLx | xStocks | Token-2022 | 8 |
+| ANTHROPIC | [PreStocks](https://prestocks.com) | Token-2022 | 9 |
+| OPENAI | [PreStocks](https://prestocks.com) | Token-2022 | 9 |
+
+They trade on DEXes. Pyth publishes equity and xStock feeds (`Equity.US.AAPL/USD`, `Crypto.AAPLX/USD`, and siblings). Kamino listed several xStocks.
+
+## What did not exist
+
+1. **No perp market.** You could not long or short the token with isolated margin.
+2. **No interest.** Kamino xStocks utilization is ~0, so supply APY is ~0. Holding in Kamino was still just holding.
+3. **No one-click credit.** No path from "I own TSLAx" to "that TSLAx is working in a market that pays."
+
+## What Vanna added
+
+- Isolated **lending pools** for those mints — borrowers create a rate
+- **Margin credit** against the same tokens
+- **Long / short** via borrow + Jupiter (real tokens, not a virtual future)
+- **Farm** that routes stock equity into Kamino **main-market** USDC/SOL, where APY is real
+
+Transfer fees on Token-2022 are measured on every vault move. Quotes and health use the amount that actually arrived.
+
+This is the Stocklana wedge: not another stock wrapper — **utilities around the wrappers that already shipped**.

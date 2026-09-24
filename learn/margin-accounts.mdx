@@ -1,0 +1,33 @@
+---
+title: "Margin Accounts"
+description: "One PDA per wallet. Live vault balances are collateral. Debt is shares."
+mode: "wide"
+---
+
+`MarginAccount` is seeded `["margin", authority]`. Status, collateral indexes, debt indexes, event sequence, and a compact Lite registry live on that account.
+
+## Collateral
+
+There is **no** `CollateralPosition` ledger. The associated token account owned by the margin PDA is the credit. Health reads its live amount.
+
+That is safe because the vault is private to one (margin, mint). A donation cannot change anyone else's exchange rate. Shared `Reserve` vaults are the opposite: they keep `accounted_liquidity_assets` and ignore surprise transfers.
+
+Every named or remaining-accounts vault is checked against `get_associated_token_address(margin, mint)`.
+
+## Debt
+
+`DebtPosition` stores **shares**, not a token amount. Interest grows `Reserve.total_borrow_assets`. One O(1) reserve update reprices every borrower.
+
+```text
+user_debt_tokens = ceil(user_shares × total_borrow_assets / total_borrow_shares)
+```
+
+## Lifecycle
+
+```text
+create → deposit → borrow / swap / lite_open
+                ↘ repay → withdraw → close (empty)
+                ↘ liquidate (HF ≤ 1.1)
+```
+
+`MAX_ASSETS = 24` bounds both collateral and debt slots so every health scan is a fixed cost.

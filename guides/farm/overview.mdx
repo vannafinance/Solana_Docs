@@ -1,0 +1,26 @@
+---
+title: "Farm Overview"
+description: "One-click leveraged yield: stock collateral into Kamino's real USDC or SOL market."
+mode: "wide"
+---
+
+Farm is **Leveraged Yield**. Deposit a stock or PreStock, borrow against it, and deploy into a pool that actually pays.
+
+Kamino's **xStocks** market lists TSLAx and friends at ~0% supply APY. Kamino's **main market** pays a live USDC/SOL rate. Farm is the bridge: your idle stock becomes a USDC or SOL supply on that main market, with Vanna debt still denominated in the original stock or in the swapped stable — depending on the path.
+
+<Frame caption="Deposit & Deploy. TSLAx collateral, 2×, USDC main-market supply APY vs Vanna borrow APR. Click the image to zoom.">
+  <img src="/images/farm/one-click.png" alt="Farm one-click form depositing TSLAx and deploying into Kamino USDC" loading="lazy" decoding="async" />
+</Frame>
+
+## Two related paths
+
+| Path | What it does |
+|---|---|
+| Same-asset Lite | Deposit + borrow the **same stock**, CPI-supply into the registered Kamino reserve (`lite_open`) |
+| Cross-asset carry | Deposit / leverage a stock, swap the total to **USDC or SOL**, supply Kamino main market |
+
+The UI you see on the hosted demo is the carry-trade surface: stock in, Kamino USDC (or SOL) out, Vanna debt stays on the account.
+
+Net APR ≈ Kamino supply APY − Vanna borrow APR. The screenshot's +0.67% at 2× is a live preview, not a guarantee.
+
+Continue with [One-Click](/guides/farm/one-click) and [Positions](/guides/farm/positions).

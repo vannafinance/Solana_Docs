@@ -1,0 +1,16 @@
+---
+title: "Open Account"
+description: "Create the per-wallet margin PDA. Required once."
+mode: "wide"
+---
+
+The first margin action creates `MarginAccount` at `["margin", your_wallet]`.
+
+## Steps
+
+1. Connect a wallet.
+2. Open **Perps**, **Farm**, or a margin deposit screen.
+3. If no account exists, the app sends `user_create_margin`.
+4. Wait for confirmation. Later visits rediscover the same PDA.
+
+You cannot create a second account for the same wallet. Closing requires zero collateral, zero debt, and no Lite positions (`user_close_margin`).

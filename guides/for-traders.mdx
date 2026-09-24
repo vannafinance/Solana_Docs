@@ -1,0 +1,21 @@
+---
+title: "For Traders and Borrowers"
+description: "Use an isolated margin account to long, short, swap, and farm tokenized stocks."
+mode: "wide"
+---
+
+Your **Margin Account** is a PDA owned by the Vanna program. It holds collateral vaults, debt positions, and Lite/Kamino receipts. One wallet gets exactly one margin account.
+
+1. [Create the account](/guides/margin/open-account) (first transaction, once).
+2. Deposit stock or USDC as collateral.
+3. Borrow against it, or go straight to **Perps** / **Farm** — those flows deposit and borrow for you.
+4. Watch **Health Factor**. Stay above 1.1.
+5. Close or repay before withdrawing leftover collateral.
+
+The account shares risk across every position. A profitable TSLAx long does not isolate you from a losing OPENAI Farm.
+
+<Warning>
+Leverage can liquidate your account. Health factor must stay **strictly above 1.1**. Prices, borrow interest, swap slippage, and Kamino exchange rates all move health. Only deposit what you can afford to lose.
+</Warning>
+
+See [Perps](/guides/perps/overview), [Farm](/guides/farm/overview), and [Health Factor](/guides/margin/health-factor).

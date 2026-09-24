@@ -1,0 +1,24 @@
+---
+title: "Margin Account"
+description: "Isolated borrowing account: collateral vaults, debt shares, and shared health."
+mode: "wide"
+---
+
+Your Margin Account is a program-derived account. It holds token vaults, debt positions, and Lite/Kamino receipts. The wallet signs. The program moves funds.
+
+One wallet → one margin PDA. There are no subaccounts.
+
+## Read the metrics
+
+| Metric | Meaning |
+|---|---|
+| Health Factor | Collateral USD / debt USD. Must stay **> 1.1** |
+| Borrowed value | Outstanding debt, including accrued interest |
+| Collateral | Live SPL balances in margin vaults, plus recognized Lite value |
+| Effective leverage | Position size / your equity on Perps and Farm |
+
+<Warning>
+An account with debt is healthy only when `collateral USD / debt USD > 1.10`. Equality is unhealthy. A displayed Health Factor at or below 1.1 is a liquidation candidate.
+</Warning>
+
+Start with [Open Account](/guides/margin/open-account), [Deposit](/guides/margin/deposit-collateral), and [Borrow](/guides/margin/borrow). Most traders skip the manual path and open from [Perps](/guides/perps/overview) or [Farm](/guides/farm/one-click).

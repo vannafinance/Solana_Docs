@@ -1,0 +1,37 @@
+---
+title: "FAQ"
+description: "Common questions for the Stocklana Solana demo."
+mode: "wide"
+---
+
+## Is this Solana Devnet?
+
+No. The site is on a **Surfpool mainnet fork**. Hostname `devnet` is branding for the shared demo. RPC: [rpc-devnet.solana.vanna.finance](https://rpc-devnet.solana.vanna.finance).
+
+## Are faucet tokens real?
+
+No. Cheatcode mints on the fork.
+
+## Why is Kamino stock APY zero, but Vanna is not?
+
+Kamino's xStocks market has almost no borrowers. Vanna pools have borrowers (perps + Farm), so the kink model prints a rate.
+
+## Do you list a perp contract?
+
+No separate perp program. Long/short is borrow + Jupiter + margin health. You hold real tokens.
+
+## What is max leverage?
+
+5× on Perps and Farm (`50_000` bps). Health must still clear 1.1, so effective leverage is often lower.
+
+## Can I withdraw anytime (Earn)?
+
+If the reserve has cash. High utilization blocks full redemption until repayments or liquidations free liquidity.
+
+## Which wallets work?
+
+Wallet Standard (Phantom, Backpack, Solflare, …) and optional Privy. Point installed wallets at the fork RPC for local use.
+
+## Where is the program?
+
+`BZ812nUv4Qhr2p1JVgmoJGjYTGk1brAXckyhFSCNH3Zg`

@@ -1,0 +1,19 @@
+---
+title: "TypeScript Getting Started"
+description: "Use the application-local Anchor client. There is no published package yet."
+mode: "wide"
+---
+
+```ts
+import { getVannaProgram } from "@/lib/solana/protocol";
+import { marginPda, reservePda, protocolConfigPda } from "@/lib/solana/pdas";
+import { VANNA_PROGRAM_ID, ASSETS } from "@/lib/solana/config";
+
+const program = getVannaProgram(true); // wallet-connected
+const [margin] = marginPda(owner);
+const [reserve] = reservePda(ASSETS.TSLAx.mint);
+```
+
+IDL: `Backend-Solana/idl/vanna_lending.json`. After a program change, rebuild and copy the IDL.
+
+Read [Transaction Flow](/developers/sdk/transaction-flow) before sending. Always simulate.

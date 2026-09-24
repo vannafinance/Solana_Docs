@@ -1,0 +1,19 @@
+---
+title: "Admin Instructions"
+description: "Init, two-step admin, modes, asset and reserve config, fees."
+mode: "wide"
+---
+
+| Instruction | Purpose |
+|---|---|
+| `initialize_protocol(treasury, max_assets_per_margin)` | Once |
+| `admin_propose_authority` / `authority_accept_admin` | Two-step handover |
+| `admin_set_operating_mode` | Normal / borrow pause / withdraw only / halt |
+| `admin_register_asset` | Mint + Pyth + risk params |
+| `admin_update_asset_config` | Same fields after listing |
+| `admin_initialize_reserve` | Rate curve, caps, status |
+| `admin_update_reserve_config` | Same |
+| `admin_collect_protocol_fees` | Sweep `accrued_protocol_fees` to treasury |
+| `admin_register_lite_strategy` | Approve a Kamino path |
+
+There is no separate liquidation-pause flag yet. `reserved` padding is the extension point.

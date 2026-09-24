@@ -1,0 +1,50 @@
+---
+title: "Stocklana"
+description: "What we built for Solana's tokenized-stock hackathon, and how to judge it."
+mode: "wide"
+---
+
+Vanna Solana was built for **[Stocklana](https://hackathons.solana.com/hackathons/stocklana)** — tokenized stocks on Solana, judged on whether this can be a real app people use.
+
+## The product question we answered
+
+Tokenized stocks already trade. They did not **do** anything.
+
+1. **No perp market** → we shipped long/short for TSLAx, GOOGLx, AAPLx, OPENAI, ANTHROPIC.
+2. **Kamino stock interest is zero** → we shipped Vanna lending pools where borrow demand creates APY.
+3. **Hold had no utility** → we shipped one-click Farm: stock in, Kamino main-market USDC/SOL yield out.
+
+## Working surfaces
+
+| Surface | Live URL |
+|---|---|
+| App | [devnet.solana.vanna.finance/earn](https://devnet.solana.vanna.finance/earn) |
+| Fork RPC | [rpc-devnet.solana.vanna.finance](https://rpc-devnet.solana.vanna.finance) |
+| Earn | Seven pools including PreStocks |
+| Perps | Long/short, charts, positions |
+| Swap | Jupiter |
+| Farm | Carry trade + exits 25–100% |
+
+## Why this is Solana-shaped
+
+- One program, PDAs, remaining-accounts health
+- Token-2022 xStocks / PreStocks
+- Pyth equity + xStock feeds ([Pyth track](https://hackathons.solana.com/hackathons/stocklana))
+- Jupiter routes inside the margin vault
+- Kamino CPI + main-market supply ([credit / yield](https://hackathons.solana.com/hackathons/stocklana) wedge)
+
+## Judge path (five minutes)
+
+1. Open the app. Connect. Faucet → Mint All.
+2. Supply 10 TSLAx on Earn. See a non-zero APY.
+3. Perps → Long TSLAx with 10 USDC at 2×. One signature. Row appears.
+4. Perps → Short a PreStock (ANTHROPIC or OPENAI). That market did not exist.
+5. Farm → 1 TSLAx at 2× into Kamino USDC. Open Position. Exit 100%.
+
+## Repos
+
+- Contracts: `Protocol_V1_Solana`
+- App: `Backend-Solana`
+- These docs: `Solana_Docs`
+
+Keep building after Stocklana: [Colosseum World's Fair](https://colosseum.com/worldsfair).

@@ -1,0 +1,27 @@
+---
+title: "Composable Leverage"
+description: "Borrowed assets stay in the margin PDA and move into Jupiter and Kamino."
+mode: "wide"
+---
+
+Leverage 1.0 on a perp venue is a virtual contract plus funding. Vanna leverage is **borrowed tokens** that the margin account can spend in approved venues.
+
+## What you can do with borrowed stock or USDC
+
+- Hold it (pointless — you pay borrow APR)
+- Swap it on Jupiter (spot or the Perps long/short recipe)
+- Supply it to Kamino (Lite / Farm)
+- Repay someone else's debt (`public_repay_from_wallet`)
+
+All of those positions share **one health factor**. A Farm receipt that is "in profit" does not fence off a perp that is not.
+
+## Atomic vs multi-step
+
+| Action | Atomic? |
+|---|---|
+| `user_deposit_and_borrow` | Yes |
+| Perps open (deposit + borrow + swap) | Yes — one tx, simulated first |
+| `lite_open` | Yes — program CPI |
+| Cross-asset Farm if the app splits later legs | Only within each signature |
+
+"One-click" is a UX promise. On-chain atomicity is per transaction.

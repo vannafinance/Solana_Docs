@@ -1,0 +1,25 @@
+---
+title: "Borrow and Repay"
+description: "Debt positions, user_borrow, repay from margin or wallet, deposit-and-borrow."
+mode: "wide"
+---
+
+## `user_open_debt_position` / `user_close_debt_position`
+
+Open once per (margin, reserve). Close when shares are zero.
+
+## `user_borrow(assets, max_debt_shares)`
+
+Accrue. Transfer cash to the margin vault. Mint debt shares ≤ `max_debt_shares`. Full-set health > 1.1.
+
+## `user_repay_from_margin(max_assets, repay_all)`
+
+Burn shares from vault cash.
+
+## `public_repay_from_wallet(max_assets, repay_all)`
+
+Anyone pays. Useful when the vault is stuck in another asset.
+
+## `user_deposit_and_borrow(deposit_amount, borrow_amount, max_debt_shares)`
+
+Atomic composite. Perps open uses this plus swap in the same transaction on the client.

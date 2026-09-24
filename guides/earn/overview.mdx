@@ -1,0 +1,38 @@
+---
+title: "Earn Overview"
+description: "Supply SOL, USDC, and tokenized stocks to Vanna lending pools."
+mode: "wide"
+---
+
+Earn is wallet-to-pool supply. Deposits receive vTokens — a claim on the pool's cash plus borrower interest.
+
+This is the utility Kamino's xStocks market does not offer. Those stock reserves sit at ~0% APY. Vanna pools for the same mints pay a live borrow rate.
+
+<Frame caption="Earn market list. SOL, USDC, TSLAx, and the other stock pools. Rates move with utilization. Click the image to zoom.">
+  <img src="/images/earn/overview.png" alt="Earn page listing SOL, USDC, TSLAx and other lending pools with supply APY, borrow APY, and utilization" loading="lazy" decoding="async" />
+</Frame>
+
+## Markets
+
+| Display asset | Underlying |
+|---|---|
+| SOL | Wrapped SOL |
+| USDC | Circle USDC |
+| TSLAx | Tesla xStock |
+| GOOGLx | Alphabet xStock |
+| AAPLx | Apple xStock |
+| ANTHROPIC | Anthropic PreStock |
+| OPENAI | OpenAI PreStock |
+
+Each mint has its own reserve, share mint, and rate curve. Supplying TSLAx does not earn the USDC pool's rate.
+
+## Use Earn
+
+1. Open **Earn**.
+2. Pick a pool.
+3. Use **Supply Liquidity** or **Withdraw Liquidity**.
+4. Confirm the wallet signature and wait for balances to refresh.
+
+Supply uses wallet funds. No margin account is required. Earnings depend on actual borrower interest and utilization — they are not a fixed coupon.
+
+See [Supply](/guides/earn/supply) and [Withdraw](/guides/earn/withdraw).

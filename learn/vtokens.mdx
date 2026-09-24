@@ -1,0 +1,18 @@
+---
+title: "vTokens"
+description: "Share receipts for a Vanna reserve. Exchange rate rises with interest."
+mode: "wide"
+---
+
+A vToken is the reserve's share mint. Supplying 100 TSLAx mints vTSLAx. Redeeming burns vTSLAx for TSLAx at the current rate.
+
+```text
+shares_out = floor(assets × total_shares / lender_assets)   // supply
+assets_out = floor(shares × lender_assets / total_shares)   // redeem
+```
+
+Empty pool: 1:1, then a `MIN_INITIAL_SHARES` floor on the first deposit.
+
+vTokens live in the **wallet**. They are Earn receipts, not margin collateral. To use supplied stock as collateral, redeem, then deposit the underlying.
+
+Interest does not mint extra vTokens. The same shares become worth more underlying.

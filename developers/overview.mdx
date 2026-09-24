@@ -1,0 +1,32 @@
+---
+title: "Developer Overview"
+description: "Integrate with the Vanna Solana program and the Next.js fork app."
+mode: "wide"
+---
+
+This reference describes `Protocol_V1_Solana` (`vanna_lending`) and `Backend-Solana` as they run on the Surfpool mainnet fork. Program ID:
+
+```text
+BZ812nUv4Qhr2p1JVgmoJGjYTGk1brAXckyhFSCNH3Zg
+```
+
+Start with [Architecture](/developers/architecture), [Configured Accounts](/developers/deployed-contracts), and [Math Reference](/developers/math-reference).
+
+## Repository map
+
+| Path | Responsibility |
+|---|---|
+| `Protocol_V1_Solana/programs/vanna_lending` | Anchor program: lending, margin, Lite, swap, liquidation |
+| `Protocol_V1_Solana/programs/vanna_lending/src/tests` | LiteSVM lifecycle, liquidation, security |
+| `Backend-Solana/app` | Next.js routes: Earn, Margin/Perps, Swap, Farm, Portfolio, faucet APIs |
+| `Backend-Solana/lib/solana` | PDAs, program client, Jupiter, Pyth, Lite, long/short |
+| `Backend-Solana/idl/vanna_lending.json` | IDL consumed by the app |
+| `Backend-Solana/docs/HOSTED_SURFPOOL_SETUP.md` | VM / Caddy / snapshot runbook |
+
+## Current scope
+
+Seven reserves (SOL, USDC, TSLAx, GOOGLx, AAPLx, ANTHROPIC, OPENAI). Isolated margin. Jupiter margin swaps. Long/short recipes. Lite/Kamino. Fork faucet. Pyth (or fork price refresh).
+
+There is no published `@vanna/sdk` package. Copy the PDA helpers and instruction builders from `Backend-Solana/lib/solana`.
+
+See [Review Scope](/developers/review-scope) for what is and is not claimed.

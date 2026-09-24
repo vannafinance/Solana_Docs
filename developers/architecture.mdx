@@ -1,0 +1,48 @@
+---
+title: "Architecture"
+description: "Program, PDAs, frontend, API routes, and remaining-accounts health scans."
+mode: "wide"
+---
+
+## On-chain
+
+One program. Instruction handlers in `instructions/*.rs`. Pure math in `math/`. Validation in `validation/`.
+
+```text
+ProtocolConfig  ["protocol"]
+ ├── AssetConfig  ["asset", mint]
+ │    └── Reserve  ["reserve", mint]
+ │         ├── liquidity vault ATA
+ │         └── share mint ["share_mint", mint]
+ └── MarginAccount  ["margin", authority]
+      ├── vault ATAs (collateral = live balance)
+      ├── DebtPosition  ["debt", margin, reserve]
+      ├── LiteStrategyConfig  ["lite_strategy", mint]   (global, admin)
+      └── LitePosition  ["lite_position", margin, …]
+```
+
+Risk-sensitive calls pass **remaining accounts** so the program can see every active vault, debt, price update, and Lite position. `scan_and_validate_positions` rebuilds the set. A missing debt account fails closed.
+
+## Application
+
+`Backend-Solana` is Next.js: React UI, TanStack-style hooks, Zustand stores, Anchor client, Privy optional.
+
+| Route | Product |
+|---|---|
+| `/earn` | Lender supply / redeem |
+| `/margin` | Perps long/short + charts |
+| `/trade/spot` | Jupiter swap |
+| `/one-click` | Farm / Lite |
+| `/portfolio` | Combined view |
+| `/api/jupiter/*` | Quote and swap proxies |
+| `/api/faucet/fork/[token]` | Fork mint |
+| `/api/solana/history` | Activity |
+
+Browser RPC is `NEXT_PUBLIC_SOLANA_RPC_URL` (hosted: `https://rpc-devnet.solana.vanna.finance`). Server routes use `FORK_RPC_URL` on loopback when the app and Surfpool share a VM.
+
+## Boundaries
+
+- Earn vTokens ≠ margin collateral
+- Perps are recipes on top of borrow + swap, not a second program
+- Fork cheatcodes are not mainnet
+- Source support ≠ a verified public-mainnet deployment

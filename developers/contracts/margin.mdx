@@ -1,0 +1,25 @@
+---
+title: "Margin Instructions"
+description: "Create, deposit, withdraw, close vaults and the account."
+mode: "wide"
+---
+
+## `user_create_margin`
+
+Init the PDA. Authority = signer.
+
+## `user_deposit_collateral(amount)`
+
+`init_if_needed` vault ATA. Measured transfer in. Register the asset index on first use.
+
+## `user_withdraw_collateral(amount, min_health_factor_wad)`
+
+Full-set health after the withdrawal. Must exceed `min_health_factor_wad` and the 1.1 threshold when debt remains.
+
+## `user_close_collateral_position`
+
+Empty vault only. Frees an index slot.
+
+## `user_close_margin`
+
+Zero collateral, zero debt, no Lite. Closes the PDA.

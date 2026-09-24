@@ -1,0 +1,22 @@
+---
+title: "Liquidation"
+description: "Permissionless close of an unhealthy account. 50% close factor, bonus to the liquidator."
+mode: "wide"
+---
+
+Anyone can call `public_liquidate` when health is at or below 1.1.
+
+## What happens
+
+1. The program rebuilds the full position set and confirms the account is unhealthy.
+2. The liquidator repays up to **50%** of one debt asset (`CLOSE_FACTOR_BPS = 5_000`).
+3. They receive collateral of equal USD value plus the asset's liquidation bonus.
+4. Remaining equity stays with the account.
+
+Partial liquidation is the design. One call does not have to wipe the account.
+
+## What you should do as a trader
+
+Keep health comfortably above 1.1. Reduce Farm or Perps size before a known volatile open. Repay from wallet if the vault is stuck in a Kamino receipt — or use the product close path.
+
+See [Liquidation math](/learn/liquidation) if you are writing a bot.

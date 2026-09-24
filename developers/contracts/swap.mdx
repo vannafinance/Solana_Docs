@@ -1,0 +1,17 @@
+---
+title: "Margin Swap"
+description: "user_margin_swap — Jupiter v6 from the margin vault with a post-swap health check."
+mode: "wide"
+---
+
+```text
+user_margin_swap(amount_in, min_amount_out, route_account_count, route_data)
+```
+
+The program signs the vault with margin seeds, forwards `route_data` to Jupiter, then revalues the account.
+
+Token-2022 transfer fees: the client sizes `amount_in` so the **received** delta covers the route. Do not assume `amount_in` equals the Jupiter exact-in after fees.
+
+`min_amount_out` is the slippage bound. Failed health after a would-be swap aborts the whole transaction.
+
+Perps and Farm closes reuse this primitive (or the Lite unwind that embeds a route).

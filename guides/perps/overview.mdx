@@ -1,0 +1,40 @@
+---
+title: "Perps Overview"
+description: "The missing long/short market for tokenized stocks. Isolated margin, up to 5×, one signature."
+mode: "wide"
+---
+
+Solana had tokenized stocks. It did not have a perp venue for them. Vanna Perps is that venue — built from credit + Jupiter, not a synthetic order book.
+
+You are not trading a virtual contract. You borrow **real** USDC or **real** stock, swap it, and hold the resulting tokens in the margin account. Funding rate is replaced by **borrow APR**.
+
+<Frame caption="TSLAx / USDC long. Chart, leverage slider, health, and open positions. Click the image to zoom.">
+  <img src="/images/perps/long.png" alt="Perps page showing a TSLAx/USDC long with chart, leverage, and positions table" loading="lazy" decoding="async" />
+</Frame>
+
+## Markets
+
+| Pair | Long collateral | Short collateral |
+|---|---|---|
+| TSLAx / USDC | USDC | TSLAx |
+| GOOGLx / USDC | USDC | GOOGLx |
+| AAPLx / USDC | USDC | AAPLx |
+| ANTHROPIC / USDC | USDC | ANTHROPIC |
+| OPENAI / USDC | USDC | OPENAI |
+
+Leverage is **1×–5×**. Health must stay above 1.1 after the open.
+
+## How a position is stored
+
+There is no separate perp contract. A long is "USDC debt + stock collateral." A short is "stock debt + USDC collateral." The UI reconstructs size, entry, liquidation price, and P&L from vaults, debt shares, and history.
+
+Open and close are **one Solana transaction** each. Simulation runs before broadcast. If the Jupiter route would fail, nothing lands.
+
+| Side | Open | Close |
+|---|---|---|
+| Long | [Long a stock](/guides/perps/long) | Swap stock → USDC, repay USDC, withdraw leftover |
+| Short | [Short a stock](/guides/perps/short) | Swap USDC → stock, repay stock, withdraw leftover |
+
+<Warning>
+Leverage can liquidate your account. Health factor must stay **strictly above 1.1**. Prices, borrow interest, swap slippage, and Kamino exchange rates all move health. Only deposit what you can afford to lose.
+</Warning>

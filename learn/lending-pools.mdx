@@ -1,0 +1,31 @@
+---
+title: "Lending Pools"
+description: "Per-mint reserves: cash ledger, borrow totals, kink rates, caps."
+mode: "wide"
+---
+
+Each registered mint has one `Reserve` at `["reserve", mint]` and one share mint at `["share_mint", mint]`.
+
+## Balances that matter
+
+| Field | Meaning |
+|---|---|
+| `accounted_liquidity_assets` | Cash credited by measured transfers |
+| `total_borrow_assets` | Outstanding principal + accrued interest |
+| `total_borrow_shares` | Sum of borrower shares |
+| `accrued_protocol_fees` | Reserve-factor slice, not lender equity |
+| `borrow_index_wad` | Cumulative borrow growth |
+
+```text
+lender_total_assets = accounted_liquidity + total_borrow − protocol_fees
+available_cash      = accounted_liquidity − protocol_fees
+utilization         = borrows / (cash + borrows)
+```
+
+Unsolicited transfers into the liquidity vault do **not** increase `accounted_liquidity_assets`. They cannot inflate vToken value.
+
+## Status and modes
+
+Reserves have their own status. The protocol also has `Normal`, `BorrowPaused`, `WithdrawOnly`, and `Halted`. New borrows respect both. Repay and liquidation stay available unless the specific gate says otherwise.
+
+See [Interest Rate Model](/learn/interest-rate-model).

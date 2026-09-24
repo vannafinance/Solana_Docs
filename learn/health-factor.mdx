@@ -1,0 +1,23 @@
+---
+title: "Health Factor"
+description: "Canonical 1.10 collateral-to-debt threshold, conservative rounding."
+mode: "wide"
+---
+
+```text
+HF = collateral_usd / debt_usd
+healthy ⇔ HF > 1.10
+```
+
+`BALANCE_TO_BORROW_THRESHOLD_WAD = 1.1e18`. The same constant gates new borrows and withdrawals.
+
+USD values use 9 decimal nano-USD. Token amount × Pyth price is rescaled by price exponent and mint decimals.
+
+| Side | Rounding |
+|---|---|
+| Collateral | Down |
+| Debt | Up |
+
+That bias is deliberate. The protocol would rather reject a tight borrow than mark an account safer than it is.
+
+Lite receipts are included when the remaining-accounts scan finds them. Omitting a position from the scan fails the instruction — you cannot hide debt.

@@ -1,0 +1,50 @@
+---
+title: "Configured Accounts"
+description: "Program ID, mints, Pyth feeds, Kamino markets used by the fork app."
+mode: "wide"
+---
+
+Values from `Backend-Solana/lib/solana/config.ts` and `programs/vanna_lending/src/constants.rs`. They describe the **Surfpool fork**, which clones these mainnet addresses.
+
+## Program
+
+| Setting | Value |
+|---|---|
+| Program | `BZ812nUv4Qhr2p1JVgmoJGjYTGk1brAXckyhFSCNH3Zg` |
+| Hosted app | `https://devnet.solana.vanna.finance` |
+| Hosted RPC | `https://rpc-devnet.solana.vanna.finance` |
+| Local RPC | `http://127.0.0.1:8899` |
+
+## Mints
+
+| Symbol | Mint |
+|---|---|
+| WSOL | `So11111111111111111111111111111111111111112` |
+| USDC | `EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v` |
+| TSLAx | `XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB` |
+| GOOGLx | `XsCPL9dNWBMvFtTmwcCA5v3xWPSMEBCszbQdiLLq6aN` |
+| AAPLx | `XsbEhLAtcf6HdfpFZ5xEMdqW8nfAvcsP5bdudRLJzJp` |
+| ANTHROPIC | `Pren1FvFX6J3E4kXhJuCiAD5aDmGEb7qJRncwA8Lkhw` |
+| OPENAI | `PreweJYECqtQwBtpxHL171nL2K6umo692gTm7Q3rpgF` |
+
+PDAs for protocol, asset, reserve, share mint, margin, and debt are derived — see [PDAs](/developers/sdk/pdas).
+
+## Kamino (reference)
+
+| Role | Address |
+|---|---|
+| klend | `KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD` |
+| xStocks market | `5wJeMrUYECGq41fxRESKALVcHnNX26TAWy4W98yULsua` |
+| Main market | `7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF` |
+| Main USDC reserve | `D6q6wuQSrifJKZYpR1M8R4YawnLDtDsMmWM1NbBmgJ59` |
+| Main SOL reserve | `d4A2prbA2whesmvHaL88BH6Ewn5N4bTSU2Ze8P6Bc4Q` |
+
+Live Lite strategies store the exact accounts in `LiteStrategyConfig`. Do not assume the REST catalog matches the reserve you want.
+
+## Jupiter
+
+`JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4`
+
+## Verify
+
+Read `ProtocolConfig`, each `AssetConfig` / `Reserve`, and a known margin PDA after create. Compare the deployed program data to the `vanna_lending` `.so` you built. A reset fork is a new world — addresses for user margins change with the wallet, not with a constant table.

@@ -1,0 +1,26 @@
+---
+title: "Interest Rate Model"
+description: "Kink utilization curve. Borrow APR funds lender APY."
+mode: "wide"
+---
+
+Annualized borrow rate in basis points:
+
+```text
+if u ≤ u_opt:
+  rate = base + slope1 × (u / u_opt)
+else:
+  rate = base + slope1 + slope2 × (u − u_opt) / (1 − u_opt)
+```
+
+`u` is utilization. Empty pool → `u = 0` → `rate = base`.
+
+Interest over `elapsed` seconds:
+
+```text
+interest = ceil(total_borrow_assets × rate_bps × elapsed / (10_000 × 31_536_000))
+```
+
+A reserve-factor slice becomes `accrued_protocol_fees`. The rest increases `total_borrow_assets` and `borrow_index_wad`. Lender equity rises by the non-fee portion.
+
+This is why Vanna stock pools can print a non-zero APY: **borrowers exist** (perps + Farm). Kamino's xStocks market has the mint and almost no borrowers, so its rate stays at zero.

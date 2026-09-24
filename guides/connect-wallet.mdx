@@ -1,0 +1,48 @@
+---
+title: "Connect Your Wallet"
+description: "Connect Phantom, Backpack, Solflare, or Privy and mint test assets on the Vanna fork."
+mode: "wide"
+---
+
+## Supported connection methods
+
+The Solana app supports **Wallet Standard** wallets (Phantom, Backpack, Solflare, and others) and, when configured, **Privy email/Google login** with an embedded Solana wallet.
+
+## Connect
+
+1. Open [devnet.solana.vanna.finance](https://devnet.solana.vanna.finance/earn) and choose **Connect**.
+2. Pick an installed wallet, or continue with Google/email if Privy is enabled.
+3. Confirm the displayed address.
+4. Wait for balances and any existing margin account to load from the fork.
+
+<Warning>
+If you use an installed wallet against a **local** Surfpool node, add a custom RPC of `http://127.0.0.1:8899` and switch to that network. Sending a fork-built transaction to public Devnet or Mainnet fails with **Blockhash not found**.
+</Warning>
+
+The hosted demo already talks to `https://rpc-devnet.solana.vanna.finance`. You do not need a local node to try the live site.
+
+## Faucet
+
+Open **Faucet** in the header. Mint the assets you need, or use **Mint All**.
+
+| Asset | Typical faucet grant |
+|---|---|
+| SOL | +100 SOL airdrop |
+| USDC | +100 USDC |
+| TSLAx | +20 TSLAx |
+| GOOGLx | +20 GOOGLx |
+| AAPLx | +20 AAPLx |
+| ANTHROPIC | +20 ANTHROPIC |
+| OPENAI | +20 OPENAI |
+
+These are fork cheatcode top-ups. They do not move real mainnet tokens.
+
+<Frame caption="Fork faucet modal. Unlimited claims on the shared demo. Click the image to zoom.">
+  <img src="/images/onboarding/faucet.png" alt="Fork faucet modal with Mint buttons for every supported asset" loading="lazy" decoding="async" />
+</Frame>
+
+## Reconnect
+
+Use the same wallet or Privy login to return to the same margin account. A different address has different holdings, debt, and Farm positions.
+
+Continue with [Earn](/guides/earn/overview) or [Open a Margin Account](/guides/margin/open-account).

@@ -1,0 +1,23 @@
+---
+title: "Spot Swap"
+description: "Swap SOL, USDC, xStocks, and PreStocks through Jupiter from wallet or margin."
+mode: "wide"
+---
+
+Spot is a Jupiter-routed swap. Use it to rotate wallet inventory, or to move margin-vault balances without opening a perp.
+
+<Frame caption="Jupiter swap card. Wallet SOL to USDC. History lists recent fills. Click the image to zoom.">
+  <img src="/images/swap/overview.png" alt="Spot swap card routing SOL to USDC via Jupiter" loading="lazy" decoding="async" />
+</Frame>
+
+## Steps
+
+1. Open **Swap**.
+2. Pick pay / receive assets.
+3. Choose **Wallet** or **Margin** as the source of funds when the UI offers it.
+4. Review price impact, quote, slippage (default 1%), and minimum received.
+5. Confirm. Wait for the history row.
+
+Margin-balance swaps call `user_margin_swap`: the program signs the vault, Jupiter executes, and a health check runs on the new balances. Wallet swaps never touch the PDA.
+
+Token-2022 transfer fees (xStocks, PreStocks) are included in sizing. A quote that looks "short" versus the headline price is often the fee, not a bug.

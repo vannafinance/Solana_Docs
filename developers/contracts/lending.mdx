@@ -1,0 +1,19 @@
+---
+title: "Lending Instructions"
+description: "lender_supply, lender_redeem, public_refresh_reserve."
+mode: "wide"
+---
+
+## `lender_supply(assets, min_shares_out)`
+
+Measure the transfer into the vault. Accrue. Mint shares ≥ `min_shares_out`. First deposit enforces `MIN_INITIAL_SHARES`.
+
+## `lender_redeem(shares, min_assets_out)`
+
+Accrue. Burn shares. Pay `available_cash`. Require assets ≥ `min_assets_out`.
+
+## `public_refresh_reserve`
+
+Permissionless accrual. Anyone can poke a pool so indexes are not hours stale before a borrow.
+
+SOL is wrapped by the client before supply. The program sees WSOL.

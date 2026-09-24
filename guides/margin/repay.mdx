@@ -1,0 +1,16 @@
+---
+title: "Repay"
+description: "Burn debt shares by paying from the margin vault or from the wallet."
+mode: "wide"
+---
+
+Two instructions:
+
+| Path | Instruction | Source of funds |
+|---|---|---|
+| From margin | `user_repay_from_margin` | Tokens already in the margin vault |
+| From wallet | `public_repay_from_wallet` | Your wallet ATA — anyone can repay an account |
+
+Set `repay_all` to close the debt position when the payment covers remaining shares. Interest continues until the shares are gone.
+
+Perps and Farm close paths repay as part of the unwind. You usually do not repay those legs by hand unless a close left residual debt.

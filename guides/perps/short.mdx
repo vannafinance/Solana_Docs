@@ -1,0 +1,32 @@
+---
+title: "Short a Stock"
+description: "Deposit the stock, borrow more of it, swap the total into USDC."
+mode: "wide"
+---
+
+A short says: I want USD exposure against a stock I think will fall — including PreStocks that have no other short venue.
+
+## Example
+
+You deposit **2 ANTHROPIC** at 2×.
+
+1. Margin receives 2 ANTHROPIC.
+2. Vanna borrows another 2 ANTHROPIC.
+3. Jupiter swaps **4 ANTHROPIC** into USDC.
+4. Vault holds USDC. Debt is 4 ANTHROPIC plus interest.
+
+If ANTHROPIC falls, your USDC collateral still covers a cheaper buyback. If it rips, health falls.
+
+<Frame caption="ANTHROPIC / USDC short. DexScreener chart, 2× leverage, health 2.42. Click the image to zoom.">
+  <img src="/images/perps/short.png" alt="Short ANTHROPIC ticket with 2 token collateral and 2x leverage" loading="lazy" decoding="async" />
+</Frame>
+
+## Steps
+
+1. Open **Perps** and pick the pair.
+2. Select **Short**.
+3. Enter stock collateral and leverage.
+4. Confirm one signature.
+5. Close from the positions table — the app buys the stock back, repays, and withdraws leftover USDC.
+
+Shorting a PreStock is the product. Those names had no perp market. They do now.

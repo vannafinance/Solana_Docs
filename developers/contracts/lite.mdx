@@ -1,0 +1,29 @@
+---
+title: "Lite / Kamino Instructions"
+description: "admin_register_lite_strategy, lite_open, supply, reduce, unwind."
+mode: "wide"
+---
+
+Leverage bounds: **1×–5×** (`10_000`–`50_000` bps).
+
+## `admin_register_lite_strategy`
+
+Stores the only Kamino accounts the program will CPI into for that mint.
+
+## `lite_open(equity, leverage_bps)`
+
+Deposit equity, borrow `(leverage − 1) × equity` of the same mint, CPI `deposit_reserve_liquidity` for the total, write `LitePosition`. Health after.
+
+## `lite_supply(amount, attribute_shares_delta)`
+
+Add to an existing receipt. `attribute_shares_delta` is the Kamino collateral-share increase the client measured.
+
+## `lite_reduce_redeem` / `lite_reduce_repay`
+
+Two-step reduce when the client splits redeem and repay.
+
+## `lite_reduce_and_repay(exit_bps, min_yield_out, min_stock_out, route_account_count, route_data)`
+
+Atomic cross-asset unwind: redeem Kamino, optional Jupiter route back to the debt mint, repay. `exit_bps` is 2_500 / 5_000 / 7_500 / 10_000 for the 25–100% UI.
+
+CPI discriminators live in `constants::kamino_discriminators`.

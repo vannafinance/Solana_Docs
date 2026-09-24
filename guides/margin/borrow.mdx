@@ -1,0 +1,24 @@
+---
+title: "Borrow"
+description: "Pull reserve cash into the margin vault and open a debt-share position."
+mode: "wide"
+---
+
+## Steps
+
+1. Deposit recognized collateral first (or use deposit-and-borrow).
+2. Choose the borrow asset and amount.
+3. Review health after borrow. The app refuses a preview that would land at or below 1.1.
+4. Confirm. `user_open_debt_position` runs once per (margin, reserve); later borrows reuse it.
+
+Borrowed tokens land in the **same margin vault**. They can be swapped, supplied to Kamino, or held. They are not withdrawn to the wallet unless you transfer them out.
+
+## What limits a borrow
+
+- Post-borrow health must stay **> 1.1**
+- Asset `borrow_enabled` and reserve status
+- Reserve cash and borrow cap
+- `max_assets_per_margin` (24)
+- Operating mode (borrow pause / halt)
+
+See [Health Factor](/guides/margin/health-factor).

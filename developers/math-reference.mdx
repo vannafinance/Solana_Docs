@@ -1,0 +1,81 @@
+---
+title: "Math Reference"
+description: "WAD, shares, kink rates, health, and liquidation formulas from the Solana program."
+mode: "wide"
+---
+
+Source: `programs/vanna_lending/src/math/`.
+
+## Scales
+
+```text
+WAD                  = 10^18
+USD_VALUE_DECIMALS   = 9
+BASIS_POINTS         = 10_000
+SECONDS_PER_YEAR     = 31_536_000
+BALANCE_TO_BORROW    = 1.1 × WAD
+CLOSE_FACTOR_BPS     = 5_000
+MIN_INITIAL_SHARES   = 1_000
+```
+
+## Utilization and kink rate
+
+```text
+u_bps = floor(borrows × 10_000 / (cash + borrows))
+
+if u ≤ u_opt:
+  rate_bps = base + floor(slope1 × u / u_opt)
+else:
+  rate_bps = base + slope1 + floor(slope2 × (u − u_opt) / (10_000 − u_opt))
+```
+
+## Accrual
+
+```text
+interest = ceil(total_borrow × rate_bps × elapsed / (10_000 × SECONDS_PER_YEAR))
+fee      = floor(interest × reserve_factor_bps / 10_000)
+total_borrow' = total_borrow + interest
+fees'         = fees + fee
+index'        = index × (total_borrow' / total_borrow)   // WAD
+```
+
+Reject `now < last_update` (`TimestampRegression`).
+
+## Lender shares
+
+```text
+lender_assets = cash + borrows − fees
+
+supply_shares = floor(assets × total_shares / lender_assets)   // 1:1 if empty
+redeem_assets = floor(shares × lender_assets / total_shares)
+```
+
+## Debt shares
+
+```text
+new_shares  = ceil(assets × total_borrow_shares / total_borrow_assets)  // 1:1 if empty
+user_debt   = ceil(user_shares × total_borrow_assets / total_borrow_shares)
+repay_share = floor(paid × total_borrow_shares / total_borrow_assets)
+```
+
+Borrow shares round **up**. Lender shares and redeem assets round **down**.
+
+## USD and health
+
+```text
+value = token_amount × price × 10^(exp − decimals + 9)
+HF    = collateral_usd / debt_usd
+ok    ⇔ HF > 1.1
+```
+
+Collateral value floors. Debt value ceils. `value_to_token_amount` is the inverse used by liquidation seize.
+
+## Liquidation seize
+
+```text
+repay    ≤ 50% of that debt
+seize_usd = repay_usd × (10_000 + bonus_bps) / 10_000
+seize_tok = value_to_token_amount(seize_usd, …)
+```
+
+Require `seize_tok ≥ min_collateral_out`.

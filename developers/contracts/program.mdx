@@ -1,0 +1,33 @@
+---
+title: "Program Entrypoint"
+description: "vanna_lending instruction list and module map."
+mode: "wide"
+---
+
+`programs/vanna_lending/src/lib.rs`
+
+```text
+BZ812nUv4Qhr2p1JVgmoJGjYTGk1brAXckyhFSCNH3Zg
+```
+
+## Modules
+
+| Module | Job |
+|---|---|
+| `state/` | Account structs |
+| `math/` | Fixed-point, shares, interest, health |
+| `oracle/pyth.rs` | PriceUpdateV2 |
+| `validation/` | Mode gates, ATA checks, position scan |
+| `instructions/admin.rs` | Governance |
+| `instructions/lending.rs` | Supply, redeem, refresh |
+| `instructions/margin.rs` | Create, deposit, withdraw, close |
+| `instructions/borrowing.rs` | Debt, borrow, repay |
+| `instructions/composite.rs` | Deposit-and-borrow |
+| `instructions/swap.rs` | Jupiter margin swap |
+| `instructions/lite.rs` | Kamino stocks |
+| `instructions/liquidation.rs` | Public liquidate |
+| `external/kamino.rs` | Hand-rolled CPI |
+
+## Instruction groups
+
+See [Admin](/developers/contracts/admin), [Lending](/developers/contracts/lending), [Margin](/developers/contracts/margin), [Borrowing](/developers/contracts/borrowing), [Lite](/developers/contracts/lite), [Swap](/developers/contracts/swap), [Liquidation](/developers/contracts/liquidation).

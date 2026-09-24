@@ -1,0 +1,34 @@
+---
+title: "Kamino Integration"
+description: "Why xStocks APY is zero, and how Vanna uses the main market instead."
+mode: "wide"
+---
+
+Kamino is two different places in this product.
+
+## xStocks market — listed, not productive
+
+```text
+Market   5wJeMrUYECGq41fxRESKALVcHnNX26TAWy4W98yULsua
+Program  KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD
+```
+
+TSLAx / GOOGLx / AAPLx reserves exist. Utilization is tiny, so **supply interest is ~0%**. Depositing TSLAx here does not create a carry. That is the hole Vanna documents in [Why Vanna](/guides/why-vanna).
+
+`lite_open` can still CPI `deposit_reserve_liquidity` into a **registered** Kamino reserve when the strategy is same-asset. The admin stores program, market, reserve, vault, and collateral mint in `LiteStrategyConfig` so the user cannot point CPI at a random account.
+
+## Main market — where yield actually is
+
+```text
+Market   7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF
+USDC     D6q6wuQSrifJKZYpR1M8R4YawnLDtDsMmWM1NbBmgJ59
+SOL      d4A2prbA2whesmvHaL88BH6Ewn5N4bTSU2Ze8P6Bc4Q
+```
+
+Farm's carry trade swaps leveraged stock proceeds into these reserves. The frontend calls Kamino's permissionless deposit/redeem against **this** market. Addresses were verified by decoding live `Reserve` accounts, not by trusting Kamino's REST list (that list returned multiple retired USDC reserves).
+
+## Unwind
+
+`lite_reduce_redeem`, `lite_reduce_repay`, and `lite_reduce_and_repay` redeem receipts, optionally Jupiter-swap back to the debt mint, and repay Vanna. Cross-asset close is one instruction when the route is passed in.
+
+See [Lite instructions](/developers/contracts/lite).

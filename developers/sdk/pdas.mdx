@@ -1,0 +1,23 @@
+---
+title: "PDA Helpers"
+description: "Seeds used by the program and Backend-Solana/lib/solana/pdas.ts."
+mode: "wide"
+---
+
+```ts
+protocolConfigPda()                          // ["protocol"]
+assetConfigPda(mint)                         // ["asset", mint]
+reservePda(mint)                             // ["reserve", mint]
+shareMintPda(mint)                           // ["share_mint", mint]
+marginPda(authority)                         // ["margin", authority]
+debtPositionPda(margin, reserve)             // ["debt", margin, reserve]
+```
+
+Lite:
+
+```text
+["lite_strategy", underlying_mint]
+["lite_position", …]   // resolve via resolveLitePosition()
+```
+
+All `findProgramAddressSync` against `VANNA_PROGRAM_ID`.

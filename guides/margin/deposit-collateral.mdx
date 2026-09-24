@@ -1,0 +1,18 @@
+---
+title: "Deposit Collateral"
+description: "Move wallet tokens into the margin vault. The live balance is the credit."
+mode: "wide"
+---
+
+A deposit creates the associated token vault on first use. There is no separate collateral-position account. The vault's SPL balance **is** the credited amount.
+
+## Steps
+
+1. Open your margin account.
+2. Choose the asset and amount.
+3. Confirm `user_deposit_collateral` (or a composite that includes it).
+4. Check the collateral row after confirmation.
+
+Donations sent directly to a vault still increase that account's credited collateral — the vault is private to one margin PDA, so they cannot skew a shared exchange rate. Shared reserves are different: they ignore unsolicited transfers.
+
+SOL deposits wrap to WSOL.

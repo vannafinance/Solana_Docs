@@ -1,0 +1,99 @@
+---
+title: "Run and Setup"
+description: "Local Surfpool fork, hosted demo RPC, and how to boot the full stack."
+mode: "wide"
+---
+
+Two ways to use Vanna Solana:
+
+| Mode | URL | What you need |
+|---|---|---|
+| Hosted demo | [devnet.solana.vanna.finance](https://devnet.solana.vanna.finance/earn) | Browser + wallet |
+| Local fork | `http://localhost:3000` | Surfpool + both repos |
+
+The hosted hostname says `devnet`. It is a **Surfpool mainnet fork** on a VM, not public Solana Devnet. Fork RPC: [https://rpc-devnet.solana.vanna.finance](https://rpc-devnet.solana.vanna.finance).
+
+Developer-grade steps (program tests, env vars, Docker) live in [Developer Setup](/developers/setup). This page is the short path.
+
+## Hosted demo (fastest)
+
+1. Open [https://devnet.solana.vanna.finance/earn](https://devnet.solana.vanna.finance/earn).
+2. Connect a **test** wallet (or Privy).
+3. Open **Faucet** → Mint All.
+4. Earn, Perps, Swap, or Farm.
+
+Do not send mainnet funds. The faucet and balances are fork state.
+
+If an installed wallet must submit to the fork itself, add custom RPC `https://rpc-devnet.solana.vanna.finance`. The website already uses that endpoint in the browser build.
+
+## Local laptop
+
+Keep the repos as siblings:
+
+```text
+Vanna Protocol/
+├── Protocol_V1_Solana/     # Anchor program
+└── Backend-Solana/         # Next.js app
+```
+
+### 1. Start Surfpool (deploys the program)
+
+From `Protocol_V1_Solana`:
+
+```bash
+NO_DNA=1 surfpool start --no-tui --no-studio -y --legacy-anchor-compatibility \
+  --rpc-url https://api.mainnet-beta.solana.com --host 127.0.0.1 --port 8899 --ws-port 8900
+```
+
+This lazy-clones real mainnet accounts (USDC, xStocks, PreStocks, Kamino, Jupiter) onto `127.0.0.1:8899`.
+
+### 2. Start the app
+
+From `Backend-Solana`:
+
+```bash
+npm install
+cp .env.example .env.local
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000). Point Phantom/Backpack/Solflare at **custom RPC** `http://127.0.0.1:8899`. Not Devnet. Not Mainnet.
+
+### 3. Minimum `.env.local`
+
+```dotenv
+NEXT_PUBLIC_SOLANA_RPC_URL=http://127.0.0.1:8899
+NEXT_PUBLIC_SOLANA_WS_URL=ws://127.0.0.1:8900
+FORK_RPC_URL=http://127.0.0.1:8899
+NEXT_PUBLIC_VANNA_PROGRAM_ID=BZ812nUv4Qhr2p1JVgmoJGjYTGk1brAXckyhFSCNH3Zg
+```
+
+Add `NEXT_PUBLIC_PRIVY_APP_ID` only if you want Google/email. Never put a Privy secret in a `NEXT_PUBLIC_*` variable.
+
+## Program tests (no UI)
+
+```bash
+cd Protocol_V1_Solana
+cargo test --manifest-path programs/vanna_lending/Cargo.toml
+```
+
+## Verify the hosted RPC
+
+```bash
+curl -sS https://rpc-devnet.solana.vanna.finance \
+  -H 'Content-Type: application/json' \
+  --data '{"jsonrpc":"2.0","id":1,"method":"getHealth","params":[]}'
+```
+
+A healthy node returns JSON `"result":"ok"` (or equivalent). Auth on the VM, if enabled, will return 401 without credentials.
+
+## Common failures
+
+| Symptom | Fix |
+|---|---|
+| Blockhash not found | Wallet RPC is not the fork |
+| Empty balances | Use Faucet on **this** fork |
+| Site works only on your laptop | Frontend was built with `localhost` RPC |
+| Oracle / Hermes errors | Fork detection must stay `local-fork`, not hostname-based |
+
+Full VM / Caddy / snapshot runbook: `Backend-Solana/docs/HOSTED_SURFPOOL_SETUP.md`.
