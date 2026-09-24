@@ -15,6 +15,10 @@
     "href": "/home"
   },
   "css": "/custom.css",
+  "banner": {
+    "content": "**Vanna runs on a Solana mainnet fork**: add RPC `https://rpc-devnet.solana.vanna.finance` to your wallet. [Setup guide →](/guides/connect-wallet#set-a-custom-rpc-in-backpack)",
+    "dismissible": false
+  },
   "navbar": {
     "links": [
       {
