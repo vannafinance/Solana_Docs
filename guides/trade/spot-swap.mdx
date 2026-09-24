@@ -20,4 +20,4 @@ Spot is a Jupiter-routed swap. Use it to rotate wallet inventory, or to move mar
 
 Margin-balance swaps call `user_margin_swap`: the program signs the vault, Jupiter executes, and a health check runs on the new balances. Wallet swaps never touch the PDA.
 
-Token-2022 transfer fees (xStocks, PreStocks) are included in sizing. A quote that looks "short" versus the headline price is often the fee, not a bug.
+PreStocks (ANTHROPIC, OPENAI) carry a real Token-2022 transfer fee (~1%) that is included in sizing. xStocks (TSLAx, GOOGLx, AAPLx) are Token-2022 but have no transfer fee. A quote that looks "short" versus the headline price on a PreStock leg is often the fee, not a bug.

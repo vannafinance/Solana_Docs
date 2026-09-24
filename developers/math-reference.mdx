@@ -73,9 +73,11 @@ Collateral value floors. Debt value ceils. `value_to_token_amount` is the invers
 ## Liquidation seize
 
 ```text
-repay    ≤ 50% of that debt
+repay    ≤ 50% of that debt   // CLOSE_FACTOR_BPS = 5_000
 seize_usd = repay_usd × (10_000 + bonus_bps) / 10_000
 seize_tok = value_to_token_amount(seize_usd, …)
 ```
 
 Require `seize_tok ≥ min_collateral_out`.
+
+`CLOSE_FACTOR_BPS` is a compiled constant, not a governed `Reserve`/`ProtocolConfig` field. The code comment above it explicitly calls the 50% figure illustrative — "requiring simulation and audit before production, not a frozen protocol parameter" — so treat it as a V1 default, not a permanent guarantee.

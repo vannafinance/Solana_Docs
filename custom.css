@@ -146,7 +146,7 @@ body:has(.vanna-poster) li:not(:has(svg)):has(a[href="home"]) {
 .vanna-poster-line {
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   font-size: 54px;
-  line-height: 1.02;
+  line-height: 1.2;
   font-weight: 700;
   letter-spacing: -0.035em;
   color: #ffffff;
@@ -172,6 +172,7 @@ body:has(.vanna-poster) li:not(:has(svg)):has(a[href="home"]) {
   .vanna-poster-line      { font-size: 32px; white-space: normal; }
   .vanna-poster-logo      { height: 28px; }
 }
+
 
 /* ─── Homepage Layout ──────────────────────────────────────────── */
 

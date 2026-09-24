@@ -19,7 +19,7 @@ mode: "wide"
 
 ## What "one-click" means
 
-The app builds the required instructions (create margin if needed, deposit, borrow, swap, Kamino supply, Lite bookkeeping) and sends them so you are not clicking five protocols. Solana transactions are atomic **within one signature**. If the app must split a later reduce/unwind, an earlier confirmed step stays.
+The app builds the required instructions (create margin if needed, deposit, borrow, swap, Kamino supply, Lite bookkeeping) and sends them so you are not clicking five protocols. Solana transactions are atomic **within one signature**. Opening always fits in one. Closing/reducing a position is sent as two separate signatures (redeem + repay, then the collateral withdraw) instead — sizing the second off real post-repay on-chain state, not a guess — so an earlier confirmed step stays even if the second one fails or you don't sign it right away.
 
 Health is checked on the way in. A preview that would print HF ≤ 1.1 is rejected.
 

@@ -38,7 +38,7 @@ Risk-sensitive calls pass **remaining accounts** so the program can see every ac
 | `/api/faucet/fork/[token]` | Fork mint |
 | `/api/solana/history` | Activity |
 
-Browser RPC is `NEXT_PUBLIC_SOLANA_RPC_URL` (hosted: `https://rpc-devnet.solana.vanna.finance`). Server routes use `FORK_RPC_URL` on loopback when the app and Surfpool share a VM.
+Browser RPC is `NEXT_PUBLIC_SOLANA_RPC_URL` (hosted: `https://rpc-devnet.solana.vanna.finance`). Server routes use `FORK_RPC_URL` on loopback when the app and Surfpool share a VM. Despite the `devnet` hostname, this is a Surfpool **mainnet fork**, not the public Solana Devnet cluster.
 
 ## Boundaries
 

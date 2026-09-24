@@ -22,7 +22,7 @@ No separate perp program. Long/short is borrow + Jupiter + margin health. You ho
 
 ## What is max leverage?
 
-5× on Perps and Farm (`50_000` bps). Health must still clear 1.1, so effective leverage is often lower.
+5× is the cap in both places, but enforced differently. Farm (`lite_open`) checks it on-chain: `MAX_LEVERAGE_BPS = 50_000`. Perps has no on-chain leverage parameter at all — it's a plain deposit + borrow gated only by the account's health factor; 5× is a UI-only slider cap. Either way, health must still clear 1.10, so effective leverage is often lower than the number on the slider.
 
 ## Can I withdraw anytime (Earn)?
 

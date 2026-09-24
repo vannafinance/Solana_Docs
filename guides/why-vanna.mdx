@@ -12,7 +12,7 @@ That is the gap Vanna closed for [Stocklana](https://hackathons.solana.com/hacka
 
 ### 1. There was no perp market
 
-You could buy TSLAx on a DEX. You could not long it with isolated margin, short it into a drawdown, or close the book in one transaction. Tokenized stocks had spot. They did not have a trading venue that behaved like a brokerage.
+You could buy TSLAx on a DEX. You could not long it with margin, short it into a drawdown, or close the book in one transaction. Tokenized stocks had spot. They did not have a trading venue that behaved like a brokerage.
 
 **Vanna Perps** opens and closes long/short stock exposure from a margin account. Long deposits USDC, borrows more USDC, and swaps the total into the stock. Short deposits the stock, borrows more of that stock, and swaps the total into USDC. Both paths are one signed Solana transaction.
 
@@ -40,7 +40,7 @@ A tokenized share sitting in a wallet does one thing: it tracks the name. No cre
 |---|---|---|
 | Hold TSLAx / OPENAI | Yes | Yes |
 | Earn interest on the stock itself | No — Kamino stock APY ≈ 0% | Yes — Vanna stock pools |
-| Borrow against the stock | No productive credit market | Yes — isolated margin, HF > 1.1 |
+| Borrow against the stock | No productive credit market | Yes — cross-margin account, HF > 1.1 |
 | Long / short the stock | No perp venue | Yes — up to 5×, Jupiter-routed |
 | One-click yield | No | Yes — stock → USDC/SOL → Kamino main |
 

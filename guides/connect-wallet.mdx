@@ -15,11 +15,21 @@ The Solana app supports **Wallet Standard** wallets (Phantom, Backpack, Solflare
 3. Confirm the displayed address.
 4. Wait for balances and any existing margin account to load from the fork.
 
-<Warning>
-If you use an installed wallet against a **local** Surfpool node, add a custom RPC of `http://127.0.0.1:8899` and switch to that network. Sending a fork-built transaction to public Devnet or Mainnet fails with **Blockhash not found**.
-</Warning>
+The website's own RPC calls already go to the hosted fork (`https://rpc-devnet.solana.vanna.finance`), so a default wallet connection works out of the box for browsing and signing. You only need to manually point your wallet at that RPC if your wallet does its own balance/simulation reads against a different network by default — Backpack is the common case, since it defaults to public Mainnet/Devnet.
 
-The hosted demo already talks to `https://rpc-devnet.solana.vanna.finance`. You do not need a local node to try the live site.
+## Set a custom RPC in Backpack
+
+Backpack needs to be told about Vanna's fork explicitly, or it will show mainnet/devnet balances instead of your fork state:
+
+1. Open the Backpack extension and click the network name at the top (e.g. **Mainnet**).
+2. Select **Add Custom RPC** (or **Custom Rpc** if you've already added one).
+3. Paste the fork endpoint: `https://rpc-devnet.solana.vanna.finance`.
+4. Save, then confirm Backpack now shows **Custom Rpc: https://rpc-devnet.solana.vanna.finance** at the top of the wallet panel.
+5. Reconnect on [devnet.solana.vanna.finance](https://devnet.solana.vanna.finance/earn) — Backpack now reads and signs against the same fork the site itself uses.
+
+<Warning>
+If you use an installed wallet against a **local** Surfpool node instead (see [Run and Setup](/guides/setup)), use `http://127.0.0.1:8899` as the custom RPC instead of the hosted URL. Sending a fork-built transaction to the wrong network fails with **Blockhash not found**.
+</Warning>
 
 ## Faucet
 
@@ -28,7 +38,7 @@ Open **Faucet** in the header. Mint the assets you need, or use **Mint All**.
 | Asset | Typical faucet grant |
 |---|---|
 | SOL | +100 SOL airdrop |
-| USDC | +100 USDC |
+| USDC | +1000 USDC |
 | TSLAx | +20 TSLAx |
 | GOOGLx | +20 GOOGLx |
 | AAPLx | +20 AAPLx |

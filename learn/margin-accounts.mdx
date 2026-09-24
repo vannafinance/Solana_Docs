@@ -27,7 +27,7 @@ user_debt_tokens = ceil(user_shares × total_borrow_assets / total_borrow_shares
 ```text
 create → deposit → borrow / swap / lite_open
                 ↘ repay → withdraw → close (empty)
-                ↘ liquidate (HF ≤ 1.1)
+                ↘ liquidate (HF ≤ 1.10)
 ```
 
 `MAX_ASSETS = 24` bounds both collateral and debt slots so every health scan is a fixed cost.

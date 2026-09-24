@@ -1,6 +1,6 @@
 ---
 title: "Liquidation"
-description: "Permissionless, partial, bonus-paid close of HF ≤ 1.1 accounts."
+description: "Permissionless, partial, bonus-paid close of HF ≤ 1.10 accounts."
 mode: "wide"
 ---
 
@@ -8,7 +8,7 @@ mode: "wide"
 
 1. Accrue the reserve.
 2. Rebuild every collateral, debt, and Lite position.
-3. Require HF ≤ 1.1.
+3. Require HF ≤ 1.10.
 4. Repay up to 50% of the chosen debt (`CLOSE_FACTOR_BPS`).
 5. Seize collateral USD equal to repaid USD × (1 + bonus bps).
 6. Transfer seized tokens to the liquidator.

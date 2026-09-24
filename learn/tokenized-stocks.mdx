@@ -18,7 +18,7 @@ They trade on DEXes. Pyth publishes equity and xStock feeds (`Equity.US.AAPL/USD
 
 ## What did not exist
 
-1. **No perp market.** You could not long or short the token with isolated margin.
+1. **No perp market.** You could not long or short the token with margin.
 2. **No interest.** Kamino xStocks utilization is ~0, so supply APY is ~0. Holding in Kamino was still just holding.
 3. **No one-click credit.** No path from "I own TSLAx" to "that TSLAx is working in a market that pays."
 
@@ -29,6 +29,6 @@ They trade on DEXes. Pyth publishes equity and xStock feeds (`Equity.US.AAPL/USD
 - **Long / short** via borrow + Jupiter (real tokens, not a virtual future)
 - **Farm** that routes stock equity into Kamino **main-market** USDC/SOL, where APY is real
 
-Transfer fees on Token-2022 are measured on every vault move. Quotes and health use the amount that actually arrived.
+PreStocks (ANTHROPIC, OPENAI) carry a genuine Token-2022 `TransferFeeConfig` extension at 100bps (1%) per transfer — a real third-party fee Vanna did not create, just accounts for. xStocks (TSLAx, GOOGLx, AAPLx) have no transfer fee. Either way, fees are measured on every vault move, not assumed: quotes and health use the amount that actually arrived, not the amount requested.
 
 This is the Stocklana wedge: not another stock wrapper — **utilities around the wrappers that already shipped**.

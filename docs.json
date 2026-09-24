@@ -23,7 +23,7 @@
       },
       {
         "label": "GitHub",
-        "href": "https://github.com/vanna-finance"
+        "href": "https://github.com/vannafinance"
       }
     ],
     "primary": {
@@ -247,7 +247,7 @@
   "footer": {
     "socials": {
       "x": "https://x.com/vannafinance",
-      "github": "https://github.com/vanna-finance",
+      "github": "https://github.com/vannafinance",
       "discord": "https://discord.gg/vanna"
     }
   }
