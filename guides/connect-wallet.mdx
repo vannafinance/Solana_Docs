@@ -1,34 +1,73 @@
 ---
 title: "Connect Your Wallet"
-description: "Connect Phantom, Backpack, Solflare, or Privy and mint test assets on the Vanna fork."
+description: "Connect Backpack, point it at the Vanna fork RPC, and mint test assets."
 mode: "wide"
 ---
 
-## Supported connection methods
+## Supported wallet
 
-The Solana app supports **Wallet Standard** wallets (Phantom, Backpack, Solflare, and others) and, when configured, **Privy email/Google login** with an embedded Solana wallet.
+The app connects with **[Backpack](https://backpack.app/download)**, a Solana Wallet Standard wallet.
 
 ## Connect
 
-1. Open [devnet.solana.vanna.finance](https://devnet.solana.vanna.finance/earn) and choose **Connect**.
-2. Pick an installed wallet, or continue with Google/email if Privy is enabled.
+1. Open [devnet.solana.vanna.finance](https://devnet.solana.vanna.finance/earn) and choose **Connect Wallet**.
+2. Pick **Backpack** and approve the connection in the extension.
 3. Confirm the displayed address.
 4. Wait for balances and any existing margin account to load from the fork.
 
-The website's own RPC calls already go to the hosted fork (`https://rpc-devnet.solana.vanna.finance`), so a default wallet connection works out of the box for browsing and signing. You only need to manually point your wallet at that RPC if your wallet does its own balance/simulation reads against a different network by default — Backpack is the common case, since it defaults to public Mainnet/Devnet.
+The site sends every transaction to the hosted fork (`https://rpc-devnet.solana.vanna.finance`) itself; Backpack only signs. Setting Backpack's RPC to the same fork (below) makes Backpack show your **fork** balances and preview transactions against the fork instead of public Mainnet.
 
 ## Set a custom RPC in Backpack
 
-Backpack needs to be told about Vanna's fork explicitly, or it will show mainnet/devnet balances instead of your fork state:
+<Steps>
+  <Step title="Open Backpack">
+    Open the Backpack extension. With its default RPC it shows your public Mainnet balances, not the fork.
 
-1. Open the Backpack extension and click the network name at the top (e.g. **Mainnet**).
-2. Select **Add Custom RPC** (or **Custom Rpc** if you've already added one).
-3. Paste the fork endpoint: `https://rpc-devnet.solana.vanna.finance`.
-4. Save, then confirm Backpack now shows **Custom Rpc: https://rpc-devnet.solana.vanna.finance** at the top of the wallet panel.
-5. Reconnect on [devnet.solana.vanna.finance](https://devnet.solana.vanna.finance/earn) — Backpack now reads and signs against the same fork the site itself uses.
+    <Frame caption="Backpack on its default RPC. Click the image to zoom.">
+      <img src="/images/wallet/1-open-wallet.png" alt="Backpack wallet home screen showing a 0 SOL balance on the default RPC" loading="lazy" decoding="async" />
+    </Frame>
+  </Step>
+  <Step title="Open Settings">
+    Click the **account icon** (top left), then **Settings**.
+
+    <Frame caption="Account menu with Settings. Click the image to zoom.">
+      <img src="/images/wallet/2-open-settings.png" alt="Backpack account menu open with the Settings option highlighted" loading="lazy" decoding="async" />
+    </Frame>
+  </Step>
+  <Step title="Select Solana">
+    Click **Solana** (not Solana Devnet).
+
+    <Frame caption="Settings: pick the Solana network. Click the image to zoom.">
+      <img src="/images/wallet/3-select-solana.png" alt="Backpack settings list with Solana and Solana Devnet entries" loading="lazy" decoding="async" />
+    </Frame>
+  </Step>
+  <Step title="Open RPC Connection">
+    Click **RPC Connection**. It shows **Backpack Default RPC** until you change it.
+
+    <Frame caption="Solana settings: RPC Connection. Click the image to zoom.">
+      <img src="/images/wallet/4-rpc-connection.png" alt="Backpack Solana settings showing RPC Connection set to Backpack Default RPC" loading="lazy" decoding="async" />
+    </Frame>
+  </Step>
+  <Step title="Choose Custom">
+    Click **Custom**.
+
+    <Frame caption="RPC Connection: choose Custom. Click the image to zoom.">
+      <img src="/images/wallet/5-custom.png" alt="Backpack RPC Connection screen with Backpack Default RPC and Custom options" loading="lazy" decoding="async" />
+    </Frame>
+  </Step>
+  <Step title="Paste the Vanna RPC and click Update">
+    Paste `https://rpc-devnet.solana.vanna.finance` into the **RPC** field and click **Update**.
+
+    <Frame caption="Change RPC Connection with the Vanna fork URL. Click the image to zoom.">
+      <img src="/images/wallet/6-paste-rpc.png" alt="Backpack Change RPC Connection screen with the Vanna fork RPC URL entered and an Update button" loading="lazy" decoding="async" />
+    </Frame>
+  </Step>
+</Steps>
+
+Backpack now shows **Custom Rpc: https://rpc-devnet.solana.vanna.finance** at the top of the wallet panel, and your balances match the app. Reconnect on [devnet.solana.vanna.finance](https://devnet.solana.vanna.finance/earn) if the site was already open.
 
 <Warning>
-If you use an installed wallet against a **local** Surfpool node instead (see [Run and Setup](/guides/setup)), use `http://127.0.0.1:8899` as the custom RPC instead of the hosted URL. Sending a fork-built transaction to the wrong network fails with **Blockhash not found**.
+If you run a **local** Surfpool node instead (see [Run and Setup](/guides/setup)), use `http://127.0.0.1:8899` as the custom RPC instead of the hosted URL.
 </Warning>
 
 ## Faucet
@@ -53,6 +92,6 @@ These are fork cheatcode top-ups. They do not move real mainnet tokens.
 
 ## Reconnect
 
-Use the same wallet or Privy login to return to the same margin account. A different address has different holdings, debt, and Farm positions.
+Use the same Backpack account to return to the same margin account. A different address has different holdings, debt, and Farm positions.
 
 Continue with [Earn](/guides/earn/overview) or [Open a Margin Account](/guides/margin/open-account).

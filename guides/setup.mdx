@@ -18,7 +18,7 @@ Developer-grade steps (program tests, env vars, Docker) live in [Developer Setup
 ## Hosted demo (fastest)
 
 1. Open [https://devnet.solana.vanna.finance/earn](https://devnet.solana.vanna.finance/earn).
-2. Connect a **test** wallet (or Privy).
+2. Connect a **test** Backpack wallet.
 3. Open **Faucet** → Mint All.
 4. Earn, Perps, Swap, or Farm.
 
@@ -57,7 +57,7 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). Point Phantom/Backpack/Solflare at **custom RPC** `http://127.0.0.1:8899`. Not Devnet. Not Mainnet.
+Open [http://localhost:3000](http://localhost:3000). Point Backpack at **custom RPC** `http://127.0.0.1:8899`. Not Devnet. Not Mainnet.
 
 ### 3. Minimum `.env.local`
 
@@ -68,7 +68,7 @@ FORK_RPC_URL=http://127.0.0.1:8899
 NEXT_PUBLIC_VANNA_PROGRAM_ID=BZ812nUv4Qhr2p1JVgmoJGjYTGk1brAXckyhFSCNH3Zg
 ```
 
-Add `NEXT_PUBLIC_PRIVY_APP_ID` only if you want Google/email. Never put a Privy secret in a `NEXT_PUBLIC_*` variable.
+Never put a secret in a `NEXT_PUBLIC_*` variable; those are shipped to the browser.
 
 ## Program tests (no UI)
 
