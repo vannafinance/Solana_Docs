@@ -16,15 +16,14 @@ mode: "wide"
 
 They trade on DEXes. Pyth publishes equity and xStock feeds (`Equity.US.AAPL/USD`, `Crypto.AAPLX/USD`, and siblings). Kamino listed several xStocks.
 
-## What did not exist
+## What was missing
 
-1. **No perp market.** You could not long or short the token with margin.
-2. **No interest.** Kamino xStocks utilization is ~0, so supply APY is ~0. Holding in Kamino was still just holding.
-3. **No one-click credit.** No path from "I own TSLAx" to "that TSLAx is working in a market that pays."
+1. **No interest.** Kamino xStocks utilization is ~0, so supply APY is ~0. Holding in Kamino was still just holding.
+2. **No one-click credit.** No path from "I own TSLAx" to "that TSLAx is working in a market that pays."
 
 ## What Vanna added
 
-- Isolated **lending pools** for those mints — borrowers create a rate
+- A separate **lending pool** for each token — borrowers create a rate
 - **Margin credit** against the same tokens
 - **Long / short** via borrow + Jupiter (real tokens, not a virtual future)
 - **Farm** that routes stock equity into Kamino **main-market** USDC/SOL, where APY is real
