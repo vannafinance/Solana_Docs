@@ -23,7 +23,7 @@
     "links": [
       {
         "label": "App",
-        "href": "https://devnet.solana.vanna.finance/earn"
+        "href": "https://devnet.solana.vanna.finance/portfolio"
       },
       {
         "label": "GitHub",
@@ -33,7 +33,7 @@
     "primary": {
       "type": "button",
       "label": "Launch App",
-      "href": "https://devnet.solana.vanna.finance/earn"
+      "href": "https://devnet.solana.vanna.finance/portfolio"
     }
   },
   "navigation": {
@@ -176,9 +176,7 @@
               "developers/architecture",
               "developers/deployed-contracts",
               "developers/math-reference",
-              "developers/frontend",
-              "developers/setup",
-              "developers/review-scope"
+              "developers/setup"
             ]
           },
           {
@@ -214,26 +212,13 @@
         ]
       },
       {
-        "anchor": "Security",
-        "icon": "shield-halved",
-        "groups": [
-          {
-            "group": "Security",
-            "pages": [
-              "security/overview"
-            ]
-          }
-        ]
-      },
-      {
         "anchor": "Resources",
         "icon": "circle-info",
         "groups": [
           {
             "group": "Resources",
             "pages": [
-              "resources/faq",
-              "resources/hackathon"
+              "resources/faq"
             ]
           }
         ]
