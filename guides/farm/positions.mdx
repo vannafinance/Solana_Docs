@@ -1,30 +1,39 @@
 ---
 title: "Farm Positions"
-description: "Read collateral, debt, Kamino receipts, and exit 25% / 50% / 75% / 100%."
+description: "Track what you've farmed, what it's earned, and exit."
 mode: "wide"
 ---
 
-<Frame caption="TSLAx → USDC position. Collateral, debt with interest, Kamino supplied, net APR, exit slider. Click the image to zoom.">
-  <img src="/images/farm/position.png" alt="Farm position view for TSLAx to USDC with exit amount slider" loading="lazy" decoding="async" />
-</Frame>
+There are three places to see your Farm positions.
 
-## Read the card
+## Farm → Positions
+
+On the Farm page, switch from **Vaults** to **Positions** to list only the vaults you hold, across Kamino, Perena and the basis vaults, with your holding in each.
+
+## The vault page
+
+Each vault page's **All Transactions** tab shows:
 
 | Field | Meaning |
 |---|---|
-| Collateral | Stock (or remaining equity) backing the account |
-| Debt | Vanna borrow, including interest |
-| Supplied to Kamino | Receipt value at the current reserve exchange rate |
-| Net value | Supplied − debt, in the UI's unit |
-| Net APR | Supply APR − borrow APR at current rates |
+| **Position value** | What your holding is worth now, in USD |
+| **Receipt balance** | Your kSOL / USD\* / vbBTC… |
+| **Earned yield** | Your gain since your first deposit (the date is shown below it) |
+| **Current Position** | Asset, protocol, supplied amount or value, receipt balance and APY |
+| **Position History** | Every deposit and withdrawal with date, amount, status and transaction hash |
 
-## Exit
+Use **Customize** to choose the columns and the filter to narrow the history.
 
-1. Open **Position**.
-2. Choose 25% / 50% / 75% / 100%.
-3. Review estimated Kamino redeem, swap, and repay.
-4. Confirm. `lite_reduce_*` / `lite_reduce_and_repay` unwind only **that** stock.
+## Margin → Positions
 
-A 100% exit should repay that stock's debt and return leftover tokens to the margin vault (then withdrawable if health allows). Residual dust can remain after fees and slippage. Check the account before opening the next trade.
+Farm receipts are collateral, so they also appear in the Margin page's **Collateral Deposited** column (with a **vault** tag for vault shares). The **Farm** chip above that table counts your Farm positions.
 
-History is a separate tab. It does not by itself repay anything.
+## Exiting
+
+| Venue | How to exit |
+|---|---|
+| Kamino | **Withdraw** a percentage on the vault page; the token returns to your margin account |
+| Perena | **Withdraw** shares; USDC returns to your margin account (USD\* Junior: 1% instant-exit fee) |
+| Basis vaults | **Withdraw** shares; the vault unwinds both legs and returns USDC |
+
+To close everything at once, including repaying your loans, use [Flash repay](/guides/margin/repay#flash-repay). It redeems Kamino receipts automatically; vault shares can be withdrawn on their pages.

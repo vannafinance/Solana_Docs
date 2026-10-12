@@ -1,53 +1,93 @@
 ---
 title: "Developer Setup"
-description: "Toolchain, tests, env, and hosted fork notes."
+description: "Toolchain, build, tests, the local fork, the app, and hosted fork notes."
 mode: "wide"
 ---
 
-User-facing short path: [Run and Setup](/guides/setup). This page is the engineering checklist.
+## Toolchain
 
-## Toolchain (verified in-repo)
+| Tool | Version | Needed for |
+|---|---|---|
+| Rust | `1.89.0` (from `rust-toolchain.toml`) | Build, tests |
+| Solana CLI | 3.x | `cargo build-sbf`, refreshing fixtures |
+| Anchor CLI | `1.1.2` | Build |
+| Node.js | 20+ for `scripts/`, 22 for the app image | Scripts, app |
+| Surfpool | latest | Local mainnet fork |
+| Python | 3.9+ | Refreshing mainnet fixtures only |
 
-```text
-anchor-cli  1.1.2
-solana-cli  3.1.10 (Agave)
-rustc       pinned by Protocol_V1_Solana/rust-toolchain.toml
-Node        22 for Backend-Solana
-surfpool    1.5.0 on the hosted VM runbook
-```
-
-## Program
+## Programs
 
 ```bash
-cd Protocol_V1_Solana
-cargo test --manifest-path programs/vanna_lending/Cargo.toml
+cd vanna-credit-layer
+anchor build                       # three programs -> target/deploy/*.so, IDLs in target/idl/
 ```
 
-Tests: `test_full_flow`, `test_liquidation`, `test_admin_and_lifecycle`, `test_security`, `test_deposit_and_borrow`. They use LiteSVM, not a public cluster.
+If a local `target/deploy/<name>-keypair.json` belongs to a different address, build with `anchor build --ignore-keys`. Don't run `anchor keys sync` unless you mean to change the program IDs.
 
-Copy-paste command list: `Protocol_V1_Solana/COMMANDS.md`.
+## Tests
+
+The tests run in LiteSVM (no validator) and load all three programs from `target/deploy/`, so build first and rebuild after any program change.
+
+```bash
+M=programs/vanna_credit_layer/Cargo.toml
+cargo test --manifest-path $M                    # everything
+cargo test --manifest-path $M --test phoenix     # one binary
+```
+
+| Binary | Covers |
+|---|---|
+| `test_full_flow` | Lend → deposit → borrow → repay → withdraw |
+| `test_liquidation` | Partial liquidation, close factor, bonus, write-off, price checks |
+| `test_hardening` | Share accounting, issuer controls, transfer fees, frozen accounts |
+| `test_allowed_tokens` | The allowed-token list, caps, per-margin limits |
+| `test_security`, `test_admin_and_lifecycle` | Access control, admin instructions, open / close |
+| `test_interest_rate`, `test_math`, `test_state` | Rate model, fixed-point and health math, registries |
+| `test_oracle` | Scope chains, Pyth fallback, TWAP / staleness / confidence, price-book rules |
+| `test_oracle_live` | Ignored by default; reads live mainnet oracle accounts |
+| `kamino`, `jupiter`, `titan`, `perena`, `phoenix` | Each integration against the real mainnet program binaries |
+
+The basis-vault tests live in their own crate (`tests/basis`) because Phoenix's Hawkeye program needs a newer LiteSVM:
+
+```bash
+anchor build
+cd tests/basis && cargo test -- --nocapture
+```
+
+## Local mainnet fork
+
+```bash
+anchor build
+mkdir -p /tmp/vanna-fork && cd /tmp/vanna-fork
+surfpool start --network mainnet --no-tui --no-deploy
+
+# second terminal
+cd vanna-credit-layer/scripts && npm install
+bash bootstrap-fork.sh             # deploys the three programs and registers assets, reserves, integrations
+```
+
+The wallet that runs `bootstrap-fork.sh` becomes the protocol admin. `npm run devnet -- <command>` has one command per core instruction. `npm run integrations-fork -- <command>` covers funding, Kamino, Jupiter, Titan, Phoenix, Perena and the basis vaults. Run either with no command to print its list.
 
 ## App
 
 ```bash
-cd Backend-Solana
+cd vanna-credit-backend
 npm ci
 cp .env.example .env.local
 npm test
 npm run dev
 ```
 
-Required env is listed in [Run and Setup](/guides/setup). Hosted builds bake `NEXT_PUBLIC_*` in at **image build** time. Changing runtime env does not rewrite client RPC URLs.
+Key settings in `.env.example`: `NEXT_PUBLIC_SOLANA_RPC_URL`, `NEXT_PUBLIC_SOLANA_WS_URL`, `FORK_RPC_URL`, `NEXT_PUBLIC_VANNA_PROGRAM_ID`, and server-only API keys for Jupiter and Titan. Titan quotes are skipped when the server has no Titan key.
+
+<Warning>
+Hosted builds bake `NEXT_PUBLIC_*` values in at image build time. Changing runtime environment does not rewrite client RPC URLs. Never put API keys in `NEXT_PUBLIC_*` variables.
+</Warning>
 
 ## Hosted layout
 
 ```text
-https://devnet.solana.vanna.finance/        → Next.js
-https://rpc-devnet.solana.vanna.finance     → Surfpool RPC
+https://test.solana.vanna.finance        → Next.js app
+https://rpc-devnet.solana.vanna.finance  → Surfpool RPC (mainnet fork)
 ```
 
-Server-side `FORK_RPC_URL=http://127.0.0.1:8899` on the VM. Browser never receives loopback.
-
-Do not run `scripts/test-*-fork.ts` on the shared node — those fixtures overwrite state.
-
-Full operator guide: `Backend-Solana/docs/HOSTED_SURFPOOL_SETUP.md`.
+The app's end-to-end scripts (`npm run e2e`, `scripts/e2e-*.ts`) run against the fork through the app's own services. Avoid scripts that overwrite shared fixtures on the hosted node.

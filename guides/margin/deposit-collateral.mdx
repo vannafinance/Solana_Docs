@@ -1,18 +1,47 @@
 ---
 title: "Deposit Collateral"
-description: "Move wallet tokens into the margin vault. The live balance is the credit."
+description: "Add SOL, USDC, LSTs, JupUSD or xStocks to your margin account."
 mode: "wide"
 ---
 
-A deposit creates the associated token vault on first use. There is no separate collateral-position account. The vault's SPL balance **is** the credited amount.
+There are two ways to deposit:
 
-## Steps
+| Where | Use it when |
+|---|---|
+| **Leverage your Assets** tab | You want to deposit and borrow in one transaction |
+| **Transfer Collateral → MB** | You only want to move tokens into the margin account |
 
-1. Open your margin account.
-2. Choose the asset and amount.
-3. Confirm `user_deposit_collateral` (or a composite that includes it).
-4. Check the collateral row after confirmation.
+## Deposit (and borrow) in one go
 
-Donations sent directly to a vault still increase that account's credited collateral — the vault is private to one margin PDA, so they cannot skew a shared exchange rate. Shared reserves are different: they ignore unsolicited transfers.
+<Steps>
+  <Step title="Open Leverage your Assets">
+    On **Margin**, keep the first tab selected.
+  </Step>
+  <Step title="Pick the token and source">
+    Under **Deposit**, choose the token. **WB** deposits from your wallet balance; **MB** uses what's already in your margin account.
+  </Step>
+  <Step title="Enter the amount">
+    Type it or use **10% / 25% / 50% / 100%**. The USD value and current price are shown under the field.
+  </Step>
+  <Step title="Add more collateral (optional)">
+    **+ Add Collateral** adds another token to the same transaction, so you can deposit several assets at once.
+  </Step>
+  <Step title="Borrow, or not">
+    Set the borrow amount or leverage (see [Borrow](/guides/margin/borrow)). To deposit only, leave the borrow at zero.
+  </Step>
+  <Step title="Review and sign">
+    Check **Transaction Details** and the before → after account preview, then click **Deposit & Borrow** (or deposit) and approve.
+  </Step>
+</Steps>
 
-SOL deposits wrap to WSOL.
+## Accepted collateral
+
+SOL, USDC, JitoSOL, JupSOL, JupUSD, NVDAx, GOOGLx, AAPLx and TSLAx can be deposited. USDT can be held, borrowed, repaid and withdrawn, but isn't offered as a deposit.
+
+Each asset counts at its full oracle value: health factor is total collateral ÷ total debt with no per-asset haircut.
+
+<Note>
+When you deposit SOL from your wallet, the app keeps a small SOL reserve (0.05 SOL) back so you can still pay transaction fees.
+</Note>
+
+Next: [Borrow](/guides/margin/borrow)

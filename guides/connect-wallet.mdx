@@ -1,97 +1,77 @@
 ---
 title: "Connect Your Wallet"
-description: "Connect Backpack, point it at the Vanna fork RPC, and mint test assets."
+description: "Add the Vanna fork RPC to Phantom, Solflare or Backpack, then connect to the app."
 mode: "wide"
 ---
 
-## Supported wallet
+## Supported wallets
 
-The app connects with **[Backpack](https://backpack.app/download)**, a Solana Wallet Standard wallet.
+Vanna uses the Solana **Wallet Standard**, so any wallet that registers itself is detected automatically. Tested with:
+
+- [Phantom](https://phantom.com/download)
+- [Solflare](https://solflare.com/download)
+- [Backpack](https://backpack.app/download)
+
+Use a **test** wallet. Nothing on the fork is real money, but there is no reason to expose a wallet that holds real funds.
+
+## Add the Vanna RPC to your wallet
+
+Vanna runs on a Solana **mainnet fork**. The app already reads and sends every transaction through the fork RPC, but your wallet also needs it: otherwise the wallet shows your real Mainnet balances and simulates transactions against Mainnet, so previews look wrong or fail.
+
+```text
+https://rpc-devnet.solana.vanna.finance
+```
+
+The purple strip at the top of every page shows this URL with a **Copy** button.
+
+<Frame caption="The RPC strip at the top of the app: click the URL to copy it.">
+  <img src="/images/rpc-banner.png" alt="Purple banner reading: Vanna runs on a Solana mainnet fork: add RPC https://rpc-devnet.solana.vanna.finance to your wallet. Setup guide" loading="lazy" decoding="async" />
+</Frame>
+
+<Tabs>
+  <Tab title="Phantom">
+    <Steps>
+      <Step title="Open settings">Open Phantom, click your **account icon** (top left), then **Settings**.</Step>
+      <Step title="Developer settings">Open **Developer Settings** and turn on **Testnet Mode** if Phantom asks for it before showing network options.</Step>
+      <Step title="Custom RPC">Under **Solana**, choose the custom RPC option and paste `https://rpc-devnet.solana.vanna.finance`. Save.</Step>
+    </Steps>
+    Menu names move between Phantom releases. If you can't find a custom RPC field, use Solflare or Backpack, which expose it directly.
+  </Tab>
+  <Tab title="Solflare">
+    <Steps>
+      <Step title="Open settings">Open Solflare and go to **Settings → Network**.</Step>
+      <Step title="Add a custom node">Choose **Custom node** (or **Add custom RPC**) and paste `https://rpc-devnet.solana.vanna.finance`.</Step>
+      <Step title="Select it">Save and make sure the custom node is the selected network.</Step>
+    </Steps>
+  </Tab>
+  <Tab title="Backpack">
+    <Steps>
+      <Step title="Open settings">Click the **account icon** (top left), then **Settings**.</Step>
+      <Step title="Select Solana">Click **Solana** (not Solana Devnet).</Step>
+      <Step title="RPC Connection">Click **RPC Connection**, then **Custom**.</Step>
+      <Step title="Paste and update">Paste `https://rpc-devnet.solana.vanna.finance` into the RPC field and click **Update**.</Step>
+    </Steps>
+    Backpack then shows **Custom Rpc** at the top of the wallet panel.
+  </Tab>
+</Tabs>
+
+<Warning>
+Running the stack on your own machine? Use your local node `http://127.0.0.1:8899` instead (see [Run It Yourself](/guides/setup)).
+</Warning>
 
 ## Connect
 
-1. Open [devnet.solana.vanna.finance](https://devnet.solana.vanna.finance/portfolio) and choose **Connect Wallet**.
-2. Pick **Backpack** and approve the connection in the extension.
-3. Confirm the displayed address.
-4. Wait for balances and any existing margin account to load from the fork.
+1. Open [test.solana.vanna.finance](https://test.solana.vanna.finance).
+2. Click the wallet button at the top right and pick your wallet.
+3. Approve the connection. Your shortened address appears in the header.
+4. Wait a moment for balances and any existing margin account to load from the fork.
 
-The site sends every transaction to the hosted fork (`https://rpc-devnet.solana.vanna.finance`) itself; Backpack only signs. Setting Backpack's RPC to the same fork (below) makes Backpack show your **fork** balances and preview transactions against the fork instead of public Mainnet.
+The first time you open the site you may be asked for an **access code**. Enter it once; your browser remembers it for 30 days.
 
-## Set a custom RPC in Backpack
+## Same wallet, same account
 
-<Steps>
-  <Step title="Open Backpack">
-    Open the Backpack extension. With its default RPC it shows your public Mainnet balances, not the fork.
+Your margin account is derived from your wallet address. Reconnect with the same wallet to return to the same collateral, debt, Farm and Predict positions. A different address has a different account.
 
-    <Frame caption="Backpack on its default RPC. Click the image to zoom.">
-      <img src="/images/wallet/1-open-wallet.png" alt="Backpack wallet home screen showing a 0 SOL balance on the default RPC" loading="lazy" decoding="async" />
-    </Frame>
-  </Step>
-  <Step title="Open Settings">
-    Click the **account icon** (top left), then **Settings**.
+## Next
 
-    <Frame caption="Account menu with Settings. Click the image to zoom.">
-      <img src="/images/wallet/2-open-settings.png" alt="Backpack account menu open with the Settings option highlighted" loading="lazy" decoding="async" />
-    </Frame>
-  </Step>
-  <Step title="Select Solana">
-    Click **Solana** (not Solana Devnet).
-
-    <Frame caption="Settings: pick the Solana network. Click the image to zoom.">
-      <img src="/images/wallet/3-select-solana.png" alt="Backpack settings list with Solana and Solana Devnet entries" loading="lazy" decoding="async" />
-    </Frame>
-  </Step>
-  <Step title="Open RPC Connection">
-    Click **RPC Connection**. It shows **Backpack Default RPC** until you change it.
-
-    <Frame caption="Solana settings: RPC Connection. Click the image to zoom.">
-      <img src="/images/wallet/4-rpc-connection.png" alt="Backpack Solana settings showing RPC Connection set to Backpack Default RPC" loading="lazy" decoding="async" />
-    </Frame>
-  </Step>
-  <Step title="Choose Custom">
-    Click **Custom**.
-
-    <Frame caption="RPC Connection: choose Custom. Click the image to zoom.">
-      <img src="/images/wallet/5-custom.png" alt="Backpack RPC Connection screen with Backpack Default RPC and Custom options" loading="lazy" decoding="async" />
-    </Frame>
-  </Step>
-  <Step title="Paste the Vanna RPC and click Update">
-    Paste `https://rpc-devnet.solana.vanna.finance` into the **RPC** field and click **Update**.
-
-    <Frame caption="Change RPC Connection with the Vanna fork URL. Click the image to zoom.">
-      <img src="/images/wallet/6-paste-rpc.png" alt="Backpack Change RPC Connection screen with the Vanna fork RPC URL entered and an Update button" loading="lazy" decoding="async" />
-    </Frame>
-  </Step>
-</Steps>
-
-Backpack now shows **Custom Rpc: https://rpc-devnet.solana.vanna.finance** at the top of the wallet panel, and your balances match the app. Reconnect on [devnet.solana.vanna.finance](https://devnet.solana.vanna.finance/portfolio) if the site was already open.
-
-<Warning>
-If you run a **local** Surfpool node instead (see [Run and Setup](/guides/setup)), use `http://127.0.0.1:8899` as the custom RPC instead of the hosted URL.
-</Warning>
-
-## Faucet
-
-Open **Faucet** in the header. Mint the assets you need, or use **Mint All**.
-
-| Asset | Typical faucet grant |
-|---|---|
-| SOL | +100 SOL airdrop |
-| USDC | +1000 USDC |
-| TSLAx | +20 TSLAx |
-| GOOGLx | +20 GOOGLx |
-| AAPLx | +20 AAPLx |
-| ANTHROPIC | +20 ANTHROPIC |
-| OPENAI | +20 OPENAI |
-
-These are fork cheatcode top-ups. They do not move real mainnet tokens.
-
-<Frame caption="Fork faucet modal. Unlimited claims on the shared demo. Click the image to zoom.">
-  <img src="/images/onboarding/faucet.png" alt="Fork faucet modal with Mint buttons for every supported asset" loading="lazy" decoding="async" />
-</Frame>
-
-## Reconnect
-
-Use the same Backpack account to return to the same margin account. A different address has different holdings, debt, and Farm positions.
-
-Continue with [Earn](/guides/earn/overview) or [Open a Margin Account](/guides/margin/open-account).
+Fund your wallet from the [Faucet](/guides/faucet).

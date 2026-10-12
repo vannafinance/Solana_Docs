@@ -1,16 +1,33 @@
 ---
-title: "Open Account"
-description: "Create the per-wallet margin PDA. Required once."
+title: "Open a Margin Account"
+description: "Create your margin account: one signature, once per wallet."
 mode: "wide"
 ---
 
-The first margin action creates `MarginAccount` at `["margin", your_wallet]`.
+Your margin account is a program-owned account derived from your wallet address. You create it once; after that it's always the same account for that wallet.
 
-## Steps
+<Steps>
+  <Step title="Connect">
+    [Connect your wallet](/guides/connect-wallet) and fund it from the [Faucet](/guides/faucet).
+  </Step>
+  <Step title="Open Margin">
+    Go to **Margin**. If you don't have an account yet, the page offers to create one.
+  </Step>
+  <Step title="Create and sign">
+    Click create and approve in your wallet. A small amount of SOL pays the account's rent.
+  </Step>
+</Steps>
 
-1. Connect a wallet.
-2. Open **Perps**, **Farm**, or a margin deposit screen.
-3. If no account exists, the app sends `user_create_margin`.
-4. Wait for confirmation. Later visits rediscover the same PDA.
+<Tip>
+You can also skip this step: your first deposit (in **Leverage your Assets** or **Transfer Collateral → MB**) creates the account in the same transaction if it doesn't exist yet.
+</Tip>
 
-You cannot create a second account for the same wallet. Closing requires zero collateral, zero debt, and no Lite positions (`user_close_margin`).
+## What the account holds
+
+- Collateral you deposit
+- Tokens you borrow (they stay in the account; they don't go to your wallet)
+- Swap results, Kamino receipts (kSOL, kUSDC, kUSDT), vault shares (USD\*, USD\* Junior, vbSOL, vbBTC…) and your Phoenix perps collateral
+
+All of it counts toward one health factor.
+
+Next: [Deposit Collateral](/guides/margin/deposit-collateral)

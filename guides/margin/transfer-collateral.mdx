@@ -1,13 +1,37 @@
 ---
 title: "Transfer Collateral"
-description: "Move tokens between wallet and margin, or withdraw excess after a health check."
+description: "Move tokens between your wallet and your margin account."
 mode: "wide"
 ---
 
-**Deposit** is wallet → margin vault.
+The **Transfer Collateral** tab moves a token in either direction:
 
-**Withdraw** is margin vault → wallet, gated by `user_withdraw_collateral`. The program revalues the full account and requires post-withdraw health **> 1.1** (or zero debt).
+| Direction | Label | What happens |
+|---|---|---|
+| Wallet → margin | **MB** | Deposits into the margin account (creating it in the same transaction if needed) |
+| Margin → wallet | **WB** | Withdraws to your wallet. Health-checked on-chain |
 
-You cannot withdraw collateral that is still required to back debt or Lite positions. Close or reduce those first.
+<Steps>
+  <Step title="Open Transfer Collateral">
+    On **Margin**, open the third tab.
+  </Step>
+  <Step title="Choose direction and token">
+    Pick **MB** (into margin) or **WB** (to wallet), then the token.
+  </Step>
+  <Step title="Enter the amount">
+    The field is capped by the source balance and, for withdrawals, by the **safe limit**.
+  </Step>
+  <Step title="Confirm">
+    Check the preview and approve in your wallet.
+  </Step>
+</Steps>
 
-Spot can also swap with **Wallet Balance (WB)** or **Margin Balance (MB)**. MB swaps debit/credit the PDA; WB swaps debit/credit the wallet.
+## The safe limit
+
+With debt, you can withdraw only what keeps the account's health factor at **1.15 or above** (the app's safety floor). The program itself rejects anything that would leave the account at 1.10 or below.
+
+With no debt, **100%** withdraws everything, down to the last unit.
+
+## Limits on the wallet side
+
+When you deposit SOL from the wallet, 0.05 SOL stays behind for transaction fees.

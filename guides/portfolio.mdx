@@ -1,21 +1,34 @@
 ---
 title: "Portfolio"
-description: "Read Credit LP positions, trader collateral, and combined balances in one place."
+description: "Everything you hold, earn and owe across Vanna, in one page."
 mode: "wide"
 ---
 
-Portfolio is the combined view of wallet balances, Earn receipts, and margin-account collateral / debt.
+Portfolio is the home page. It combines your wallet, your Earn supply, your Predict positions and your margin account.
 
-## What you see
+<Frame caption="Portfolio: net worth, net earnings and health factor, then Lender and Trader tabs. Click the image to zoom.">
+  <img src="/images/Portfolio.png" alt="Portfolio page with Net worth, Net earnings and Health factor cards and a Lender Stats panel" loading="lazy" decoding="async" />
+</Frame>
 
-| Tab | Shows |
+## Top cards
+
+| Card | What it shows |
 |---|---|
-| Credit LP | vToken balances and the underlying pool claim |
-| Trader | Margin collateral, debt, health, and derived long/short / Farm legs |
-| Spot | Wallet token balances used by Swap |
+| **Net worth** | Wallet + Lending + Margin equity (collateral minus debt), with a bar showing the split |
+| **Net earnings** | Lending interest earned plus trading P&L, each shown as its own chip |
+| **Health factor** | Your margin account's health factor with its zone (Safe / Warning / Danger), what you've borrowed, your leverage and the interest accrued so far. Shows **No debt** when you owe nothing |
 
-Numbers come from on-chain accounts plus Pyth prices. A zero P&L figure is not proof of realized performance if cost basis is still being reconstructed from history.
+## Lender tab
 
-If a row looks empty, confirm you minted from Faucet and waited for the last transaction to confirm.
+- **Lending pools**: Lender Stats (total holdings, number of supplied assets, average supply APY, interest earned), a 30-day Lending P&L chart and a positions table of every pool you supply.
+- **Predict**: your prediction-market positions and what they earn while you wait.
+
+## Trader tab
+
+Your margin account in one place: collateral by asset, debt, health factor and leverage, plus each open Spot, Perps and Farm position. Every **Repay** button takes you straight to the Margin page's Repay tab with that asset selected.
+
+## Where the numbers come from
+
+All figures are read live from the fork: on-chain accounts priced with the same oracle prices the program uses (Kamino Scope first, Pyth as fallback). Nothing is cached in your browser, so clearing site data never changes what you see.
 
 Continue with [Earn](/guides/earn/overview) or [Margin](/guides/margin/overview).

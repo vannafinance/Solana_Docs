@@ -1,17 +1,20 @@
 ---
 title: "Core Concepts"
-description: "Lending, cross-margin accounts, vTokens, health, oracles, and Kamino on Solana."
+description: "Lending pools, cross-margin accounts, vTokens, health, oracles, and the integrations on Solana."
 mode: "wide"
 ---
 
-Vanna on Solana is one Anchor program (`vanna_lending`) plus a Next.js app. Lenders supply reserves. Traders borrow from those reserves through a per-wallet margin PDA and deploy into Jupiter and Kamino.
+Vanna on Solana is a lending and margin protocol. Lenders supply USDC, USDT or SOL to pools. Traders borrow from those pools through one cross-margin account per wallet, and put the borrowed funds to work in whitelisted protocols: Jupiter and Titan swaps, Kamino lending, Phoenix perps, Perena's USD* vaults, and Vanna's delta-neutral basis vaults. Every position counts toward one health factor.
 
-- [Tokenized Stocks](/learn/tokenized-stocks): xStocks and PreStocks, and what Vanna adds to them
+The protocol is three programs: a **core** that only does accounting, an **oracle** that values every holding, and a **validator** that decides which external calls a margin account may make.
+
+- [Protocol Architecture](/learn/protocol-architecture): the core and its two agents
+- [Tokenized Stocks](/learn/tokenized-stocks): xStocks as collateral
 - [Margin Accounts](/learn/margin-accounts): PDA custody and debt shares
 - [Lending Pools](/learn/lending-pools) and [vTokens](/learn/vtokens): supply, borrowing, receipt value
 - [Health Factor](/learn/health-factor) and [Liquidation](/learn/liquidation)
 - [Interest Rate Model](/learn/interest-rate-model) and [Oracle System](/learn/oracle-system)
-- [Kamino Integration](/learn/kamino-integration)
-- [Composable Leverage](/learn/composable-leverage)
+- [Composable Leverage](/learn/composable-leverage): what borrowed funds can do
+- [Kamino Integration](/learn/kamino-integration), [Perps on Phoenix](/learn/perps-on-phoenix), [Yield Vaults](/learn/yield-vaults), [Predict](/learn/predict)
 
-These pages describe `Protocol_V1_Solana` and `Backend-Solana` as deployed on the Surfpool fork. They do not certify a public-mainnet launch.
+These pages describe `vanna-credit-layer` and `vanna-credit-backend` as deployed on the hosted Surfpool **mainnet fork** behind [test.solana.vanna.finance](https://test.solana.vanna.finance). They do not certify a public-mainnet launch.

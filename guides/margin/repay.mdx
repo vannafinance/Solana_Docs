@@ -1,16 +1,47 @@
 ---
 title: "Repay"
-description: "Burn debt shares by paying from the margin vault or from the wallet."
+description: "Repay a loan from your margin account or wallet, or unwind everything with Flash repay."
 mode: "wide"
 ---
 
-Two instructions:
+## Repay a loan
 
-| Path | Instruction | Source of funds |
-|---|---|---|
-| From margin | `user_repay_from_margin` | Tokens already in the margin vault |
-| From wallet | `public_repay_from_wallet` | Your wallet ATA — anyone can repay an account |
+<Steps>
+  <Step title="Open Repay Loan">
+    On **Margin**, open the **Repay Loan** tab, or click **Repay** next to a debt in the Positions table or on Portfolio (it opens this tab with that asset selected).
+  </Step>
+  <Step title="Choose the asset">
+    The tab shows your exact on-chain debt for that asset, interest included.
+  </Step>
+  <Step title="Choose the source">
+    **MB** repays from the tokens already in your margin account. **WB** repays from your wallet.
+  </Step>
+  <Step title="Enter the amount">
+    Type an amount or use the % chips. **100%** is a full repay: it closes the debt position entirely.
+  </Step>
+  <Step title="Pay">
+    Check the before → after preview and click **Pay Now**.
+  </Step>
+</Steps>
 
-Set `repay_all` to close the debt position when the payment covers remaining shares. Interest continues until the shares are gone.
+<Note>
+**A full repay from MB is often a little short.** Interest keeps accruing, so the borrowed tokens in your margin account are usually slightly less than the debt. A full repay needs the debt plus a small (0.2%) buffer for interest that accrues while the transaction lands. If the margin account doesn't have it, the tab tells you and suggests repaying from your wallet (WB) instead.
+</Note>
 
-Perps and Farm close paths repay as part of the unwind. You usually do not repay those legs by hand unless a close left residual debt.
+## Flash repay
+
+**Flash repay** (on the Margin positions header and in the Repay tab) unwinds the whole account for you, in steps:
+
+| Step | What it does |
+|---|---|
+| 1. Perps | Closes every Phoenix position (reduce-only market orders) and brings the USDC back to the margin account |
+| 2. Farm | Redeems every Kamino receipt back to its underlying token |
+| 3. Swap | For each loan the account can't cover in that same token, swaps other holdings into it (stables first, then the largest holding) through the best route |
+| 4. Repay | Repays every loan in full and closes its debt position |
+| 5. Transfer (optional) | **Flash transfer** also withdraws everything left to your wallet |
+
+Each step is its own transaction and wallet approval, with progress shown as it goes. It is **not** one atomic transaction. Every step re-reads the chain first, so if a run stops half-way you simply run it again and it continues with whatever is left. It never repays more than you owe; if the account can't cover its debt, the swap step stops and shows the shortfall.
+
+## After repaying
+
+When all debt is repaid the health factor reads **No debt**. Your collateral stays in the margin account; withdraw it with [Transfer Collateral → WB](/guides/margin/transfer-collateral).

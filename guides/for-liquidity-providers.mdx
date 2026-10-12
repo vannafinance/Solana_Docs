@@ -1,29 +1,26 @@
 ---
 title: "For Liquidity Providers"
-description: "Supply stocks and stables to Vanna pools and earn borrower interest."
+description: "Supply SOL, USDC or USDT and earn the interest margin accounts pay."
 mode: "wide"
 ---
 
-Supply from your wallet. You do not need a margin account to earn.
-
-Tokenized stocks on Kamino's xStocks market pay ~0%. Vanna pools for the same mints earn a utilization-based APR from real borrowers — perps traders, carry traders, and anyone borrowing the stock or USDC.
-
 ## What you earn
 
-Interest paid by borrowers, minus the reserve factor. Receipts are **vTokens** (share mints). Their exchange rate rises as interest accrues. You do not need to claim.
-
-There is no impermanent loss. You are lending a single asset, not providing an AMM pair.
+You supply an asset to its lending pool and receive **vTokens** (vSOL, vUSDC, vUSDT). Borrowers pay interest into the pool, so each vToken is redeemable for more of the underlying over time. Your **Supply APY** depends on how much of the pool is borrowed (its utilization): the busier the pool, the higher the rate. See [Interest Rate Model](/learn/interest-rate-model).
 
 ## What you risk
 
-- Borrowers can be liquidated; a failed liquidation can leave bad debt.
-- Utilization can be high enough that you cannot redeem the full amount immediately.
-- Oracle, program, and fork/demo operational risk.
+- **Liquidity:** you can withdraw only what isn't currently lent out. In a very busy pool (high utilization) you may have to wait for repayments or liquidations to free cash.
+- **Bad debt:** if a borrower's collateral falls faster than it can be liquidated, the pool can take a loss. Vanna liquidates at a health factor of 1.10, while every borrower still has more collateral than debt, to keep this rare. The [Analytics](/guides/analytics) page shows estimated bad debt and accounts at risk live.
+- **Test network:** today's app runs on a mainnet fork; balances are test balances.
+
+## Other ways to earn
+
+- **Predict:** hold matched Yes and No shares and they earn in Vanna's USDC pool until the event resolves ([Predict](/guides/predict/earn-while-you-wait)).
+- **Farm:** through a margin account you can supply to Kamino or deposit into Perena and basis vaults ([Farm](/guides/farm/overview)).
 
 ## How to start
 
-1. Connect a wallet and mint the asset from [Faucet](/guides/connect-wallet).
-2. Open [Earn](/guides/earn/overview), pick a pool, and [Supply](/guides/earn/supply).
-3. Withdraw by redeeming vTokens when the pool has cash.
-
-See [Lending Pools](/learn/lending-pools) and [Interest Rate Model](/learn/interest-rate-model).
+1. [Connect your wallet](/guides/connect-wallet) and fund it from the [Faucet](/guides/faucet).
+2. Open [Earn](/guides/earn/overview), pick a pool and [supply](/guides/earn/supply).
+3. Track interest on [Portfolio → Lender](/guides/portfolio).

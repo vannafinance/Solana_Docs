@@ -1,23 +1,43 @@
 ---
 title: "Spot Swap"
-description: "Swap SOL, USDC, xStocks, and PreStocks through Jupiter from wallet or margin."
+description: "Swap tokens inside your margin account through Jupiter or Titan."
 mode: "wide"
 ---
 
-Spot is a Jupiter-routed swap. Use it to rotate wallet inventory, or to move margin-vault balances without opening a perp.
+**Trade → Spot** swaps tokens **inside your margin account**. It's how you turn borrowed USDC into SOL (a leveraged long), SOL into USDC (de-risking), or move between any supported tokens without the funds ever leaving the account.
 
-<Frame caption="Jupiter swap card. Wallet SOL to USDC. History lists recent fills. Click the image to zoom.">
-  <img src="/images/swap/overview.png" alt="Spot swap card routing SOL to USDC via Jupiter" loading="lazy" decoding="async" />
+<Frame caption="Spot: swap card with quote details and route, and the Margin account block beside it. Click the image to zoom.">
+  <img src="/images/Spot.png" alt="Spot swap card paying 10 SOL to receive 1088.22 USDC via Jupiter, with price impact, health factor before and after, slippage tolerance, min received, route and a Margin account panel" loading="lazy" decoding="async" />
 </Frame>
 
-## Steps
+<Steps>
+  <Step title="Choose what you pay">
+    Under **You Pay**, pick the token and amount, or use **25% / 50% / 75% / Max**. **Swappable** is what your margin account holds of that token.
+  </Step>
+  <Step title="Choose what you receive">
+    Under **You Receive**, pick the token. The quote fills in the amount you get.
+  </Step>
+  <Step title="Check the details">
+    Expand the rate line for **Price Impact**, **Health Factor** before → after, **Slippage Tolerance** (0.5% by default; **Edit** to change it) and **Min. Received**.
+  </Step>
+  <Step title="Check the route">
+    The **Route** card shows the hops and pools, and the venue badge shows which aggregator won the quote (**via Jupiter** or Titan).
+  </Step>
+  <Step title="Swap">
+    Click **Swap** and approve. The swap runs on-chain from your margin account and is health-checked in the same transaction.
+  </Step>
+</Steps>
 
-1. Open **Swap**.
-2. Pick pay / receive assets.
-3. Choose **Wallet** or **Margin** as the source of funds when the UI offers it.
-4. Review price impact, quote, slippage (default 1%), and minimum received.
-5. Confirm. Wait for the history row.
+## Best route
 
-Margin-balance swaps call `user_margin_swap`: the program signs the vault, Jupiter executes, and a health check runs on the new balances. Wallet swaps never touch the PDA.
+Vanna asks both **Jupiter** and **Titan** for a quote and uses the better one. Either way the swap executes from your margin account through Vanna's program, which only allows the routes and settings its validator approves and checks the account's health afterwards.
 
-PreStocks (ANTHROPIC, OPENAI) carry a real Token-2022 transfer fee (~1%) that is included in sizing. xStocks (TSLAx, GOOGLx, AAPLx) are Token-2022 but have no transfer fee. A quote that looks "short" versus the headline price on a PreStock leg is often the fee, not a bug.
+## The Margin account block
+
+Beside the swap card: your health factor before → after with its bar, **Account leverage** before → after, **Borrowed**, and the **Swappable** balance of the token you're paying before → after. **Position History** below lists your past swaps.
+
+## Things to know
+
+- Swapping doesn't change your debt. It changes what your collateral is made of, so your health factor barely moves unless prices move afterwards.
+- A swap that would leave the account below the safety floor is blocked before you sign.
+- Without a wallet connected, only the swap card is shown.

@@ -1,33 +1,40 @@
 ---
-title: "Long a Stock"
-description: "Deposit USDC, borrow more USDC, swap the total into TSLAx / GOOGLx / AAPLx / PreStocks."
+title: "Open a Long"
+description: "Bet on a price going up with a Phoenix perp from your margin account."
 mode: "wide"
 ---
 
-A long says: I want more stock than my USDC can buy at 1×.
+A **long** profits when the price rises and loses when it falls.
 
-## Example
+<Steps>
+  <Step title="Pick the market">
+    On **Trade → Perps**, choose the market from the selector at the top left (SOL, ETH, BTC, TSLA or META). Check **Market status** is Open.
+  </Step>
+  <Step title="Select Long">
+    In the order panel, keep **Long** selected and **Market**.
+  </Step>
+  <Step title="Set collateral">
+    Enter the USDC **Collateral** for this order, use **MAX** or the 0–100% slider. **Available** is the USDC in your margin account.
+  </Step>
+  <Step title="Set leverage">
+    Choose **Order leverage** (1× up to the market's maximum). **Position size** shows the size in the asset or in USD.
+  </Step>
+  <Step title="Check the order">
+    **Order on Phoenix** shows the estimated entry price, the **max entry price** your slippage allows, and the account's health factor after the order.
+  </Step>
+  <Step title="Place it">
+    Click **Long** and approve. The USDC moves to Phoenix and the order fills in the same transaction.
+  </Step>
+</Steps>
 
-You deposit **10 USDC** at 2×.
+## Managing the position
 
-1. Margin receives 10 USDC.
-2. Vanna borrows another 10 USDC against it.
-3. Jupiter swaps **20 USDC** into TSLAx.
-4. Vault holds ~0.05 TSLAx (at ~$378). Debt is 10 USDC plus interest.
+Your position appears in the positions table below the chart with market, side, size, collateral, leverage, entry and mark price, liquidation price and PnL. Click **Close** to close all or a percentage of it (a reduce-only market order); **Close All** closes every position. A **History** tab lists past orders. When nothing is left open in that account, the USDC returns to your margin account in a follow-up transaction.
 
-If TSLAx rises, collateral USD rises and health improves. If it falls, health falls. Liquidation price is shown on the row.
+## What moves your P&L
 
-<Frame caption="Long ticket. Collateral in USDC, leverage 2×, estimated fill, health 2.69. Click the image to zoom.">
-  <img src="/images/perps/long.png" alt="Long TSLAx ticket with 10 USDC collateral and 2x leverage" loading="lazy" decoding="async" />
-</Frame>
+- The perp's price relative to your entry price
+- Hourly funding: when it's positive, longs pay shorts
+- Fees and slippage on open and close
 
-## Steps
-
-1. Open **Perps** and pick the pair.
-2. Select **Long**.
-3. Enter USDC collateral and leverage.
-4. Read position size, health, and liquidation price.
-5. Confirm one signature.
-6. Find the row under **Current Positions**. Close from that row.
-
-You pay **USDC borrow APR**, not a funding rate. Time is not free.
+All of it shows up in your margin account's health factor.

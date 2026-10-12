@@ -1,49 +1,40 @@
 ---
-title: "Why Tokenized Stocks Needed Vanna"
-description: "Stock tokens you can put to work. Vanna turns xStocks and PreStocks into borrowable, yield-bearing collateral: earn, long, short and farm from one cross-margin account."
+title: "Why Vanna"
+description: "One margin account, many collaterals, and a loan you can use anywhere on Solana."
 mode: "wide"
 ---
 
-Tokenized stocks already trade on Solana. TSLAx, GOOGLx, AAPLx, OPENAI, and ANTHROPIC exist. The market still treated them like pictures of equities: buy, sit, hope the price goes up.
+On most of Solana a loan stays inside the protocol that issued it: borrow on a money market and you can only hold the borrowed tokens there. Vanna is a **credit layer**: the loan lives in your own margin account, and that account can act across Solana while the protocol keeps checking that it stays solvent.
 
-Vanna, built for [Stocklana](https://hackathons.solana.com/hackathons/stocklana), gives listed and pre-IPO stock tokens three uses beyond holding.
+## What Vanna adds
 
-## Three things Vanna adds
+### 1. One account, many collaterals
 
-### 1. Leveraged longs and shorts on stock tokens
+Deposit SOL, USDC, liquid-staked SOL (JitoSOL, JupSOL), JupUSD and tokenized stocks (NVDAx, GOOGLx, AAPLx, TSLAx) into a single margin account. Every asset counts toward one health factor, so you don't manage a separate loan per collateral.
 
-Vanna lists a perps market for each supported stock token, listed (xStocks) and pre-IPO (PreStocks), at up to 5×. Positions open from the same cross-margin account as Farm and Swap, and are built from borrowed tokens plus a Jupiter swap, so there is no funding rate.
+### 2. Borrow up to 10× and keep using the loan
 
-**Vanna Perps** opens and closes long/short stock exposure from a margin account. Long deposits USDC, borrows more USDC, and swaps the total into the stock. Short deposits the stock, borrows more of that stock, and swaps the total into USDC. Both paths are one signed Solana transaction.
+Borrow SOL, USDC or USDT from Vanna's pools (one asset, or two at once with **Dual Borrow**) and the borrowed tokens stay in your margin account. From there you can:
 
-[Trade TSLAx / USDC →](/guides/perps/overview)
+- **Swap** on Jupiter or Titan ([Spot](/guides/trade/spot-swap))
+- **Long or short** SOL, ETH, BTC, TSLA, META on Phoenix ([Perps](/guides/perps/overview))
+- **Earn** on Kamino, Perena or delta-neutral basis vaults ([Farm](/guides/farm/overview))
 
-### 2. Kamino stock interest was zero
+Receipts and positions you open stay in the margin account and keep counting as collateral.
 
-Kamino listed xStocks. Utilization on those stock reserves is effectively unused, so **supply APY sits at 0%**. Holding TSLAx in Kamino did not pay you.
+### 3. Lenders earn real borrow interest
 
-Vanna stands up **Credit LP pools** for the same stocks. Borrowers pay a kink-model APR. Credit LPs receive vTokens that grow with that interest. Short sellers borrow from these pools, so supplying TSLAx, GOOGLx, AAPLx, OPENAI, and ANTHROPIC earns interest.
+Lenders supply SOL, USDC or USDT on [Earn](/guides/earn/overview) and receive vTokens that grow as borrowers pay interest.
 
-[Supply TSLAx →](/guides/earn/overview)
+### 4. Prediction shares that earn while you wait
 
-### 3. One-click yield on stock collateral
+On [Predict](/guides/predict/overview) you buy Yes / No on World.xyz events. Matching Yes and No shares are paired and lent into Vanna's USDC pool, so your position earns interest until the event resolves.
 
-**Farm / One-Click** deposits a stock or PreStock, borrows USDC or SOL against it from Vanna, and supplies that into **Kamino's main market**. The stock stays as collateral. Kamino's main market is the reserve that has real utilization and a real supply APY. Close is the reverse unwind.
+## Safety built into every action
 
-[Open a carry trade →](/guides/farm/one-click)
-
-## Before and after
-
-| What you can do | On Solana today | With Vanna |
-|---|---|---|
-| Hold TSLAx / OPENAI | Yes | Yes |
-| Earn interest on the stock itself | ~0% on Kamino's xStocks market | Yes — Vanna Credit LP pools, paid by short sellers |
-| Borrow against the stock | Cash loans on Kamino | Cross-margin account, deployable into Perps, Farm and Swap |
-| Long / short the stock token with margin | — | Up to 5×, Jupiter-routed, no funding rate |
-| One-click leveraged yield | — | Stock collateral → borrow USDC/SOL → Kamino main market |
+Every action that could reduce your account's health (withdraw, borrow, swap, open a perp, move into a vault) runs a health check **on-chain** in the same transaction. If the account would end at or below a health factor of 1.10 the transaction fails, so it can't leave you liquidatable. See [Health Factor](/guides/margin/health-factor).
 
 ## What this is not
 
-Vanna does not issue the stocks. xStocks and PreStocks already exist. We do not replace Kamino. Vanna complements Kamino: it lends USDC or SOL against stock collateral into Kamino's main market, and adds a credit and perps layer on top of the stock tokens.
-
-See [How Vanna Works](/guides/how-vanna-works) and [Tokenized Stocks](/learn/tokenized-stocks).
+- **Not real money.** Vanna's current app runs on a Solana mainnet fork for testing. Faucet tokens and balances exist only on the fork.
+- **Not risk-free.** Leverage, perp funding and vault share prices can move against you. Read [Liquidation](/guides/margin/liquidation) before borrowing.

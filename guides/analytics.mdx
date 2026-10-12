@@ -1,0 +1,71 @@
+---
+title: "Analytics"
+description: "Protocol-wide risk, positions, liquidations, lending pools, collateral and prices: live and read-only."
+mode: "wide"
+---
+
+**Analytics** is a live, public view of the whole protocol. It reads every margin account and pool directly from the chain. Nothing here sends a transaction.
+
+<Frame caption="Analytics overview: bad debt, liquidatable accounts, accounts at risk and the accounts table. Click the image to zoom.">
+  <img src="/images/analytics.png" alt="Protocol Analytics overview with Bad Debt, Can Be Liquidated, Liquidatable Debt, Accounts at Risk, Average Health, Collateral at Risk, Average Leverage and Total Debt cards" loading="lazy" decoding="async" />
+</Frame>
+
+The status bar at the top shows that the data is live, how many accounts were found, since when activity is counted, the last update time and a **Refresh** button.
+
+## Sections
+
+| Group | Page | What it answers |
+|---|---|---|
+| **Risk** | **Overview** | Is anything wrong? Bad debt, liquidatable accounts and debt, accounts at risk, average health and leverage, total debt |
+| | **Positions** | Look up any wallet or margin account; how accounts spread across health, leverage and collateral |
+| | **Liquidations** | Past liquidations |
+| | **Top accounts** | The largest accounts |
+| | **Alerts** | Accounts and pools that need attention |
+| **Markets** | **Lending Pools** | Supplied, borrowed, available, utilization and rates per pool |
+| | **Collateral** | What collateral is made of |
+| | **Prices** | Oracle prices in use |
+| **Tools** | **What-if Calculator** | How a price move would change accounts' health |
+
+## Overview
+
+The cards answer the key questions at a glance:
+
+| Card | Meaning |
+|---|---|
+| **Bad debt (estimated)** | Debt not covered by collateral. $0 means no account owes more than it holds |
+| **Can be liquidated** | Accounts at a health factor of 1.10 or below, and their debt |
+| **Liquidatable debt** | That debt, and the collateral backing it |
+| **Accounts at risk / active** | Accounts close to the line, out of all active accounts |
+| **Average health / leverage** | Across accounts with debt |
+| **Collateral at risk** | Collateral in accounts with health under 1.50 |
+| **Total debt** | Everything owed, against all collateral |
+
+Below, the **Accounts** table lists every account **By health** or **By leverage**, filterable by Liquidatable, At risk, Safe, No debt and Not valued, with search by wallet or margin address. If you're connected, your own account is shown first.
+
+<Frame caption="Accounts by health (click a bar to filter the table) and what collateral is made of. Click the image to zoom.">
+  <img src="/images/analytics2.png" alt="Accounts by health bar chart with the 1.10 liquidation line, a collateral donut split into tokens held, Kamino deposits and Phoenix perps, and lending summary cards" loading="lazy" decoding="async" />
+</Frame>
+
+## Positions
+
+<Frame caption="Look up a wallet; accounts by health and debt by leverage. Click the image to zoom.">
+  <img src="/images/analytics3.png" alt="Positions page with a wallet lookup box, accounts by health bars and debt by leverage chart" loading="lazy" decoding="async" />
+</Frame>
+
+Paste any wallet or margin-account address and press **Look up** to open that account's own page. The charts show how many accounts sit at each health level and how leveraged the borrowing accounts are.
+
+<Frame caption="Collateral by asset and debt by asset. Click the image to zoom.">
+  <img src="/images/analytics4.png" alt="Collateral by asset list (SOL, USDC, USDT, TSLAx, kSOL, AAPLx, Phoenix) and Debt by asset (USDC, USDT, SOL)" loading="lazy" decoding="async" />
+</Frame>
+
+## Lending Pools
+
+<Frame caption="Lending Pools: totals and each pool's supplied, borrowed, available, utilization and rates. Click the image to zoom.">
+  <img src="/images/analytics5.png" alt="Lending Pools page with Supplied by Lenders, Borrowed, Available to Withdraw, Borrowed Share and Average Borrow Rate, and a table of SOL, USDC and USDT pools" loading="lazy" decoding="async" />
+</Frame>
+
+Select a pool to inspect it.
+
+<Tip>
+Use Analytics to sanity-check the protocol before you supply: how much is borrowed, how healthy borrowers are, and whether any bad debt exists.
+</Tip>

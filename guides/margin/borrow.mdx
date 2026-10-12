@@ -1,24 +1,49 @@
 ---
 title: "Borrow"
-description: "Pull reserve cash into the margin vault and open a debt-share position."
+description: "Borrow SOL, USDC or USDT against your collateral, up to 10× leverage."
 mode: "wide"
 ---
 
-## Steps
+import RiskNotice from "/snippets/risk-notice.mdx";
 
-1. Deposit recognized collateral first (or use deposit-and-borrow).
-2. Choose the borrow asset and amount.
-3. Review health after borrow. The app refuses a preview that would land at or below 1.1.
-4. Confirm. `user_open_debt_position` runs once per (margin, reserve); later borrows reuse it.
+Borrowing happens in the **Leverage your Assets** tab, together with (or without) a deposit.
 
-Borrowed tokens land in the **same margin vault**. They can be swapped, supplied to Kamino, or held. They are not withdrawn to the wallet unless you transfer them out.
+<Frame caption="Deposit 10 SOL and borrow USDC at 2×: Max Value, the leverage slider and the total. Click the image to zoom.">
+  <img src="/images/Margin2.png" alt="Leverage panel with SOL deposit, USDC borrow of 1089.45, Single Borrow / Dual Borrow toggle and a 1x to 10x leverage slider" loading="lazy" decoding="async" />
+</Frame>
 
-## What limits a borrow
+<Steps>
+  <Step title="Set up the deposit">
+    Choose collateral under **Deposit** (or leave it empty to borrow against what's already in the account).
+  </Step>
+  <Step title="Choose Single or Dual Borrow">
+    **Single Borrow** borrows one asset. **Dual Borrow** splits the loan across two assets.
+  </Step>
+  <Step title="Pick the asset">
+    Choose SOL, USDC or USDT under **Borrow**.
+  </Step>
+  <Step title="Set the size">
+    Drag the leverage slider (**1× to 10×**), use **−/+**, type an amount, or click **Max Value**. **Total** and **Max** show the loan in USD.
+  </Step>
+  <Step title="Review and sign">
+    Check **Transaction Details**: the account's health factor, leverage and collateral before → after. Click **Deposit & Borrow** and approve.
+  </Step>
+</Steps>
 
-- Post-borrow health must stay **> 1.1**
-- Asset `borrow_enabled` and reserve status
-- Reserve cash and borrow cap
-- `max_assets_per_margin` (24)
-- Operating mode (borrow pause / halt)
+## Where the loan goes
 
-See [Health Factor](/guides/margin/health-factor).
+Borrowed tokens land in your **margin account**, not your wallet. From there you can swap, trade perps or farm. To take them to your wallet, use [Transfer Collateral → WB](/guides/margin/transfer-collateral); that withdrawal is health-checked.
+
+## Limits
+
+- The program rejects any borrow that would leave the account at a health factor of **1.10 or below**.
+- The app's Max keeps a **1.15** safety floor so a small price move right after borrowing doesn't put you at the line.
+- You can't borrow more than the pool has available (see the pool's Available Liquidity on [Earn](/guides/earn/overview)).
+
+## Interest
+
+Debt grows at the pool's **Borrow APY**, which rises with the pool's utilization. **Net Borrow Rate** on the Margin page is your account's blended rate; accrued interest shows in the Positions table and on Portfolio.
+
+<RiskNotice />
+
+Next: [Repay](/guides/margin/repay)

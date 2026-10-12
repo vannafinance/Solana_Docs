@@ -1,23 +1,38 @@
 ---
 title: "Health Factor"
-description: "Canonical 1.10 collateral-to-debt threshold, conservative rounding."
+description: "Unweighted collateral-to-debt ratio, liquidatable at 1.10, with conservative rounding."
 mode: "wide"
 ---
 
 ```text
-HF = collateral_usd / debt_usd
-healthy ⇔ HF > 1.10
+HF = Σ collateral_usd / Σ debt_usd
+healthy ⇔ no debt, or HF > 1.10
+liquidatable ⇔ HF ≤ 1.10
 ```
 
-`BALANCE_TO_BORROW_THRESHOLD_WAD = 1.1e18`. The same constant gates new borrows and withdrawals.
+The ratio is **unweighted**: every allowed token counts at its full USD value (up to its per-margin cap). The same 1.10 threshold gates new borrows, withdrawals with debt, and every `margin_execute` call.
 
-USD values use 9 decimal nano-USD. Token amount × Pyth price is rescaled by price exponent and mint decimals.
+## What counts
+
+- Every allowed token in the margin's vaults, including borrowed tokens and receipts (Kamino cTokens, Perena shares, basis-vault shares).
+- The Phoenix trader account, as one line: collateral plus position equity, floored at zero.
+- Every debt, at its accrued value.
+
+Borrowed tokens land in the margin vault, so a borrow raises both sides of the ratio.
+
+## Rounding
 
 | Side | Rounding |
 |---|---|
 | Collateral | Down |
 | Debt | Up |
 
-That bias is deliberate. The protocol would rather reject a tight borrow than mark an account safer than it is.
+The protocol would rather reject a tight borrow than mark an account safer than it is.
 
-Lite receipts are included when the remaining-accounts scan finds them. Omitting a position from the scan fails the instruction — you cannot hide debt.
+## Prices that fail a check
+
+For the owner's own actions, a collateral token whose price is stale or off its TWAP counts as **zero**, so a stale-priced token can't be used to borrow more. A debt must have a good price, or the action is blocked. For liquidation, collateral counts at its reported value and only the debts need fresh prices.
+
+## In the app
+
+The app uses the same formula (`lib/account-model.ts`) and the same price sources as the oracle. Its own limits target HF ≥ 1.15, so price drift between quote and execution doesn't trip the on-chain check.

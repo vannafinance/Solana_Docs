@@ -16,14 +16,14 @@
   },
   "css": "/custom.css",
   "banner": {
-    "content": "**Vanna runs on a Solana mainnet fork**: add RPC `https://rpc-devnet.solana.vanna.finance` to your wallet. [Setup guide →](/guides/connect-wallet#set-a-custom-rpc-in-backpack)",
+    "content": "**Vanna runs on a Solana mainnet fork**: add RPC `https://rpc-devnet.solana.vanna.finance` to your wallet. [Setup guide →](/guides/connect-wallet#add-the-vanna-rpc-to-your-wallet)",
     "dismissible": false
   },
   "navbar": {
     "links": [
       {
         "label": "App",
-        "href": "https://devnet.solana.vanna.finance/portfolio"
+        "href": "https://test.solana.vanna.finance"
       },
       {
         "label": "GitHub",
@@ -33,7 +33,7 @@
     "primary": {
       "type": "button",
       "label": "Launch App",
-      "href": "https://devnet.solana.vanna.finance/portfolio"
+      "href": "https://test.solana.vanna.finance"
     }
   },
   "navigation": {
@@ -59,6 +59,7 @@
             "pages": [
               "guides/getting-started",
               "guides/connect-wallet",
+              "guides/faucet",
               "guides/why-vanna",
               "guides/portfolio"
             ]
@@ -80,6 +81,14 @@
             ]
           },
           {
+            "group": "Predict",
+            "pages": [
+              "guides/predict/overview",
+              "guides/predict/trade",
+              "guides/predict/earn-while-you-wait"
+            ]
+          },
+          {
             "group": "Margin Account",
             "pages": [
               "guides/margin/overview",
@@ -93,12 +102,7 @@
           {
             "group": "Trade",
             "pages": [
-              "guides/trade/spot-swap"
-            ]
-          },
-          {
-            "group": "Perps",
-            "pages": [
+              "guides/trade/spot-swap",
               "guides/perps/overview",
               "guides/perps/long",
               "guides/perps/short"
@@ -108,8 +112,17 @@
             "group": "Farm",
             "pages": [
               "guides/farm/overview",
-              "guides/farm/one-click",
+              "guides/farm/kamino",
+              "guides/farm/perena",
+              "guides/farm/delta-neutral",
               "guides/farm/positions"
+            ]
+          },
+          {
+            "group": "Analytics & Copilot",
+            "pages": [
+              "guides/analytics",
+              "guides/copilot"
             ]
           },
           {
@@ -160,7 +173,10 @@
           {
             "group": "Integrations",
             "pages": [
-              "learn/kamino-integration"
+              "learn/kamino-integration",
+              "learn/perps-on-phoenix",
+              "learn/yield-vaults",
+              "learn/predict"
             ]
           }
         ]
@@ -187,8 +203,12 @@
               "developers/contracts/lending",
               "developers/contracts/margin",
               "developers/contracts/borrowing",
-              "developers/contracts/lite",
+              "developers/contracts/margin-execute",
               "developers/contracts/swap",
+              "developers/contracts/perps",
+              "developers/contracts/vaults",
+              "developers/contracts/oracle",
+              "developers/contracts/validator",
               "developers/contracts/liquidation",
               "developers/contracts/admin"
             ]
@@ -239,5 +259,15 @@
       "github": "https://github.com/vannafinance",
       "discord": "https://discord.gg/vanna"
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/guides/farm/one-click",
+      "destination": "/guides/farm/kamino"
+    },
+    {
+      "source": "/developers/contracts/lite",
+      "destination": "/developers/contracts/vaults"
+    }
+  ]
 }

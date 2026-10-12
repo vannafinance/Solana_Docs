@@ -1,54 +1,68 @@
 ---
 title: "Getting Started"
-description: "Open the live Vanna Solana demo, connect a wallet, mint test stocks, and pick a flow."
+description: "Open Vanna, point your wallet at the fork RPC, fund it from the Faucet and pick what you want to do."
 mode: "wide"
 ---
 
-Vanna on Solana is a working credit layer for tokenized stocks. You can lend them, borrow against them, long or short them, and deploy them into Kamino yield in one click.
+import ForkNotice from "/snippets/fork-notice.mdx";
 
-Live app: [https://devnet.solana.vanna.finance/portfolio](https://devnet.solana.vanna.finance/portfolio)
+Vanna is a credit layer on Solana. You lend into Vanna's pools, or open one **margin account** that holds many collaterals, borrow against it, and use that loan across Solana: spot swaps (Jupiter / Titan), perps (Phoenix), Kamino lending, Perena and delta-neutral vaults, and World.xyz prediction markets.
 
-<Note>
-This guide describes the live Vanna Solana demo on a **Surfpool mainnet fork**. The hostname says `devnet`, but it is not public Solana Devnet. Funds are test balances on the fork. Connect a test wallet, then use **Faucet** before any Earn, Margin, Perps, or Farm action.
-</Note>
+**Live app:** [test.solana.vanna.finance](https://test.solana.vanna.finance)
 
-## Connect and fund
+<ForkNotice />
 
-1. Open **Launch App**.
-2. Connect **Backpack** ([setup guide](/guides/connect-wallet)).
-3. Point an installed wallet at the Vanna fork RPC if the app asks you to: `https://rpc-devnet.solana.vanna.finance`.
-4. Open **Faucet** and mint SOL, USDC, TSLAx, GOOGLx, AAPLx, ANTHROPIC, and OPENAI.
+## Three steps to start
 
-Keep a little SOL for fees. Every other token is a fork mint — not real mainnet funds.
+<Steps>
+  <Step title="Add the fork RPC to your wallet">
+    Phantom, Solflare and Backpack all work. Add the custom RPC `https://rpc-devnet.solana.vanna.finance` so your wallet shows fork balances and signs against the fork. The purple strip at the top of the app has a **Copy** button and links to the [wallet setup guide](/guides/connect-wallet#add-the-vanna-rpc-to-your-wallet).
+  </Step>
+  <Step title="Connect">
+    Open [test.solana.vanna.finance](https://test.solana.vanna.finance), click the wallet button at the top right and approve the connection.
+  </Step>
+  <Step title="Fund from the Faucet">
+    Click **Faucet** in the header and **Fund All**. You get 1,000 of each token (10 of each xStock) instantly, with no wallet approval. See [Faucet](/guides/faucet).
+  </Step>
+</Steps>
 
-<Frame caption="Fork faucet. Each mint is a Surfpool cheatcode top-up. No real funds move. Click the image to zoom.">
-  <img src="/images/onboarding/faucet.png" alt="Fork faucet listing SOL, USDC, TSLAx, GOOGLx, AAPLx, ANTHROPIC, and OPENAI" loading="lazy" decoding="async" />
+<Frame caption="Portfolio after connecting and funding: net worth, net earnings and health factor at the top. Click the image to zoom.">
+  <img src="/images/Portfolio.png" alt="Vanna Portfolio page showing net worth, net earnings and health factor cards" loading="lazy" decoding="async" />
 </Frame>
 
-## Choose a flow
+## The app at a glance
 
-| Goal | Start here |
-|---|---|
-| Earn interest on stocks or stables | [Earn](/guides/earn/overview) |
-| Deposit collateral and borrow | [Margin](/guides/margin/overview) |
-| Swap stocks, SOL, and USDC | [Spot](/guides/trade/spot-swap) |
-| Long or short a tokenized stock | [Perps](/guides/perps/overview) |
-| One-click leveraged Kamino yield | [Farm](/guides/farm/overview) |
-| See combined holdings | [Portfolio](/guides/portfolio) |
-| Run the stack locally | [Setup](/guides/setup) |
+The header groups the pages the way money flows:
 
-A wallet signature is not final confirmation. Wait for the transaction result and refreshed balances before the next dependent step.
+| Group | Page | What you do there |
+|---|---|---|
+| | [Portfolio](/guides/portfolio) | Everything you hold, earn and owe in one place |
+| **Lend** | [Earn](/guides/earn/overview) | Supply SOL, USDC or USDT to Vanna's pools and earn borrow interest |
+| **Lend** | [Predict](/guides/predict/overview) | Buy Yes / No on real World.xyz events; your shares earn in Vanna's USDC pool while you wait |
+| **Borrow & Trade** | [Margin](/guides/margin/overview) | Deposit collateral, borrow up to 10×, repay, move collateral |
+| **Borrow & Trade** | [Trade → Spot](/guides/trade/spot-swap) | Swap inside your margin account (Jupiter or Titan route) |
+| **Borrow & Trade** | [Trade → Perps](/guides/perps/overview) | Long or short SOL, ETH, BTC, TSLA, META on Phoenix |
+| **Borrow & Trade** | [Farm](/guides/farm/overview) | Put margin balances into Kamino, Perena or delta-neutral basis vaults |
+| | [Analytics](/guides/analytics) | Protocol-wide risk, pools, collateral and prices |
+| | [Copilot](/guides/copilot) | Ask about your account or describe a change in plain English |
+| | [Faucet](/guides/faucet) | Top up test tokens on the fork |
 
 ## Supported assets
 
-| Asset | What it is | Token program |
-|---|---|---|
-| SOL | Native SOL, wrapped to WSOL in vaults | Classic SPL |
-| USDC | Circle mainnet USDC, cloned on the fork | Classic SPL |
-| TSLAx | Tesla xStock | Token-2022 |
-| GOOGLx | Alphabet xStock | Token-2022 |
-| AAPLx | Apple xStock | Token-2022 |
-| ANTHROPIC | Anthropic PreStock | Token-2022 |
-| OPENAI | OpenAI PreStock | Token-2022 |
+| Asset | What it is | Lend (Earn) | Borrow | Margin collateral |
+|---|---|:---:|:---:|:---:|
+| SOL | Native SOL (wrapped to wSOL in vaults) | ✓ | ✓ | ✓ |
+| USDC | Circle USDC | ✓ | ✓ | ✓ |
+| USDT | Tether USD | ✓ | ✓ | Held, not offered as a deposit |
+| JitoSOL, JupSOL | Liquid-staked SOL | | | ✓ |
+| JupUSD | Jupiter USD | | | ✓ |
+| NVDAx, GOOGLx, AAPLx, TSLAx | Backed Finance xStocks (tokenized equities, Token-2022) | | | ✓ |
+| CASH | World.xyz's settlement token, used on Predict | | | |
 
-Continue with [Connect Wallet](/guides/connect-wallet) or [Why Vanna](/guides/why-vanna).
+Vault receipts you receive from Farm (kSOL, kUSDC, USD\*, vbSOL…) stay in your margin account and count as collateral too.
+
+<Tip>
+A wallet signature is not the final result. Wait for the confirmation toast and refreshed balances before the next step that depends on it.
+</Tip>
+
+Continue with [Connect Your Wallet](/guides/connect-wallet).

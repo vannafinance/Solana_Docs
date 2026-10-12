@@ -1,29 +1,35 @@
 ---
 title: "Supply"
-description: "Deposit wallet assets into a Vanna reserve and receive vTokens."
+description: "Supply SOL, USDC or USDT to a Vanna lending pool."
 mode: "wide"
 ---
 
-## Steps
-
-1. Open **Earn** and click the pool.
-2. Choose **Supply Liquidity**.
-3. Enter an amount, or use 25% / 50% / 75% / Max.
-4. Review the preview: assets in, vTokens out, current APY.
-5. Confirm. SOL is wrapped to WSOL automatically.
-
-<Frame caption="TSLAx supply panel. Preview shows vTSLAx minted and the current exchange rate. Click the image to zoom.">
-  <img src="/images/earn/supply.png" alt="TSLAx pool page with Supply Liquidity form and pool statistics" loading="lazy" decoding="async" />
+<Frame caption="SOL pool page with the Supply Liquidity panel and More Details expanded. Click the image to zoom.">
+  <img src="/images/Earn2.png" alt="SOL pool page showing Total Supply, Available Liquidity, Utilization, Supply APY and a Supply Liquidity form with You Get vSOL" loading="lazy" decoding="async" />
 </Frame>
 
-## What happens on-chain
+<Steps>
+  <Step title="Open the pool">
+    On [Earn](/guides/earn/overview), click the pool you want (SOL, USDC or USDT).
+  </Step>
+  <Step title="Choose Supply Liquidity">
+    In the right-hand panel keep **Supply Liquidity** selected and check the token.
+  </Step>
+  <Step title="Enter an amount">
+    Type an amount or use **10% / 25% / 50% / 100%** of your wallet balance (shown as **Bal**). For SOL a small amount is kept back for fees.
+  </Step>
+  <Step title="Check More Details">
+    Expand **More Details** to see what you'll receive (**You Get vSOL**), the current exchange rate (**SOL per vSOL**), the current Supply APY and estimated monthly earnings at that APY.
+  </Step>
+  <Step title="Supply and sign">
+    Click the supply button and approve in your wallet. When the transaction confirms, your vTokens appear and the pool's **Your Supply** updates.
+  </Step>
+</Steps>
 
-`lender_supply` transfers the asset into the reserve vault, accrues interest, and mints share tokens to your wallet. The first supply into an empty reserve keeps a small share floor so a donation cannot inflate the exchange rate.
+## Good to know
 
-vToken amount ≈ assets × (total shares / lender assets). Later interest increases the assets behind each share. You redeem more than you supplied if the pool earned.
+- Supply APY changes with utilization; the estimate uses today's rate, not a guarantee.
+- You can supply more at any time; every deposit mints vTokens at the current exchange rate.
+- Your earnings show on [Portfolio → Lender](/guides/portfolio) as **Interest earned** and in the 30-day Lending P&L chart.
 
-## After supply
-
-Your wallet holds vTokens. The Earn table's **Your Supply** column should update. You can supply again to the same pool; shares add.
-
-SOL redemptions currently stay as WSOL in the associated token account. Unwrap in your wallet if you need native SOL.
+Next: [Withdraw](/guides/earn/withdraw)

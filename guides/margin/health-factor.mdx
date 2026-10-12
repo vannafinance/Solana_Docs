@@ -1,34 +1,49 @@
 ---
 title: "Health Factor"
-description: "How Vanna decides whether a margin account is safe to borrow, withdraw, or liquidate."
+description: "The one number that decides whether your margin account is safe."
 mode: "wide"
 ---
 
 ```text
-Health factor = collateral USD / debt USD
+Health factor = total collateral value (USD) ÷ total debt value (USD)
 ```
 
-An account with debt is healthy only when this ratio is **strictly greater than 1.10**. Equality is unhealthy.
+- **Collateral** is everything in your margin account at its oracle price: tokens, borrowed tokens still in the account, Kamino receipts, vault shares and your Phoenix perps collateral (with open P&L).
+- **Debt** is every loan, with interest accrued to now.
+- Every asset counts at **full value**: there are no per-asset collateral weights.
 
-Zero debt is always healthy. The program uses a maximum-integer sentinel for an unbounded ratio.
+With no debt the health factor is shown as **No debt**. Very large values show as **>100**.
 
-<Warning>
-An account with debt is healthy only when `collateral USD / debt USD > 1.10`. Equality is unhealthy. A displayed Health Factor at or below 1.1 is a liquidation candidate.
-</Warning>
+## Zones
 
-## What counts as collateral
+| Health factor | Label | What it means |
+|---|---|---|
+| 1.50 or more | **Safe** | Comfortable buffer |
+| 1.25 – 1.50 | **Healthy** | Fine, but a sharp move would bring you closer |
+| Above 1.10, below 1.25 | **At risk** | Orders that would take you between 1.15 and 1.25 show a warning; below 1.15 they're blocked |
+| **1.10 or below** | **Liquidation** | Anyone can liquidate the account |
 
-- Live SPL balances in margin vaults, priced with Pyth
-- Recognized Lite / Kamino receipt value
-- Conservative rounding: collateral value floors, debt value ceils
+The app keeps a **1.15 safety floor**: it won't build a borrow, withdrawal or trade that would leave you below it. The program's hard rule is 1.10: it rejects any action that would leave the account at or below that.
 
-Unpriced, stale, or low-confidence feeds can fail the instruction instead of silently counting as zero.
+## Example
 
-## What moves health
+You deposit $10,000 of SOL and borrow $5,000 USDC, which stays in the account.
 
-- Stock or SOL price
-- Accrued borrow interest
-- Swap slippage (vault composition changes)
-- Kamino exchange-rate moves on Farm receipts
+- Collateral = $10,000 SOL + $5,000 USDC = $15,000; debt = $5,000 → **HF 3.00**
+- You swap the $5,000 USDC into SOL: collateral is still $15,000 (now all SOL) → **HF 3.00**
+- SOL falls 60%: collateral = $6,000 → **HF 1.20**, close to the line
+- SOL falls 64%: collateral ≈ $5,400 → **HF 1.08**, liquidatable
 
-There is no guaranteed time to liquidation. Read [Liquidation](/guides/margin/liquidation) and [Math Reference](/developers/math-reference).
+Moving value between assets inside the account (a swap, a Kamino supply, a vault deposit) barely changes the health factor, because what goes out comes back at about the same value. What moves it is **prices** and **debt**.
+
+## Where you see it
+
+Portfolio, Margin (stats, Account Info and the Liquidation bar), Spot, Perps and Farm all show your health factor, and every action shows it **before → after** before you sign.
+
+## Raising it
+
+- Deposit more collateral
+- Repay some debt
+- Close or reduce risky positions
+
+Read on: [Liquidation](/guides/margin/liquidation) · [Health Factor (concept)](/learn/health-factor)

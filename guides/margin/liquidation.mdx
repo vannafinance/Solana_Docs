@@ -1,22 +1,36 @@
 ---
 title: "Liquidation"
-description: "Permissionless close of an unhealthy account. 50% close factor, bonus to the liquidator."
+description: "What happens when a margin account's health factor reaches 1.10, and how to avoid it."
 mode: "wide"
 ---
 
-Anyone can call `public_liquidate` when health is at or below 1.1.
+import RiskNotice from "/snippets/risk-notice.mdx";
 
-## What happens
+When a margin account's health factor is **1.10 or below**, anyone can liquidate it. Liquidation exists to make sure lenders are repaid while the account still has more collateral than debt.
 
-1. The program rebuilds the full position set and confirms the account is unhealthy.
-2. The liquidator repays up to **50%** of one debt asset (`CLOSE_FACTOR_BPS = 5_000`).
-3. They receive collateral of equal USD value plus the asset's liquidation bonus.
-4. Remaining equity stays with the account.
+## How it works
 
-Partial liquidation is the design. One call does not have to wipe the account.
+1. A liquidator calls the program's public liquidation instruction on your account.
+2. They **repay some of your debt** with their own tokens.
+3. In return they **seize collateral** worth the repaid debt **plus a liquidation bonus** (set per asset, capped at 5%; each Earn pool page shows its bonus).
+4. If needed, the liquidation can first unwind positions the account holds on other venues (for example a Kamino supply or a Phoenix position) so there's collateral to seize.
 
-## What you should do as a trader
+The program checks the account was liquidatable before, and that the liquidator received at least the minimum they asked for.
 
-Keep health comfortably above 1.1. Reduce Farm or Perps size before a known volatile open. Repay from wallet if the vault is stuck in a Kamino receipt — or use the product close path.
+## What it costs you
 
-See [Liquidation math](/learn/liquidation) if you are writing a bot.
+You lose the seized collateral, including the bonus paid to the liquidator. The debt that was repaid is gone too, so your equity drops by roughly the bonus on each liquidation. The rest of the account stays yours.
+
+## How to avoid it
+
+- Watch the health factor and the **Collateral Left Before Liquidation** figure on Margin.
+- Keep well above the 1.15 safety floor when markets are volatile.
+- Repay debt or add collateral when the health factor drifts down.
+- Remember what moves it: collateral prices, borrow interest, perp P&L and funding, and vault share prices.
+- Use [Flash repay](/guides/margin/repay#flash-repay) to unwind quickly.
+
+## Watching the whole protocol
+
+[Analytics](/guides/analytics) lists every account's health, the accounts that can be liquidated right now and the debt at risk.
+
+<RiskNotice />

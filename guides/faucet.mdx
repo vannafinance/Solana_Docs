@@ -1,0 +1,28 @@
+---
+title: "Faucet"
+description: "Top up test tokens on the Vanna mainnet fork in one click."
+mode: "wide"
+---
+
+The **Faucet** button in the header opens a list of every token Vanna supports. Each **Fund** click tops your connected wallet up directly on the fork; **Fund All** does every token at once.
+
+<Frame caption="Faucet: 1,000 of each token, 10 of each xStock. Click the image to zoom.">
+  <img src="/images/facuet.png" alt="Faucet modal listing SOL, USDC, USDT, JitoSOL, JupSOL, JupUSD, NVDAx, GOOGLx, AAPLx, TSLAx and CASH with Fund buttons" loading="lazy" decoding="async" />
+</Frame>
+
+| Token | Per click |
+|---|---|
+| SOL, USDC, USDT | +1,000 |
+| JitoSOL, JupSOL, JupUSD | +1,000 |
+| NVDAx, GOOGLx, AAPLx, TSLAx | +10 |
+| CASH (Predict) | +1,000 |
+
+## How it works
+
+Faucet top-ups use Surfpool **fork cheatcodes**: the server writes the new balance straight into fork state. There is no transaction to sign and no wallet approval. Nothing real moves; these tokens exist only on the fork.
+
+- Keep some SOL in your wallet for transaction fees.
+- CASH is the token World.xyz markets settle in. You only need it for [Predict](/guides/predict/overview).
+- If a balance doesn't appear, check your wallet is pointed at the [fork RPC](/guides/connect-wallet#add-the-vanna-rpc-to-your-wallet) and wait a few seconds for the app to refresh.
+
+Next: [Earn](/guides/earn/overview) or [open a margin account](/guides/margin/open-account).

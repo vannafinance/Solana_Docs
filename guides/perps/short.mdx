@@ -1,32 +1,33 @@
 ---
-title: "Short a Stock"
-description: "Deposit the stock, borrow more of it, swap the total into USDC."
+title: "Open a Short"
+description: "Bet on a price going down with a Phoenix perp from your margin account."
 mode: "wide"
 ---
 
-A short says: I want USD exposure against a stock I think will fall — including pre-IPO stock tokens (PreStocks).
+A **short** profits when the price falls and loses when it rises. Losses on a short have no fixed ceiling, because a price can keep rising: watch your health factor.
 
-## Example
+<Steps>
+  <Step title="Pick the market">
+    On **Trade → Perps**, choose SOL, ETH, BTC, TSLA or META and check the market is Open.
+  </Step>
+  <Step title="Select Short">
+    In the order panel click **Short**, with **Market** selected.
+  </Step>
+  <Step title="Set collateral and leverage">
+    Enter the USDC **Collateral** (or use MAX / the slider) and choose **Order leverage**. **Position size** updates.
+  </Step>
+  <Step title="Check the order">
+    **Order on Phoenix** shows the estimated entry price and the **min entry price** your slippage allows, plus the account's health factor after the order.
+  </Step>
+  <Step title="Place it">
+    Click **Short** and approve. Collateral moves to Phoenix and the order fills in the same transaction.
+  </Step>
+</Steps>
 
-You deposit **2 ANTHROPIC** at 2×.
+## Funding on shorts
 
-1. Margin receives 2 ANTHROPIC.
-2. Vanna borrows another 2 ANTHROPIC.
-3. Jupiter swaps **4 ANTHROPIC** into USDC.
-4. Vault holds USDC. Debt is 4 ANTHROPIC plus interest.
+When funding is **positive** (most of the time in a rising market) shorts are paid every hour. When it turns **negative**, shorts pay. This is the same funding Vanna's [delta-neutral vaults](/guides/farm/delta-neutral) earn by holding spot and an equal short.
 
-If ANTHROPIC falls, your USDC collateral still covers a cheaper buyback. If it rips, health falls.
+## Closing
 
-<Frame caption="ANTHROPIC / USDC short. DexScreener chart, 2× leverage, health 2.42. Click the image to zoom.">
-  <img src="/images/perps/short.png" alt="Short ANTHROPIC ticket with 2 token collateral and 2x leverage" loading="lazy" decoding="async" />
-</Frame>
-
-## Steps
-
-1. Open **Perps** and pick the pair.
-2. Select **Short**.
-3. Enter stock collateral and leverage.
-4. Confirm one signature.
-5. Close from the positions table — the app buys the stock back, repays, and withdraws leftover USDC.
-
-Shorts work the same way for pre-IPO stock tokens.
+Click **Close** on the position (all or a percentage, as a reduce-only market order) or **Close All**. When nothing is left open, the USDC goes back to your margin account. [Flash repay](/guides/margin/repay#flash-repay) also closes every perp position as its first step.

@@ -1,37 +1,57 @@
 ---
 title: "FAQ"
-description: "Common questions for the Stocklana Solana demo."
+description: "Quick answers about the Vanna app on Solana."
 mode: "wide"
 ---
 
 ## Is this Solana Devnet?
 
-No. The site is on a **Surfpool mainnet fork**. Hostname `devnet` is branding for the shared demo. RPC: [rpc-devnet.solana.vanna.finance](https://rpc-devnet.solana.vanna.finance).
+No. Vanna runs on a **Solana mainnet fork** (Surfpool): real mainnet programs and accounts, cloned onto a test node. The RPC hostname contains `devnet`, but it isn't public Devnet. The app is at [test.solana.vanna.finance](https://test.solana.vanna.finance).
 
-## Are faucet tokens real?
+## Do I need to change my wallet's RPC?
 
-No. Cheatcode mints on the fork.
-
-## Why is Kamino stock APY zero, but Vanna is not?
-
-Kamino's xStocks market has almost no borrowers. Vanna pools have borrowers (perps + Farm), so the kink model prints a rate.
-
-## Do you list a perp contract?
-
-No separate perp program. Long/short is borrow + Jupiter + margin health. You hold real tokens.
-
-## What is max leverage?
-
-5× is the cap in both places, but enforced differently. Farm (`lite_open`) checks it on-chain: `MAX_LEVERAGE_BPS = 50_000`. Perps has no on-chain leverage parameter at all — it's a plain deposit + borrow gated only by the account's health factor; 5× is a UI-only slider cap. Either way, health must still clear 1.10, so effective leverage is often lower than the number on the slider.
-
-## Can I withdraw anytime (Earn)?
-
-If the reserve has cash. High utilization blocks full redemption until repayments or liquidations free liquidity.
+Yes. Add `https://rpc-devnet.solana.vanna.finance` as a custom RPC so your wallet shows fork balances and previews transactions correctly. See [Connect Your Wallet](/guides/connect-wallet#add-the-vanna-rpc-to-your-wallet).
 
 ## Which wallets work?
 
-Backpack. Point it at the fork RPC so it shows fork balances — see [Connect Your Wallet](/guides/connect-wallet).
+Any Wallet Standard wallet; tested with Phantom, Solflare and Backpack.
 
-## Where is the program?
+## Are faucet tokens real?
 
-`BZ812nUv4Qhr2p1JVgmoJGjYTGk1brAXckyhFSCNH3Zg`
+No. The Faucet writes test balances directly into the fork. They have no value on Mainnet.
+
+## What can I use as collateral?
+
+SOL, USDC, JitoSOL, JupSOL, JupUSD and the xStocks NVDAx, GOOGLx, AAPLx and TSLAx. Farm receipts (kSOL, kUSDC, USD\*, vbSOL…) count too.
+
+## What can I borrow?
+
+SOL, USDC and USDT.
+
+## What's the maximum leverage?
+
+Up to **10×** on the Margin page's slider, as long as your health factor stays above the 1.15 safety floor. Perps orders go up to each Phoenix market's own limit, shown under the market name on the Perps page (for example **Max 5×** on ETH-PERP).
+
+## When can my account be liquidated?
+
+When its health factor (collateral ÷ debt) is **1.10 or below**. See [Liquidation](/guides/margin/liquidation).
+
+## Why doesn't depositing into a Farm vault lower my health factor?
+
+You swap one asset in your margin account for a receipt of about the same value, and the receipt counts as collateral. See [Farm](/guides/farm/overview).
+
+## Why is a basis vault's APY low or negative?
+
+Basis vaults earn Phoenix perp funding. When funding turns negative, the vault's short pays instead of earning. See [Delta-Neutral](/guides/farm/delta-neutral#what-can-go-wrong).
+
+## How does Predict earn while I wait?
+
+Matched Yes and No shares are merged into USDC and lent in Vanna's USDC pool; the interest comes back as extra shares of your side. See [Earn While You Wait](/guides/predict/earn-while-you-wait).
+
+## Can I withdraw from Earn at any time?
+
+Yes, up to the pool's available liquidity (what isn't currently borrowed).
+
+## Where are the programs?
+
+The core program is `H37YVBG3eGtz89ofd7iDLc2PJgn12778392XeU2QJcGC`. See [Deployed Contracts](/developers/deployed-contracts).

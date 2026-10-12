@@ -1,99 +1,104 @@
 ---
-title: "Run and Setup"
-description: "Local Surfpool fork, hosted demo RPC, and how to boot the full stack."
+title: "Run It Yourself"
+description: "Use the hosted app, or run the contracts and app on your own Surfpool mainnet fork."
 mode: "wide"
 ---
 
-Two ways to use Vanna Solana:
-
 | Mode | URL | What you need |
 |---|---|---|
-| Hosted demo | [devnet.solana.vanna.finance](https://devnet.solana.vanna.finance/portfolio) | Browser + wallet |
-| Local fork | `http://localhost:3000` | Surfpool + both repos |
+| Hosted | [test.solana.vanna.finance](https://test.solana.vanna.finance) | A browser and a wallet pointed at `https://rpc-devnet.solana.vanna.finance` |
+| Local | `http://localhost:3000` | Surfpool, the contracts repo and the app repo |
 
-The hosted hostname says `devnet`. It is a **Surfpool mainnet fork** on a VM, not public Solana Devnet. Fork RPC: [https://rpc-devnet.solana.vanna.finance](https://rpc-devnet.solana.vanna.finance).
+Both run on a **Surfpool mainnet fork**: real mainnet programs and accounts (USDC, xStocks, Kamino, Jupiter, Phoenix…) cloned on demand, with Vanna's programs deployed on top. Nothing touches real Mainnet funds.
 
-Developer-grade steps (program tests, env vars, Docker) live in [Developer Setup](/developers/setup). This page is the short path.
+Developer details: [Developer Setup](/developers/setup).
 
-## Hosted demo (fastest)
+## Hosted (fastest)
 
-1. Open [https://devnet.solana.vanna.finance/portfolio](https://devnet.solana.vanna.finance/portfolio).
-2. Connect a **test** Backpack wallet.
-3. Open **Faucet** → Mint All.
-4. Earn, Perps, Swap, or Farm.
+1. Add the fork RPC to your wallet ([how](/guides/connect-wallet#add-the-vanna-rpc-to-your-wallet)).
+2. Open [test.solana.vanna.finance](https://test.solana.vanna.finance) and connect.
+3. **Faucet → Fund All**.
 
-Do not send mainnet funds. The faucet and balances are fork state.
+## Local
 
-If an installed wallet must submit to the fork itself, add custom RPC `https://rpc-devnet.solana.vanna.finance`. The website already uses that endpoint in the browser build.
-
-## Local laptop
-
-Keep the repos as siblings:
+Two repos, side by side:
 
 ```text
-Vanna Protocol/
-├── Protocol_V1_Solana/     # Anchor program
-└── Backend-Solana/         # Next.js app
+vanna-credit-layer/     # Anchor programs: vanna_credit_layer (core), vanna_oracle, vanna_validator
+vanna-credit-backend/   # Next.js app: UI and server routes
 ```
 
-### 1. Start Surfpool (deploys the program)
+### 1. Build the programs and start a fork
 
-From `Protocol_V1_Solana`:
+From `vanna-credit-layer`:
 
 ```bash
-NO_DNA=1 surfpool start --no-tui --no-studio -y --legacy-anchor-compatibility \
-  --rpc-url https://api.mainnet-beta.solana.com --host 127.0.0.1 --port 8899 --ws-port 8900
+anchor build
+mkdir -p /tmp/vanna-fork && cd /tmp/vanna-fork
+surfpool start --network mainnet --no-tui --no-deploy
 ```
 
-This lazy-clones real mainnet accounts (USDC, xStocks, PreStocks, Kamino, Jupiter) onto `127.0.0.1:8899`.
+### 2. Deploy and bootstrap
 
-### 2. Start the app
-
-From `Backend-Solana`:
+In a second terminal, from `vanna-credit-layer/scripts`:
 
 ```bash
 npm install
-cp .env.example .env.local
+bash bootstrap-fork.sh
+```
+
+This writes the three programs onto the fork at their declared IDs (no deploy keypair needed) and registers assets, reserves and integrations. The wallet that runs it (`~/.config/solana/id.json` by default, or `ANCHOR_WALLET`) becomes the protocol admin.
+
+### 3. Run the app
+
+From `vanna-credit-backend`:
+
+```bash
+npm install
+cp .env.example .env.local   # then edit it
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). Point Backpack at **custom RPC** `http://127.0.0.1:8899`. Not Devnet. Not Mainnet.
+Point your wallet's custom RPC at `http://127.0.0.1:8899` and open [http://localhost:3000](http://localhost:3000).
 
-### 3. Minimum `.env.local`
+### Minimum `.env.local`
 
 ```dotenv
 NEXT_PUBLIC_SOLANA_RPC_URL=http://127.0.0.1:8899
 NEXT_PUBLIC_SOLANA_WS_URL=ws://127.0.0.1:8900
 FORK_RPC_URL=http://127.0.0.1:8899
-NEXT_PUBLIC_VANNA_PROGRAM_ID=BZ812nUv4Qhr2p1JVgmoJGjYTGk1brAXckyhFSCNH3Zg
+NEXT_PUBLIC_VANNA_PROGRAM_ID=H37YVBG3eGtz89ofd7iDLc2PJgn12778392XeU2QJcGC
+ACCESS_CODE=<pick-a-code>
 ```
 
-Never put a secret in a `NEXT_PUBLIC_*` variable; those are shipped to the browser.
+`.env.example` lists every other setting (Jupiter, Titan and Alchemy keys, Copilot, Analytics, Predict). Leave a key empty to turn that feature off.
 
-## Program tests (no UI)
+<Warning>
+Never put a secret in a `NEXT_PUBLIC_*` variable: those are shipped to the browser. API keys, RPC URLs with keys, and keypairs belong in server-only variables, and `.env.local` is git-ignored.
+</Warning>
+
+## Program tests
 
 ```bash
-cd Protocol_V1_Solana
-cargo test --manifest-path programs/vanna_lending/Cargo.toml
+cd vanna-credit-layer
+cargo test --manifest-path programs/vanna_credit_layer/Cargo.toml
 ```
 
-## Verify the hosted RPC
+## Check the hosted RPC
 
 ```bash
 curl -sS https://rpc-devnet.solana.vanna.finance \
   -H 'Content-Type: application/json' \
-  --data '{"jsonrpc":"2.0","id":1,"method":"getHealth","params":[]}'
+  --data '{"jsonrpc":"2.0","id":1,"method":"getVersion"}'
 ```
 
-A healthy node returns JSON `"result":"ok"` (or equivalent). Auth on the VM, if enabled, will return 401 without credentials.
+A healthy node returns its `surfnet-version` and `solana-core` version.
 
-## Common failures
+## Common problems
 
 | Symptom | Fix |
 |---|---|
-| Blockhash not found | Wallet RPC is not the fork |
-| Empty balances | Use Faucet on **this** fork |
-| Site works only on your laptop | Frontend was built with `localhost` RPC |
-| Oracle / Hermes errors | Fork detection must stay `local-fork`, not hostname-based |
-
-Full VM / Caddy / snapshot runbook: `Backend-Solana/docs/HOSTED_SURFPOOL_SETUP.md`.
+| Wallet shows real balances / previews fail | The wallet isn't on the fork RPC |
+| "Blockhash not found" | The wallet and the app are on different RPCs |
+| Empty balances | Use the Faucet on **this** fork |
+| Every page asks for an access code | Set `ACCESS_CODE` in `.env.local` and enter it once |

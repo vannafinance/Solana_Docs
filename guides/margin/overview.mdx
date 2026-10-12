@@ -1,24 +1,54 @@
 ---
-title: "Margin Account"
-description: "Cross-margin borrowing account: collateral vaults, debt shares, and one shared account-wide health factor."
+title: "Margin Overview"
+description: "One margin account: many collaterals, borrow up to 10×, and use the loan across Solana."
 mode: "wide"
 ---
 
-Your Margin Account is a program-derived account. It holds token vaults, debt positions, and Lite/Kamino receipts. The wallet signs. The program moves funds.
+import HealthWarning from "/snippets/health-factor-warning.mdx";
 
-One wallet → one margin PDA. There are no subaccounts.
+The **Margin** page is where you manage your margin account: deposit collateral, borrow, repay and move collateral in or out.
 
-## Read the metrics
+<Frame caption="Margin: account stats on top, the action panel on the left and Margin Account Info on the right. Click the image to zoom.">
+  <img src="/images/margin.png" alt="Margin page with Net Health Factor, Collateral Left Before Liquidation, Net Available Collateral, Net amount Borrowed, Net Leverage Taken, and the Leverage your Assets panel" loading="lazy" decoding="async" />
+</Frame>
 
-| Metric | Meaning |
+## Account stats
+
+| Stat | Meaning |
 |---|---|
-| Health Factor | Collateral USD / debt USD. Must stay **> 1.1** |
-| Borrowed value | Outstanding debt, including accrued interest |
-| Collateral | Live SPL balances in margin vaults, plus recognized Lite value |
-| Effective leverage | Position size / your equity on Perps and Farm |
+| **Net Health Factor** | Collateral ÷ debt. Liquidatable at 1.10 or below. **No debt** when you owe nothing |
+| **Collateral Left Before Liquidation** | How much value your collateral can lose before the account hits 1.10 |
+| **Net Available Collateral** | Collateral minus debt: your equity |
+| **Net amount Borrowed** | Total debt in USD, including accrued interest |
+| **Net Leverage Taken** | Debt relative to your equity |
 
-<Warning>
-An account with debt is healthy only when `collateral USD / debt USD > 1.10`. Equality is unhealthy. A displayed Health Factor at or below 1.1 is a liquidation candidate.
-</Warning>
+## The three tabs
 
-Start with [Open Account](/guides/margin/open-account), [Deposit](/guides/margin/deposit-collateral), and [Borrow](/guides/margin/borrow). Most traders skip the manual path and open from [Perps](/guides/perps/overview) or [Farm](/guides/farm/one-click).
+| Tab | What it does | Guide |
+|---|---|---|
+| **Leverage your Assets** | Deposit collateral and borrow in one transaction, with a 1×–10× leverage slider | [Deposit](/guides/margin/deposit-collateral) · [Borrow](/guides/margin/borrow) |
+| **Repay Loan** | Repay from your margin account or your wallet; Flash repay closes everything | [Repay](/guides/margin/repay) |
+| **Transfer Collateral** | Move tokens between your wallet and your margin account | [Transfer Collateral](/guides/margin/transfer-collateral) |
+
+## Margin Account Info
+
+The right column shows Total Borrowed value, Net Available Collateral, Total Value, Net Health Factor and Net Borrow Rate, then:
+
+- **Liquidation**: your health factor on a bar, the 1.10 liquidation line and the dollar buffer left before it.
+- **Oracles and LTs**: the oracle program, the 1.10× liquidation threshold, the Vanna program address, and every token's live price with its source (Kamino Scope or Pyth) and freshness.
+
+<Frame caption="Borrowing with the leverage slider, and the Liquidation and Oracles panels. Click the image to zoom.">
+  <img src="/images/Margin2.png" alt="Leverage your Assets panel depositing 10 SOL and borrowing USDC at 2x, with the Liquidation card and Oracles and LTs list" loading="lazy" decoding="async" />
+</Frame>
+
+## Positions
+
+<Frame caption="Positions: everything the account holds, what it owes, leverage, health and interest. Click the image to zoom.">
+  <img src="/images/Margin3.png" alt="Positions table showing collateral deposited including SOL, kSOL, USDC, USD* vault receipts and kUSDC, borrowed USDC, leverage, health factor and a Repay button" loading="lazy" decoding="async" />
+</Frame>
+
+**Current Positions** shows one row for the whole account: every collateral (including Farm receipts such as kSOL, kUSDC, USD\* and vbSOL), every borrowed asset with its share of debt, leverage, health factor, interest accrued and a **Repay** button. **Positions History** lists past actions. The **Spot** and **Farm** chips jump to those positions, and **Flash repay** unwinds the account.
+
+<HealthWarning />
+
+Start with [Open a Margin Account](/guides/margin/open-account).

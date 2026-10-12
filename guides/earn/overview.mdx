@@ -1,38 +1,42 @@
 ---
 title: "Earn Overview"
-description: "Supply SOL, USDC, and listed and pre-IPO stock tokens to Vanna Credit LP pools."
+description: "Vanna's lending pools: supply SOL, USDC or USDT and earn borrow interest."
 mode: "wide"
 ---
 
-Earn is wallet-to-pool supply. Deposits receive vTokens — a claim on the pool's cash plus borrower interest.
+**Earn** lists Vanna's lending pools. Supplying to a pool lends your tokens to margin accounts; their interest is what you earn.
 
-This is the utility Kamino's xStocks market does not offer. Those stock reserves sit at ~0% APY. Vanna pools for the same mints pay a live borrow rate.
-
-<Frame caption="Earn market list. SOL, USDC, TSLAx, and the other stock pools. Rates move with utilization. Click the image to zoom.">
-  <img src="/images/earn/overview.png" alt="Earn page listing SOL, USDC, TSLAx and other lending pools with supply APY, borrow APY, and utilization" loading="lazy" decoding="async" />
+<Frame caption="Earn: pool list with supply, borrow, APYs, utilization and your supply. Click the image to zoom.">
+  <img src="/images/Earn.png" alt="Earn page listing SOL, USDC and USDT pools with Assets Supplied, Supply APY, Assets Borrowed, Borrow APY, Utilization Rate and Your Supply" loading="lazy" decoding="async" />
 </Frame>
 
-## Markets
+## Pools
 
-| Display asset | Underlying |
+| Pool | Receipt | Notes |
+|---|---|---|
+| SOL | vSOL | Borrowed for SOL longs and SOL-denominated strategies |
+| USDC | vUSDC | Usually the busiest pool: most leverage, perps collateral and vaults run on USDC |
+| USDT | vUSDT | Stablecoin pool |
+
+## Columns
+
+| Column | Meaning |
 |---|---|
-| SOL | Wrapped SOL |
-| USDC | Circle USDC |
-| TSLAx | Tesla xStock |
-| GOOGLx | Alphabet xStock |
-| AAPLx | Apple xStock |
-| ANTHROPIC | Anthropic PreStock |
-| OPENAI | OpenAI PreStock |
+| **Assets Supplied** | Total supplied to the pool, in tokens and USD |
+| **Supply APY** | What lenders currently earn |
+| **Assets Borrowed** | What margin accounts currently owe the pool |
+| **Borrow APY** | What borrowers currently pay |
+| **Utilization Rate** | Borrowed ÷ supplied. Rates rise with utilization |
+| **Your Supply** | Your share of the pool, in tokens and USD |
 
-Each mint has its own reserve, share mint, and rate curve. Supplying TSLAx does not earn the USDC pool's rate.
+Use **Vaults / Positions** to switch between all pools and just yours, and the filters to search or sort. The charts above the table show the pool's supply and rate history.
 
-## Use Earn
+## Pool page
 
-1. Open **Earn**.
-2. Pick a pool.
-3. Use **Supply Liquidity** or **Withdraw Liquidity**.
-4. Confirm the wallet signature and wait for balances to refresh.
+Click a pool for its detail page: Total Supply, Available Liquidity, Utilization and Supply APY on top, then tabs for **Your Positions**, **Details** (statistics, oracle price, liquidation bonus), **Activity**, **Collateral and Limits** and **Analytics**. The supply / withdraw panel is on the right.
 
-Supply uses wallet funds. No margin account is required. Earnings depend on actual borrower interest and utilization — they are not a fixed coupon.
+## Your receipt: vTokens
 
-See [Supply](/guides/earn/supply) and [Withdraw](/guides/earn/withdraw).
+Supplying mints vTokens to your wallet. The number of vTokens you hold stays the same; what each one is worth in the underlying asset (the exchange rate, e.g. "SOL per vSOL") rises as interest accrues. See [vTokens](/learn/vtokens).
+
+Next: [Supply](/guides/earn/supply) · [Withdraw](/guides/earn/withdraw)
