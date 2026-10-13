@@ -1,6 +1,6 @@
 ---
 title: "Analytics"
-description: "Protocol-wide risk, positions, liquidations, lending pools, collateral and prices: live and read-only."
+description: "Protocol-wide risk, positions, liquidations, lending pools, prediction vaults, collateral and prices: live and read-only."
 mode: "wide"
 ---
 
@@ -24,6 +24,7 @@ The status bar at the top shows that the data is live, how many accounts were fo
 | **Markets** | **Lending Pools** | Supplied, borrowed, available, utilization and rates per pool |
 | | **Collateral** | What collateral is made of |
 | | **Prices** | Oracle prices in use |
+| **Prediction** | **Prediction Vaults** | Every Predict pool: YES / NO it holds and how much went into Vanna's USDC pool |
 | **Tools** | **What-if Calculator** | How a price move would change accounts' health |
 
 ## Overview
@@ -65,6 +66,33 @@ Paste any wallet or margin-account address and press **Look up** to open that ac
 </Frame>
 
 Select a pool to inspect it.
+
+## Prediction Vaults
+
+<Frame caption="Prediction Vaults: how much Predict money is in Vanna's USDC pool, what is waiting, and one row per pool. Click the image to zoom.">
+  <img src="/images/analytics-prediction-vaults.png" alt="Prediction Vaults page with In Vanna's USDC pool, Waiting to merge, YES and NO shares in pools and Pools cards, a Where prediction money sits bar and a pools table with Earning statuses" loading="lazy" decoding="async" />
+</Frame>
+
+Every Predict market has a pool that holds users' YES and NO shares. Matched pairs are merged and supplied to Vanna's USDC pool (see [Earn While You Wait](/guides/predict/earn-while-you-wait)). This page shows where that money is:
+
+| Card | Meaning |
+|---|---|
+| **In Vanna's USDC pool** | USDC the Predict pools have supplied, and its share of the USDC pool |
+| **Waiting to merge** | Matched YES + NO pairs not merged yet ($1 each) |
+| **YES / NO shares in pools** | All shares held, and how many have nothing to pair with yet |
+| **Pools** | Pools created, and how many hold funds |
+
+The **Pools** table lists each market with YES and NO in its pool, matched pairs, USDC in Vanna's pool and a status:
+
+| Status | Meaning |
+|---|---|
+| **Earning** | Its pairs are in Vanna's USDC pool |
+| **Merge pending** | Pairs are waiting for the next merge |
+| **Waiting for other side** | Only YES or only NO so far: nothing to pair |
+| **Event ended** | World closed the event before its pairs were merged |
+| **Empty** | Nothing deposited yet |
+
+Use the filters (With funds, Earning, Merge pending, Event ended, All pools) to narrow the table, and click a market to open it on Predict.
 
 <Tip>
 Use Analytics to sanity-check the protocol before you supply: how much is borrowed, how healthy borrowers are, and whether any bad debt exists.

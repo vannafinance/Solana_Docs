@@ -77,7 +77,7 @@ npm test
 npm run dev
 ```
 
-Key settings in `.env.example`: `NEXT_PUBLIC_SOLANA_RPC_URL`, `NEXT_PUBLIC_SOLANA_WS_URL`, `FORK_RPC_URL`, `NEXT_PUBLIC_VANNA_PROGRAM_ID`, and server-only API keys for Jupiter and Titan. Titan quotes are skipped when the server has no Titan key.
+Key settings in `.env.example`: `NEXT_PUBLIC_SOLANA_RPC_URL`, `NEXT_PUBLIC_SOLANA_WS_URL`, `FORK_RPC_URL`, `NEXT_PUBLIC_VANNA_PROGRAM_ID`, `ACCESS_CODE` (the code the site asks for once; required, the site stays locked without it), and server-only API keys for Jupiter and Titan. Titan quotes are skipped when the server has no Titan key. Point your wallet's custom RPC at `http://127.0.0.1:8899` and open `http://localhost:3000`.
 
 <Warning>
 Hosted builds bake `NEXT_PUBLIC_*` values in at image build time. Changing runtime environment does not rewrite client RPC URLs. Never put API keys in `NEXT_PUBLIC_*` variables.
@@ -89,5 +89,24 @@ Hosted builds bake `NEXT_PUBLIC_*` values in at image build time. Changing runti
 https://test.solana.vanna.finance        → Next.js app
 https://rpc-devnet.solana.vanna.finance  → Surfpool RPC (mainnet fork)
 ```
+
+Check the hosted node:
+
+```bash
+curl -sS https://rpc-devnet.solana.vanna.finance \
+  -H 'Content-Type: application/json' \
+  --data '{"jsonrpc":"2.0","id":1,"method":"getVersion"}'
+```
+
+A healthy node returns its `surfnet-version` and `solana-core` version.
+
+## Common problems
+
+| Symptom | Fix |
+|---|---|
+| Wallet shows real balances, previews fail | The wallet isn't on the fork RPC |
+| "Blockhash not found" | The wallet and the app use different RPCs |
+| Empty balances | Use the Faucet on **this** fork |
+| Every page asks for an access code | Set `ACCESS_CODE` in `.env.local` and enter it once |
 
 The app's end-to-end scripts (`npm run e2e`, `scripts/e2e-*.ts`) run against the fork through the app's own services. Avoid scripts that overwrite shared fixtures on the hosted node.

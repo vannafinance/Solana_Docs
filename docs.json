@@ -131,12 +131,6 @@
               "guides/margin/health-factor",
               "guides/margin/liquidation"
             ]
-          },
-          {
-            "group": "Run It Yourself",
-            "pages": [
-              "guides/setup"
-            ]
           }
         ]
       },
@@ -268,6 +262,10 @@
     {
       "source": "/developers/contracts/lite",
       "destination": "/developers/contracts/vaults"
+    },
+    {
+      "source": "/guides/setup",
+      "destination": "/developers/setup"
     }
   ]
 }

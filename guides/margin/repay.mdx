@@ -40,7 +40,7 @@ mode: "wide"
 | 4. Repay | Repays every loan in full and closes its debt position |
 | 5. Transfer (optional) | **Flash transfer** also withdraws everything left to your wallet |
 
-Each step is its own transaction and wallet approval, with progress shown as it goes. It is **not** one atomic transaction. Every step re-reads the chain first, so if a run stops half-way you simply run it again and it continues with whatever is left. It never repays more than you owe; if the account can't cover its debt, the swap step stops and shows the shortfall.
+Each step is its own transaction and wallet approval, with progress shown as it goes. You don't have to watch it: close the window (×, Escape or a click outside) and it keeps running as a small card at the bottom right with the current step and a progress bar. **View** opens the full window again; once it finishes, the card shows Done or the error and can be closed. It is **not** one atomic transaction. Every step re-reads the chain first, so if a run stops half-way you simply run it again and it continues with whatever is left. It never repays more than you owe; if the account can't cover its debt, the swap step stops and shows the shortfall.
 
 ## After repaying
 
