@@ -41,10 +41,18 @@ https://vanna-mcp-solana-public-398807408840.us-central1.run.app/mcp
     ```
   </Step>
   <Step title="Log in with your wallet">
-    The first time, your browser opens Vanna's **Connect** page. It shows which app is asking, lets you choose **read-only** or **full** access, and asks your wallet to sign a login message. No transaction, no fee. There is no separate account: your wallet is the login.
+    The first time, your browser opens Vanna's **Connect your wallet** page. It shows which app is asking and where it will return, and what it will be able to do: **Read your balances, positions and market data**, and **Prepare transactions for you to review and sign**. Untick the second to give read-only access. Click **Connect wallet and approve**, and your wallet asks you to sign a login message. No transaction, no fee. There is no separate account: your wallet is the login.
+
+    <Frame caption="The Connect page, with the wallet asking to sign the login message. Click the image to zoom.">
+      <img src="/images/mcp/MCP_Authentication.png" alt="Connect your wallet page for Claude Code (vanna-solana-live) listing read and prepare-transactions permissions, with Connect wallet and approve and Decline buttons, and a Backpack window asking to approve the sign-in message" loading="lazy" decoding="async" />
+    </Frame>
   </Step>
   <Step title="Ask">
-    Talk to your assistant as you would to the Copilot: "Show my Vanna portfolio", "Supply 100 USDC to Earn".
+    Your assistant now lists the Vanna server as connected, with its 20 tools. Talk to it as you would to the Copilot: "Show my Vanna portfolio", "Supply 100 USDC to Earn".
+
+    <Frame caption="Claude Code's MCP list with the Vanna server connected. Click the image to zoom.">
+      <img src="/images/mcp/MCP_Connected.png" alt="Claude Code Manage MCP servers list showing vanna-solana-live connected with 20 tools" loading="lazy" decoding="async" />
+    </Frame>
   </Step>
 </Steps>
 
@@ -52,12 +60,20 @@ After you log in, every call acts as your wallet. The server refuses any write f
 
 ## Signing a Transaction
 
-When you ask for a change, the assistant gets a **link** to a signing page served by Vanna:
+When you ask for a change, the assistant gets a **link** to a signing page served by Vanna. Nothing has been sent at this point.
+
+<Frame caption="Claude prepares an Earn supply and gives the signing link. Click the image to zoom.">
+  <img src="/images/mcp/MCP_Approve_transaction.png" alt="Claude Code answering supply 10 USDC to earn: the supply is prepared and simulated, nothing sent yet, with a link to approve it within 5 minutes" loading="lazy" decoding="async" />
+</Frame>
 
 1. **Review.** The page shows the plan the server drew: each step, amounts, warnings, and your worst-case health factor.
-2. **Approve.** Connect your wallet and sign an approval of exactly that plan. A plan must be approved within 5 minutes.
+2. **Approve.** Click **Approve plan with wallet** and sign the approval message, which names exactly that plan. A plan must be approved within 5 minutes. **Cancel plan** stops it without any signature.
 3. **Sign each step.** For each step the server checks live data again, builds and simulates the transaction, and your wallet shows it to you to sign. A Predict trade with several transactions is signed in one approval.
 4. **Confirmed.** The server checks that what you signed is exactly what it built, sends it and waits for the chain. Your assistant can then report the result.
+
+<Frame caption="The signing page awaiting approval, with the wallet showing the plan approval message. Click the image to zoom.">
+  <img src="/images/mcp/MCP_Plan_Approved.png" alt="Review and sign page with an awaiting approval plan to supply 10 USDC to the Vanna Earn pool, Approve plan with wallet and Cancel plan buttons, and a Backpack window showing the approval message with wallet, plan, digest and health factor floor" loading="lazy" decoding="async" />
+</Frame>
 
 A copied link only lets someone see the plan. It can't run it: running needs the approval made in your browser.
 
@@ -125,4 +141,4 @@ An AI assistant can misread a request. Always check the signing page (asset, amo
 
 ## Read-Only Access
 
-Choose **read-only** on the Connect page if you only want your assistant to see your account. It can answer questions about positions, prices and risk, but can't prepare any transaction.
+Untick **Prepare transactions for you to review and sign** on the Connect page if you only want your assistant to see your account. It can answer questions about positions, prices and risk, but can't prepare any transaction.
