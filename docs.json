@@ -122,7 +122,8 @@
             "group": "Analytics & Copilot",
             "pages": [
               "guides/analytics",
-              "guides/copilot"
+              "guides/copilot",
+              "guides/mcp"
             ]
           },
           {
